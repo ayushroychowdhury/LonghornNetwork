@@ -1,0 +1,79 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+skinparam classAttributeIconSize 0
+
+class Main  {
+    + {static} main(args: String[]): void
+}
+
+class ChatThread implements Runnable {
+    + ChatThread(sender: UniversityStudent, receiver: UniversityStudent, message: String)
+    + run(): void
+}
+
+class DataParser{
+    + {static} parseStudents(filename: String): List<UniversityStudent> throws IOException
+}
+
+class FriendRequestThread implements Runnable {
+    + FriendRequestThread(sender: UniversityStudent, receiver: UniversityStudent)
+    + run(): void
+}
+
+class GaleShapley {
+    + {static} assignRoommates(students: List<UniversityStudent>): void
+}
+
+class PodFormation {
+    + PodFormation(graph: StudentGraph)
+    + formPods(podSize: int): void
+}
+
+class ReferralPathFinder {
+    + ReferralPathFinder(graph: StudentGraph)
+    + findReferralPath(start: UniversityStudent, targetCompany: String)
+}
+
+abstract class Student {
+    # name: String
+    # age: int
+    # gender: String
+    # year: int
+    # major: String
+    # gpa: double
+    # roommatePreferences: List<String>
+    # previousInternships: List<String>
+    + {abstract} calculateConnectionStrength(other: Student): int
+}
+
+class UniversityStudent extends Student {
+    + UniversityStudent(name: String, age: int, gender: String, year: int, major: String, gpa: double, roommatePreferences: List<String>, previousInternships: List<String)
+    + calculateConnectionStrength(other: Student): int
+}
+
+class StudentGraph {
+
+}
+
+Student "1..*" o-- StudentGraph
+
+ReferralPathFinder --> StudentGraph
+ReferralPathFinder --> UniversityStudent
+
+PodFormation --> StudentGraph
+
+GaleShapley --> UniversityStudent
+
+FriendRequestThread --> UniversityStudent
+
+UniversityStudent "0..*" o-- DataParser
+
+ChatThread --> UniversityStudent
+
+Main o-- UniversityStudent
+Main o-- StudentGraph
+Main o-- PodFormation
+Main o-- ReferralPathFinder
+
+@enduml
