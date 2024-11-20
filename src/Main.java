@@ -1,7 +1,18 @@
 import java.io.IOException;
 import java.util.*;
 
+/**
+ * 'Main' of the application.
+ * Handles all operations.
+ * this can parse student data, assign roommates, form pods, and find paths.
+ */
 public class Main {
+    /**
+     * The main method to run the application.
+     * Parses command-line arguments, processes student data, and performs graph-based operations.
+     *
+     * @param args command-line arguments; expects the input file name as the first argument
+     */
     public static void main(String[] args) {
         if (args.length == 0) {
             System.out.println("Please provide the input file name as a command-line argument.");
