@@ -5,7 +5,7 @@ import java.util.*;
  */
 public class GaleShapley {
     /**
-     * Assigns roommates to students using thsi algorithm.
+     * Assigns roommates to students using this algorithm.
      *
      * @param students the list of students 
      */
