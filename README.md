@@ -30,7 +30,7 @@ This project simulates a social network called **Longhorn Network**, where stude
 ### Instructions
 
 #### Step 1: Setting Up
-1. **Fork** this repository to start working on your own copy.
+1. **Fork** this repository to start working on your own copy. (Not necessary if you can do step 2-6 without any Forbidden Errors)
 2. **Clone** the repository to your local machine:
    ```bash
    git clone https://github.com/ayushroychowdhury/LonghornNetwork.git
@@ -138,7 +138,7 @@ Follow the steps below to implement the core functionality of the Longhorn Netwo
   - **Shared Internships**: Add 4 for each shared internship.
   - **Chat History**: Add 3 if they have interacted or are friends.
   - **Same Major**: Add 2 if they share the same major.
-  - **Same Gender**: Add 1 if they are the same age.
+  - **Same Age**: Add 1 if they are the same age.
 
 - **Details**:
   - This method will be implemented in the `UniversityStudent` class as an override of the abstract method in `Student`.
