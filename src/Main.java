@@ -1,6 +1,14 @@
 import java.io.IOException;
 import java.util.*;
 
+/**
+ * This is the main class of my lab 5 project. This class/file primarily serves as the controller for the project.
+ * It handles initializing everything and having the overall flow of the project dependent on what happens here.
+ * 
+ * 
+ */
+
+
 public class Main {
     public static void main(String[] args) {
         if (args.length == 0) {
@@ -13,7 +21,7 @@ public class Main {
 
             // Roommate matching
             GaleShapley.assignRoommates(students);
-
+            
             // Pod formation
             StudentGraph graph = new StudentGraph(students);
             PodFormation podFormation = new PodFormation(graph);
