@@ -11,26 +11,43 @@ class ChatThread implements Runnable {
     + ChatThread(sender: UniversityStudent, receiver: UniversityStudent, message: String)
     + run(): void
 }
+class ChatPair {
+    - sender: UniversityStudent
+    - receiver: UniversityStudent
+    + ChatPair(sender: UniversityStudent, receiver: UniversityStudent)
+}
+class Chat {
+    - private chatMessages: List<String>
+    + Chat()
+    + addMessage(message: String): void
+}
 
-class DataParser{
+class DataParser {
     + {static} parseStudents(filename: String): List<UniversityStudent> throws IOException
 }
 
 class FriendRequestThread implements Runnable {
+    - {static} friends: Map<UniversityStudent, List<UniversityStudent>>
     + FriendRequestThread(sender: UniversityStudent, receiver: UniversityStudent)
     + run(): void
+    + {static} areFriends(a: UniversityStudent, b: UniversityStudent): boolean
 }
 
 class GaleShapley {
+    - {static} roommatePairs: Map<UniversityStudent, UniversityStudent>
     + {static} assignRoommates(students: List<UniversityStudent>): void
+    + {static} areRoommates(a: UniversityStudent, b: UniversityStudent): boolean
 }
 
 class PodFormation {
+    - podGraph: StudentGraph
+    - pods: List<StudentGraph>
     + PodFormation(graph: StudentGraph)
     + formPods(podSize: int): void
 }
 
 class ReferralPathFinder {
+    - referralGraph: StudentGraph
     + ReferralPathFinder(graph: StudentGraph)
     + findReferralPath(start: UniversityStudent, targetCompany: String)
 }
@@ -50,10 +67,29 @@ abstract class Student {
 class UniversityStudent extends Student {
     + UniversityStudent(name: String, age: int, gender: String, year: int, major: String, gpa: double, roommatePreferences: List<String>, previousInternships: List<String)
     + calculateConnectionStrength(other: Student): int
+    + getName(): String
+    + getAge(): int
+    + getGender(): String
+    + getYear(): int
+    + getMajor(): int
+    + getGPA(): double
+    + getRoommatePreferences(): List<String>
+    + getPreviousInternships(): List<String>
 }
 
 class StudentGraph {
-
+    - graph: Map<UniversityStudent, List<StudentGraphEdge>>
+    + StudentGraph(students: List<UniversityStudent>)
+    + getEdges(student: UniversityStudent): Map<UniversityStudent, Integer>
+    + addEdge(start: UniversityStudent, end: UniversityStudent, weight: int): void
+    + addStudent(student: UniversityStudent): void
+}
+class StudentGraphEdge {
+    - weight: int
+    - UniversityStudent: student
+    + StudentGraphEdge(student: UniversityStudent, weight: int)
+    + getWeight(): int
+    + getStudent(): UniversityStudent
 }
 
 Student "1..*" o-- StudentGraph
@@ -68,8 +104,13 @@ GaleShapley --> UniversityStudent
 FriendRequestThread --> UniversityStudent
 
 UniversityStudent "0..*" o-- DataParser
+UniversityStudent --> GaleShapley
 
 ChatThread --> UniversityStudent
+ChatPair "0..*" --* ChatThread
+Chat "0..*" --* ChatThread
+
+StudentGraphEdge "0..*" --* StudentGraph
 
 Main o-- UniversityStudent
 Main o-- StudentGraph

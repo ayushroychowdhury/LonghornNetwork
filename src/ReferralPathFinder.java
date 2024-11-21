@@ -7,11 +7,16 @@ import java.util.*;
 public class ReferralPathFinder {
 
     /**
+     * Local Copy of StudentGraph
+     */
+    private StudentGraph referralGraph;
+
+    /**
      * Construct a ReferralPathFinder object from a StudentGraph
      * @param graph StudentGraph
      */
     public ReferralPathFinder(StudentGraph graph) {
-        // Constructor
+        this.referralGraph = graph;
     }
 
     /**

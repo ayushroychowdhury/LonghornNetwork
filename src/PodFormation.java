@@ -1,17 +1,27 @@
 import java.util.*;
 
 /**
- * Represents a pod
+ * Represents a PodFormation
  * @author Yahir Lopez
  */
 public class PodFormation {
 
     /**
-     * Create a pod formation from a StudentGraph
+     * Local copy of student Graph
+     */
+    private StudentGraph podGraph;
+
+    /**
+     * Pods which are a list of StudentGraphs.
+     */
+    private List<StudentGraph> pods;
+
+    /**
+     * Create a PodFormation from a StudentGraph
      * @param graph StudentGraph
      */
     public PodFormation(StudentGraph graph) {
-        // Constructor
+        this.podGraph = graph;
     }
 
     /**
@@ -19,6 +29,6 @@ public class PodFormation {
      * @param podSize the maxNumber of students in a Pod
      */
     public void formPods(int podSize) {
-        // Method signature only
+
     }
 }
