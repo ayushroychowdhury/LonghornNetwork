@@ -54,9 +54,9 @@ public class Main {
                 }
             }
 
-//            for (Student s : students) {
-//                System.out.println(s.name + " is connected to " + graph.getNeighborsWeighted(s.name));
-//            }
+            for (Student s : students) {
+                System.out.println(s.name + " is connected to " + graph.getNeighborsWeighted(s.name));
+            }
 
 
 
@@ -71,24 +71,18 @@ public class Main {
             // Referral path finding
             ReferralPathFinder pathFinder = new ReferralPathFinder(graph);
             // TODO: Implement user interaction for specifying a target company
+            List<UniversityStudent> path = pathFinder.findReferralPath(nameMap.get("Alice"), "Meta");
+            for (int i = 0 ; i < path.size() ; i++) {
+                System.out.print(path.get(i).name);
+                if (i < path.size() - 1) System.out.print(" --> ");
+            }
+            System.out.println();
 
-
-            // Simulate chat message
-            ChatThread chat = new ChatThread(students.get(0), students.get(1), "Hello, Bob!");
-            Thread t1 = new Thread(chat);
-            t1.start();
-
-            // Simulate friend request
-            FriendRequestThread friendRequest = new FriendRequestThread(students.get(1), students.get(0));
-            Thread t2 = new Thread(friendRequest);
-            t2.start();
-
-            while (chatHistory.size() < 2) {}
-            System.out.println("Chat history: " + chatHistory);
 
             ArrayList<String> studentNames = new ArrayList<>();
             for (UniversityStudent s : students) studentNames.add(s.name);
-            simulate(studentNames);
+            // simulate(studentNames);
+            //System.out.println(chatHistory);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -109,7 +103,7 @@ public class Main {
                         executor.submit(new FriendRequestThread(nameMap.get(student), nameMap.get(target)));
                     }
                 }
-            
+            }
 
             // Simulate chat threads
             for (String student : students) {

@@ -56,4 +56,14 @@ Year: 2
 Major: Art
 GPA: 3.9
 RoommatePreferences: Edward
-PreviousInternships:
+PreviousInternships: Meta
+
+Student:
+Name: Single
+Age: 190
+Gender: Male
+Year: 3
+Major: Advertising
+GPA: 3.5
+RoommatePreferences:
+PreviousInternships: Samsung

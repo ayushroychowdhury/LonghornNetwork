@@ -67,7 +67,7 @@ public class UniversityStudent extends Student {
         if (major.equals(other.major)) {
             connectionStrength += 2;
         }
-        if (gender.equals(other.gender)) {
+        if (age == other.age) {
             connectionStrength += 1;
         }
 

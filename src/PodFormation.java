@@ -80,6 +80,15 @@ public class PodFormation {
             }
 
         }
+
+        // Edge case: students with no connections form their own pod.
+        for (String name : adjList.keySet()) {
+            if (adjList.get(name) == null ||adjList.get(name).isEmpty()) {
+                ArrayList<String> soloPod = new ArrayList<>();
+                soloPod.add(name);
+                pods.add(soloPod);
+            }
+        }
         return pods;
     }
 
