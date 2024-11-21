@@ -1,0 +1,63 @@
+@startuml
+class Student {
+  - String name
+  - int age
+  - String gender
+  - int year
+  - String major
+  - double gpa
+  - List<String> roommatePreferences
+  - List<String> previousInternships
+  + int calculateConnectionStrength(Student other)
+}
+
+class UniversityStudent {
+  + UniversityStudent(String name, int age, String gender, int year, String major, double gpa, List<String> roommatePreferences, List<String> previousInternships)
+  + int calculateConnectionStrength(Student other)
+}
+
+class DataParser {
+  + static List<UniversityStudent> parseStudents(String filename) : List<UniversityStudent>
+}
+
+class GaleShapley {
+  + static void assignRoommates(List<UniversityStudent> students) : void
+}
+
+class PodFormation {
+  + PodFormation(StudentGraph graph)
+  + void formPods(int podSize) : void
+}
+
+class ReferralPathFinder {
+  + ReferralPathFinder(StudentGraph graph)
+  + List<UniversityStudent> findReferralPath(UniversityStudent start, String targetCompany) : List<UniversityStudent>
+}
+
+class StudentGraph {
+  - Map<String, List<Edge>> adjacencyList
+  + StudentGraph()
+  + void addEdge(String student1, String student2, int weight) : void
+  + List<Edge> getNeighbors(String student) : List<Edge>
+  + Set<String> getAllNodes() : Set<String>
+}
+
+class Edge {
+  - String student
+  - int weight
+  + Edge(String student, int weight)
+  + String getStudent() : String
+  + int getWeight() : int
+}
+
+class Main {
+  + static void main(String[] args) : void
+}
+
+Student <|-- UniversityStudent
+DataParser -- UniversityStudent : parses
+GaleShapley -- UniversityStudent : assigns
+PodFormation -- StudentGraph : uses
+ReferralPathFinder -- StudentGraph : uses
+StudentGraph *-- Edge : contains
+@enduml

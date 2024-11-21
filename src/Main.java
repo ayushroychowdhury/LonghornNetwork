@@ -1,7 +1,15 @@
 import java.io.IOException;
 import java.util.*;
 
+/**
+ * The main class for the application.
+ */
 public class Main {
+    /**
+     * The main method for the application.
+     *
+     * @param args the command-line arguments
+     */
     public static void main(String[] args) {
         if (args.length == 0) {
             System.out.println("Please provide the input file name as a command-line argument.");
@@ -15,7 +23,7 @@ public class Main {
             GaleShapley.assignRoommates(students);
 
             // Pod formation
-            StudentGraph graph = new StudentGraph(students);
+            StudentGraph graph = new StudentGraph();
             PodFormation podFormation = new PodFormation(graph);
             podFormation.formPods(4);
 
