@@ -1,7 +1,16 @@
 import java.io.*;
 import java.util.*;
 
+/**
+ * Processes an input text file
+ */
 public class DataParser {
+    /**
+     * Parses students from an input text file
+     * @param filename valid path to a text file
+     * @return List of UniversityStudent objects
+     * @throws IOException
+     */
     public static List<UniversityStudent> parseStudents(String filename) throws IOException {
         List<UniversityStudent> students = new ArrayList<>();
 

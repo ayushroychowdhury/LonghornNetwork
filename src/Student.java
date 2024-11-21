@@ -10,5 +10,10 @@ public abstract class Student {
     protected List<String> roommatePreferences;
     protected List<String> previousInternships;
 
+    /**
+     * Returns the strength of the connection between two students
+     * @param other Student
+     * @return integer value of connection strength
+     */
     public abstract int calculateConnectionStrength(Student other);
 }
