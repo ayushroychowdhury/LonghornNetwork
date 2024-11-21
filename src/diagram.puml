@@ -1,0 +1,57 @@
+
+@startuml
+abstract class Student {
+    - String name
+    - int age
+    - String gender
+    - int year
+    - String major
+    - double gpa
+    - List<String> roommatePreferences
+    - List<String> previousInternships
+    {abstract} + int calculateConnectionStrength(Student other)
+}
+
+class UniversityStudent extends Student {
+    // Additional attributes or methods can be added here
+}
+
+class DataParser {
+    + List<UniversityStudent> parseStudents(String filename)
+}
+
+class FriendRequestThread {
+    + FriendRequestThread(UniversityStudent sender, UniversityStudent receiver)
+    + run()
+}
+
+class GaleShapley {
+    + assignRoommates(List<UniversityStudent> students)
+}
+
+class PodFormation {
+    + PodFormation(StudentGraph graph)
+    + formPods(int podSize)
+}
+
+class ReferralPathFinder {
+    + ReferralPathFinder(StudentGraph graph)
+    + List<UniversityStudent> findReferralPath(UniversityStudent start, String targetCompany)
+}
+
+class ChatThread {
+    + ChatThread(UniversityStudent sender, UniversityStudent receiver, String message)
+    + run()
+}
+
+class Main {
+    + main(String[] args)
+}
+
+Student <|-- UniversityStudent
+FriendRequestThread ..> UniversityStudent
+ChatThread ..> UniversityStudent
+GaleShapley ..> UniversityStudent
+ReferralPathFinder ..> UniversityStudent
+PodFormation ..> "StudentGraph"
+@enduml
