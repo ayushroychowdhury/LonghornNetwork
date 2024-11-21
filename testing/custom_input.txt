@@ -1,0 +1,59 @@
+Student:
+Name: Alice
+Age: 20
+Gender: Female
+Year: 2
+Major: Computer Science
+GPA: 3.8
+RoommatePreferences: Bob, Charlie
+PreviousInternships: Google, Amazon
+
+Student:
+Name: Bob
+Age: 21
+Gender: Male
+Year: 3
+Major: Electrical Engineering
+GPA: 3.5
+RoommatePreferences: Alice
+PreviousInternships: Microsoft, Amazon
+
+Student:
+Name: Charlie
+Age: 33
+Gender: Male
+Year: 7
+Major: Business
+GPA: 2
+RoommatePreferences:
+PreviousInternships: Apple
+
+Student:
+Name: Debbie
+Age: 20
+Gender: Female
+Year: 1
+Major: History
+GPA: 3.3
+RoommatePreferences:
+PreviousInternships: Apple
+
+Student:
+Name: Edward
+Age: 1
+Gender: Male
+Year: 3
+Major: History
+GPA: 3.6
+RoommatePreferences:
+PreviousInternships:
+
+Student:
+Name: Frank
+Age: 19
+Gender: Male
+Year: 2
+Major: Art
+GPA: 3.9
+RoommatePreferences: Edward
+PreviousInternships:
