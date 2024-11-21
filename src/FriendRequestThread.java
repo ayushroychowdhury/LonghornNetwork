@@ -1,3 +1,6 @@
+/**
+ * Simulates sending friend requests
+ */
 public class FriendRequestThread implements Runnable {
     public FriendRequestThread(UniversityStudent sender, UniversityStudent receiver) {
         // Constructor

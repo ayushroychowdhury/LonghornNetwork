@@ -1,5 +1,6 @@
 import java.util.*;
 
+/** Student class */
 public abstract class Student {
     protected String name;
     protected int age;

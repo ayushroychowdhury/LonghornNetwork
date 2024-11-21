@@ -1,3 +1,6 @@
+/**
+ * Simulates chatting between students
+ */
 public class ChatThread implements Runnable {
     public ChatThread(UniversityStudent sender, UniversityStudent receiver, String message) {
         // Constructor
