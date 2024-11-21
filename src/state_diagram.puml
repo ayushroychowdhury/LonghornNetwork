@@ -1,0 +1,13 @@
+@startuml
+[*] --> ParsingData : Start the program
+
+ParsingData --> CreatingStudents : Parse input file (DataParser)
+CreatingStudents --> ConstructingGraph : Create Student and UniversityStudent objects
+ConstructingGraph --> MatchingRoommates : Build StudentGraph for relationships
+
+MatchingRoommates --> FormingPods : Match students into stable pairs (GaleShapley)
+FormingPods --> FindingReferralPath : Form pods (Prim's algorithm)
+
+FindingReferralPath --> SimulatingInteractions : Find shortest referral paths (Dijkstra’s algorithm)
+SimulatingInteractions --> [*] : Handle friend requests and chats (Multithreading)
+@enduml
