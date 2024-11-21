@@ -10,5 +10,10 @@ public abstract class Student {
     protected List<String> roommatePreferences;
     protected List<String> previousInternships;
 
+    /**
+     * Constructor for the Student class.
+     * @param other
+     * @return
+     */
     public abstract int calculateConnectionStrength(Student other);
 }

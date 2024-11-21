@@ -2,6 +2,10 @@ import java.io.IOException;
 import java.util.*;
 
 public class Main {
+    /**
+     * Main method that runs the Longhorn Network Simulation.
+     * @param args
+     */
     public static void main(String[] args) {
         if (args.length == 0) {
             System.out.println("Please provide the input file name as a command-line argument.");
