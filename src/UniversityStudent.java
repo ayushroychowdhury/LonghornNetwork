@@ -6,6 +6,24 @@ import java.util.*;
 public class UniversityStudent extends Student {
     private String roommate;
     private Set<String> friends;
+    private Set<ChatPair> chatHistory;
+
+    /**
+     * Creates a UniversityStudent object with the given properties
+     * @param name name of student
+     * @param age age of student
+     * @param gender gender of student
+     * @param year what year the student is
+     * @param major what major the student is
+     * @param gpa what the student's GPA is
+     * @param roommatePreferences ranking of roommate preferences
+     * @param previousInternships past internships
+     */
+    public UniversityStudent(String name, int age, String gender, int year, String major, double gpa, List<String> roommatePreferences, List<String> previousInternships) {
+        super(name, age, gender, year, major, gpa, roommatePreferences, previousInternships);
+        friends = new HashSet<>();
+        chatHistory = new HashSet<>();
+    }
 
     /**
      * Calculate connection strength between two students
@@ -45,21 +63,23 @@ public class UniversityStudent extends Student {
         return connectionStrength;
     }
 
+    /**
+     * Override equals to compare UniversityStudent objects based on the name field
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true; // Check for reference equality
+        if (obj == null || getClass() != obj.getClass()) return false; // Ensure same class
+        UniversityStudent that = (UniversityStudent) obj;
+        return Objects.equals(name, that.name); // Compare by 'name'
+    }
 
     /**
-     * Creates a UniversityStudent object with the given properties
-     * @param name name of student
-     * @param age age of student
-     * @param gender gender of student
-     * @param year what year the student is
-     * @param major what major the student is
-     * @param gpa what the student's GPA is
-     * @param roommatePreferences ranking of roommate preferences
-     * @param previousInternships past internships
+     * Override hashCode to generate hash based on the name field
      */
-    public UniversityStudent(String name, int age, String gender, int year, String major, double gpa, List<String> roommatePreferences, List<String> previousInternships) {
-        super(name, age, gender, year, major, gpa, roommatePreferences, previousInternships);
-        friends = new HashSet<>();
+    @Override
+    public int hashCode() {
+        return Objects.hash(name); // Use 'name' to compute the hash
     }
 
     /**
@@ -96,7 +116,7 @@ public class UniversityStudent extends Student {
     public String getMajor(){
         return this.major;
     }
-    
+
     /**
      * @return gpa of student
      */
@@ -105,7 +125,7 @@ public class UniversityStudent extends Student {
     }
 
     /**
-     * @return student's ranked 
+     * @return student's ranked
      */
     public List<String> getRoommatePreferences(){
         return this.roommatePreferences;
@@ -146,6 +166,66 @@ public class UniversityStudent extends Student {
      */
     public Set<String> getFriends() {
         return friends;
+    }
+
+    /**
+     * Adds a message to the chat history with the specified friend
+     * @param friend the friend to whom the message is sent
+     * @param message the message to be added
+     */
+    public void addChatHistory(String friend, String message) {
+        ChatPair pair = new ChatPair(this.getName(), friend);
+        pair.addMessage(message);
+        chatHistory.add(pair);
+    }
+
+    /**
+     * Gets the chat history with a particular friend
+     * @param friend the friend whose chat history is requested
+     * @return list of messages with that friend
+     */
+    public List<String> getChatHistory(String friend) {
+        for (ChatPair pair : chatHistory) {
+            if (pair.contains(this.getName(), friend)) {
+                return pair.getMessages();
+            }
+        }
+        return new ArrayList<>(); // No messages if no history found
+    }
+
+    // Other getters and methods...
+
+    /**
+     * Inner class to store the chat history between two students
+     */
+    private static class ChatPair {
+        private String student1;
+        private String student2;
+        private List<String> messages;
+
+        public ChatPair(String student1, String student2) {
+            if (student1.compareTo(student2) < 0) {
+                this.student1 = student1;
+                this.student2 = student2;
+            } else {
+                this.student1 = student2;
+                this.student2 = student1;
+            }
+            this.messages = new ArrayList<>();
+        }
+
+        public void addMessage(String message) {
+            messages.add(message);
+        }
+
+        public List<String> getMessages() {
+            return messages;
+        }
+
+        public boolean contains(String student1, String student2) {
+            return (this.student1.equals(student1) && this.student2.equals(student2)) ||
+                    (this.student1.equals(student2) && this.student2.equals(student1));
+        }
     }
 }
 

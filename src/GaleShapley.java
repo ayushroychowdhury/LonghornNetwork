@@ -76,7 +76,7 @@ public class GaleShapley {
         }
 
         // Print the roommate assignments in the specified format
-        System.out.println("Roommate Assignments:");
+        System.out.println("\nRoommate Assignments:");
         for (UniversityStudent student : students) {
             if (student.getRoommate() != null) {
                 System.out.println(student.getName() + " is roommates with " + student.getRoommate());

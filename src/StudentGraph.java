@@ -1,12 +1,12 @@
 import java.util.*;
 
 /**
- * Graph to represent connections between Students (for use with Pod Formation and Referral Path Finding)
+ * Graph to represent connections between UniversityStudents (for use with Pod Formation and Referral Path Finding)
  */
 public class StudentGraph {
 
-    // Adjacency list representation of the graph
-    private Map<String, List<Edge>> graph;
+    // Adjacency list representation of the graph using UniversityStudent as the key
+    private Map<UniversityStudent, List<Edge>> graph;
 
     /**
      * Initializes a weighted graph from a list of students
@@ -17,7 +17,7 @@ public class StudentGraph {
 
         // Add all students as nodes
         for (UniversityStudent student : students) {
-            addStudent(student.name);
+            addStudent(student);
         }
 
         // Add edges between all pairs of students using calculateConnectionStrength
@@ -27,7 +27,7 @@ public class StudentGraph {
                 UniversityStudent student2 = students.get(j);
 
                 int weight = student1.calculateConnectionStrength(student2);
-                addEdge(student1.name, student2.name, weight);
+                addEdge(student1, student2, weight);
             }
         }
     }
@@ -36,7 +36,7 @@ public class StudentGraph {
      * Adds a student (node) to the graph
      * @param student student to add
      */
-    private void addStudent(String student) {
+    private void addStudent(UniversityStudent student) {
         graph.putIfAbsent(student, new ArrayList<>());
     }
 
@@ -46,7 +46,7 @@ public class StudentGraph {
      * @param student2 second student
      * @param weight weight between students
      */
-    private void addEdge(String student1, String student2, double weight) {
+    private void addEdge(UniversityStudent student1, UniversityStudent student2, double weight) {
         // Add the edge in both directions (undirected graph)
         graph.get(student1).add(new Edge(student2, weight));
         graph.get(student2).add(new Edge(student1, weight));
@@ -57,7 +57,7 @@ public class StudentGraph {
      * @param student student to find edges of
      * @return list of neighboring students
      */
-    public List<Edge> getNeighbors(String student) {
+    public List<Edge> getNeighbors(UniversityStudent student) {
         return graph.getOrDefault(student, new ArrayList<>());
     }
 
@@ -65,7 +65,7 @@ public class StudentGraph {
      * Returns all students (nodes) in the graph
      * @return all nodes in the graph
      */
-    public Set<String> getAllNodes() {
+    public Set<UniversityStudent> getAllNodes() {
         return graph.keySet();
     }
 
@@ -73,8 +73,8 @@ public class StudentGraph {
      * Debugging utility: Prints the adjacency list
      */
     public void printGraph() {
-        for (Map.Entry<String, List<Edge>> entry : graph.entrySet()) {
-            System.out.println(entry.getKey() + " -> " + entry.getValue());
+        for (Map.Entry<UniversityStudent, List<Edge>> entry : graph.entrySet()) {
+            System.out.println(entry.getKey().getName() + " -> " + entry.getValue());
         }
     }
 
@@ -82,7 +82,7 @@ public class StudentGraph {
      * Inner class to represent an edge
      */
     public static class Edge {
-        String neighbor;
+        UniversityStudent neighbor;
         double weight;
 
         /**
@@ -90,14 +90,14 @@ public class StudentGraph {
          * @param neighbor neighbor connected by edge
          * @param weight weight of edge
          */
-        public Edge(String neighbor, double weight) {
+        public Edge(UniversityStudent neighbor, double weight) {
             this.neighbor = neighbor;
             this.weight = weight;
         }
 
         @Override
         public String toString() {
-            return "(" + neighbor + ", " + String.format("%.2f", weight) + ")";
+            return "(" + neighbor.getName() + ", " + String.format("%.2f", weight) + ")";
         }
     }
 }
