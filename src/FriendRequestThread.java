@@ -1,6 +1,9 @@
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
+/**
+ * Class to simulate friend requests being sent from one student to another
+ */
 public class FriendRequestThread implements Runnable {
 
     private UniversityStudent sender;

@@ -1,5 +1,8 @@
 import java.util.*;
 
+/**
+ * Class used to form pods of students
+ */
 public class PodFormation {
 
     private final StudentGraph graph;

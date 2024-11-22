@@ -1,5 +1,8 @@
 import java.util.*;
 
+/**
+ * Class used to find referral paths from a starting student to a specific company
+ */
 public class ReferralPathFinder {
 
     private StudentGraph graph;

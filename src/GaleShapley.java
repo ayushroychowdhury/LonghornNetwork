@@ -1,5 +1,8 @@
 import java.util.*;
 
+/**
+ * Class used to match students to their roommate based on the Gale Shapley algorithm
+ */
 public class GaleShapley {
     /**
      * Given a list of University Students, assigns roommate to each student

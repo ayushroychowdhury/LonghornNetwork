@@ -1,6 +1,9 @@
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
+/**
+ * Class to simulate messages between two students
+ */
 public class ChatThread implements Runnable {
 
     private UniversityStudent sender;

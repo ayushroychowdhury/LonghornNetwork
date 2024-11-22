@@ -1,6 +1,9 @@
 import java.io.*;
 import java.util.*;
 
+/**
+ * Class to parse student data from file
+ */
 public class DataParser {
     /**
      * Parses a list of UniversityStudent objects from a file.
