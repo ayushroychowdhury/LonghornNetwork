@@ -292,7 +292,7 @@ Test your graph implementation before using it in algorithms:
 ---
 
 ### 2. How do we get disconnected graphs as mentioned in the edge cases?
-- Students are disconnected if their **connection strength is 0**, meaning they share no attributes such as internships, pods, or chat history.
+- Students are disconnected if their **connection strength is 0**, meaning they share no attributes such as internships, pods, etc.
 - Disconnected graphs occur naturally when there are groups of students with no connections to each other.
   - For example:
     ```
