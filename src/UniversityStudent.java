@@ -25,7 +25,7 @@ public class UniversityStudent extends Student {
         this.gpa = gpa;
         this.roommatePreferences = roommatePreferences;
         this.previousInternships = previousInternships;
-        roommate = "";
+        roommate = null;
     }
 
     /**
@@ -44,6 +44,70 @@ public class UniversityStudent extends Student {
     }
 
     /**
+     * Returns the name of the student.
+     * @return
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * Returns age of the student.
+     * @return
+     */
+    public int getAge() {
+        return age;
+    }
+
+    /**
+     * Returns the gender of the student.
+     * @return
+     */
+    public String getGender() {
+        return gender;
+    }
+
+    /**
+     * Returns the year of the student.
+     * @return
+     */
+    public int getYear() {
+        return year;
+    }
+
+    /**
+     * Returns the major of the student.
+     * @return
+     */
+    public String getMajor() {
+        return major;
+    }
+
+    /**
+     * Returns the GPA of the student.
+     * @return
+     */
+    public double getGpa() {
+        return gpa;
+    }
+
+    /**
+     * Returns the list of roommate preferences.
+     * @return
+     */
+    public List<String> getRoommatePreferences() {
+        return roommatePreferences;
+    }
+
+    /**
+     * Returns the list of previous internships.
+     * @return
+     */
+    public List<String> getPreviousInternships() {
+        return previousInternships;
+    }
+
+    /**
      * Returns the name of the roommate.
      * @return
      */
@@ -57,6 +121,20 @@ public class UniversityStudent extends Student {
      */
     public void setRoommate(String roommate) {
         this.roommate = roommate;
+    }
+
+    /**
+     * Returns the preference rank of the given name.
+     * @param name
+     * @return
+     */
+    public int preferenceRank(String name) {
+        for (int i = 0; i < roommatePreferences.size(); i++) {
+            if (roommatePreferences.get(i).equals(name)) {
+                return i;
+            }
+        }
+        return -1;
     }
 
     public String toString() {

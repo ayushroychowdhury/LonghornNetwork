@@ -17,3 +17,13 @@ Major: Electrical Engineering
 GPA: 3.5
 RoommatePreferences: Alice
 PreviousInternships: Microsoft
+
+Student:
+Name: Charlie
+Age: 21
+Gender: Male
+Year: 3
+Major: Electrical Engineering
+GPA: 3.5
+RoommatePreferences: Bob
+PreviousInternships: Microsoft

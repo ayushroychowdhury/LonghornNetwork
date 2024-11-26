@@ -15,9 +15,15 @@ public class Main {
         try {
             List<UniversityStudent> students = DataParser.parseStudents(inputFile);
             System.out.println(students.size() + " students have been loaded.");
+            System.out.println(students.toString());
 
             // Roommate matching
             GaleShapley.assignRoommates(students);
+            System.out.println("Roommate matching has been completed.");
+            for (UniversityStudent student : students) {
+                System.out.println(student.getName() + " is roommates with " + student.getRoommate());
+            }
+
 
             // Pod formation
             StudentGraph graph = new StudentGraph(students);
