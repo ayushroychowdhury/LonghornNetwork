@@ -2,6 +2,9 @@ import java.util.*;
 
 public class UniversityStudent extends Student {
     // TODO: Constructor and additional methods to be implemented
+
+    String roommate;
+
     /**
      * Constructor for the UniversityStudent class.
      * @param name
@@ -22,6 +25,7 @@ public class UniversityStudent extends Student {
         this.gpa = gpa;
         this.roommatePreferences = roommatePreferences;
         this.previousInternships = previousInternships;
+        roommate = "";
     }
 
     /**
@@ -30,7 +34,41 @@ public class UniversityStudent extends Student {
      * @return
      */
     public int calculateConnectionStrength(Student other) {
-        return -1;
+        if (other instanceof UniversityStudent) {
+            UniversityStudent otherStudent = (UniversityStudent) other;
+            int connectionStrength = 0;
+            
+            return connectionStrength;
+        }
+        return 0;
+    }
+
+    /**
+     * Returns the name of the roommate.
+     * @return
+     */
+    public String getRoommate() {
+        return roommate;
+    }
+
+    /**
+     * Sets the name of the roommate.
+     * @param roommate
+     */
+    public void setRoommate(String roommate) {
+        this.roommate = roommate;
+    }
+
+    public String toString() {
+        String result = "Name: " + name + "\n";
+        result += "Age: " + age + "\n";
+        result += "Gender: " + gender + "\n";
+        result += "Year: " + year + "\n";
+        result += "Major: " + major + "\n";
+        result += "GPA: " + gpa + "\n";
+        result += "Roommate Preferences: " + roommatePreferences + "\n";
+        result += "Previous Internships: " + previousInternships + "\n";
+        return result;
     }
 }
 

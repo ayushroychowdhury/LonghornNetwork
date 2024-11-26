@@ -14,6 +14,7 @@ public class Main {
         String inputFile = args[0];
         try {
             List<UniversityStudent> students = DataParser.parseStudents(inputFile);
+            System.out.println(students.size() + " students have been loaded.");
 
             // Roommate matching
             GaleShapley.assignRoommates(students);
