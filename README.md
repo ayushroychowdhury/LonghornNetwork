@@ -283,4 +283,32 @@ Test your graph implementation before using it in algorithms:
 - Use the provided method signatures and adjust as needed to meet the requirements of Prim’s and Dijkstra’s algorithms.
 - Ask questions during lab sessions or office hours if you’re stuck. Debugging the graph structure is critical for completing this assignment successfully.
 
+## FAQs
+
+### 1. Should we use inverted edge weights (10 - weight) in `PodFormation`?
+- **No**, inverted edge weights are only used in the referral path finder to prioritize stronger connections as shorter paths.
+- For pod formation, use the **calculated connection strength** directly to minimize the total weight of the pods. This ensures that pods are formed based on the strongest relationships between students.
+
+---
+
+### 2. How do we get disconnected graphs as mentioned in the edge cases?
+- Students are disconnected if their **connection strength is 0**, meaning they share no attributes such as internships, pods, etc.
+- Disconnected graphs occur naturally when there are groups of students with no connections to each other.
+  - For example:
+    ```
+    Component 1: Alice - Bob
+    Component 2: Charlie
+    ```
+- **Important**: 
+  - Do not add an edge for pairs of students with a connection strength of 0.
+  - These students are simply not connected in the graph.
+
+---
+
+### 3. Can two students have the exact same name?
+- **No**, all student names are guaranteed to be distinct in this assignment.
+- You can safely use student names to uniquely identify nodes in the graph and validate roommate preferences.
+
+---
+
 
