@@ -27,9 +27,8 @@ public class ChatThread implements Runnable {
     /**
      * Updates the chat history of the sender and receiver
      */
-    private void updateChatHistory() {
+    private synchronized void updateChatHistory() {
         // Updates the chat history of the sender and receiver
-        System.out.println(sender.name + " sent a message to " + receiver.name + ": " + message);
         Main.chatHistory.add(sender.name + " sent a message to " + receiver.name + ": " + message);
     }
 }

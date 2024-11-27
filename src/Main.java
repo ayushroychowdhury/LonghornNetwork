@@ -5,15 +5,16 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 public class Main {
-    public HashMap<String, UniversityStudent> students;
-    public static HashMap<String, List<UniversityStudent>> friends;
-    public static ArrayList<String> chatHistory;
 
+    public static HashMap<UniversityStudent, List<UniversityStudent>> friends = new HashMap<>();
+    public static ArrayList<String> chatHistory = new ArrayList<>();
+    
     /**
      * Main method that runs the Longhorn Network Simulation.
      * @param args
      */
     public static void main(String[] args) {
+    
         if (args.length == 0) {
             System.out.println("Please provide the input file name as a command-line argument.");
             return;
@@ -21,13 +22,14 @@ public class Main {
         String inputFile = args[0];
         try {
             List<UniversityStudent> students = DataParser.parseStudents(inputFile);
-
+            for (UniversityStudent student : students) {
+                Main.friends.put(student, new ArrayList<>());
+            }
             // Roommate matching
             GaleShapley.assignRoommates(students);
 
             // Pod formation
             StudentGraph graph = new StudentGraph(students);
-            System.out.println(graph);
             PodFormation podFormation = new PodFormation(graph);
             podFormation.formPods(4);
 
@@ -76,6 +78,16 @@ public class Main {
                 Thread.currentThread().interrupt();
             }
         }
-        
+
+        System.out.println("Chat history:");
+        for (String message : chatHistory) {
+            System.out.println(message);
+        }
+        System.out.println("Friendships:");
+        for (UniversityStudent student : friends.keySet()) {
+            for (UniversityStudent friend : friends.get(student)) {
+                System.out.println(student.getName() + " is friends with " + friend.getName());
+            }
+        }
     }
 }

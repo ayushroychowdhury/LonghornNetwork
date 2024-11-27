@@ -24,9 +24,9 @@ public class FriendRequestThread implements Runnable {
     /**
      * Updates the friend request history of the sender and receiver
      */
-    private void updateFriendRequestHistory() {
+    private synchronized void updateFriendRequestHistory() {
         // Updates the friend request history of the sender and receiver
-        Main.friends.get(sender.getName()).add(receiver);
+        Main.friends.get(sender).add(receiver);
         Main.chatHistory.add(sender.getName() + " sent a friend request to " + receiver.getName());
     }
 }

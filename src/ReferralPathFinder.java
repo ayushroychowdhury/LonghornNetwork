@@ -54,10 +54,7 @@ public class ReferralPathFinder {
             path.add(current);
             current = parents.get(current);
         }
-        Collections.reverse(path);
-        for(UniversityStudent student : path) {
-            System.out.println(student.getName());
-        }   
+        Collections.reverse(path); 
         return path;
     }
 
