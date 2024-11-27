@@ -48,6 +48,7 @@ public class GaleShapley {
             q.add(student);
         }
 
+        // Gale Shapley Algo
         while (!q.isEmpty()) {
             String student = q.poll();
             if (freeStudents.get(student).equals(true)) {
@@ -92,21 +93,29 @@ public class GaleShapley {
         }
 
         // Print Out Calculated Roommates
+        System.out.println("Roommate Assignment:");
         for (UniversityStudent student : roommatePairs.keySet()) {
             String student1Name = student.getName();
             String student2Name = roommatePairs.get(student).getName();
 
             System.out.println(student1Name + " is roommates with " + student2Name);
         }
+        System.out.println("");
     }
 
     /**
-     * Find out if UniversityStudent Objects are roommates
-     * @param a UniversityStudent
-     * @param b UniversityStudent
+     * Find out if Student Objects are roommates
+     * @param a Student
+     * @param b Student
      * @return boolean
      */
-    public static boolean areRoommates(UniversityStudent a, UniversityStudent b) {
-        return roommatePairs.get(a).equals(b);
+    public static boolean areRoommates(Student a, Student b) {
+        try {
+            return roommatePairs.get(a).equals(b);
+        } catch (Exception e) {
+            // Errors will occur will a student is not pared with any student
+            // So, they do not exist in roommatePairs
+            return false;
+        }
     }
 }

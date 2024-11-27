@@ -12,10 +12,29 @@ public class UniversityStudent extends Student {
      */
     @Override
     public int calculateConnectionStrength(Student other) {
-        return 0;
-    }
-    // TODO: Constructor and additional methods to be implemented
+        int connectionStrength = 0;
 
+        if (GaleShapley.areRoommates(this, other)) {
+            connectionStrength += 5;
+        }
+        for (String pastIntern : this.previousInternships) {
+            if (other.previousInternships.contains(pastIntern)) {
+                connectionStrength += 4;
+            }
+        }
+        if (this.major.equals(other.major)) {
+            connectionStrength += 3;
+        }
+        if (this.age == other.age) {
+            connectionStrength += 2;
+        }
+
+        if (connectionStrength == 0) {
+            return Integer.MIN_VALUE;
+        }
+
+        return connectionStrength;
+    }
     /**
      * Construct a UniversityStudent object
      * @param name String

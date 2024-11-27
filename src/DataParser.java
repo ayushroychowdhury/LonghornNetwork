@@ -52,40 +52,75 @@ public class DataParser {
                         parts2[i] = parts2[i].trim();
                     }
 
-                    if (parts2.length == 2) {
-                        switch (parts2[0]) {
-                            case "Name":
-                                name = parts2[1];
-                                break;
-                            case "Age":
-                                age = Integer.parseInt(parts2[1]);
-                                break;
-                            case "Gender":
-                                gender = parts2[1];
-                                break;
-                            case "Year":
-                                year = Integer.parseInt(parts2[1]);
-                                break;
-                            case "Major":
-                                major = parts2[1];
-                                break;
-                            case "GPA":
-                                gpa = Double.parseDouble(parts2[1]);
-                                break;
-                            case "RoommatePreferences":
-                                String[] roommatePreferences2 = parts2[1].split(",");
-                                for (String s : roommatePreferences2){
-                                    roommatePreferences.add(s.trim());
+                    try {
+                        if (parts2.length == 2) {
+                            switch (parts2[0]) {
+                                case "Name":
+                                    name = parts2[1];
+                                    break;
+                                case "Age": {
+                                    int parsedAge = Integer.parseInt(parts2[1]);
+                                    if (parsedAge < 0) throw new Exception("Invalid age");
+                                    age = parsedAge;
+                                    break;
                                 }
-                                break;
-                            case "PreviousInternships":
-                                String[] previousInternships2 = parts2[1].split(",");
-                                for (String s : previousInternships2){
-                                    previousInternships.add(s.trim());
+                                case "Gender":
+                                    gender = parts2[1];
+                                    break;
+                                case "Year":{
+                                    int parsedYear = Integer.parseInt(parts2[1]);
+                                    if (parsedYear < 0) throw new Exception("Invalid year");
+                                    year = parsedYear;
+                                    break;
                                 }
-                                break;
+                                case "Major":
+                                    major = parts2[1];
+                                    break;
+                                case "GPA":
+                                    double parsedGPA = Double.parseDouble(parts2[1]);
+                                    if (parsedGPA < 0) throw new Exception("Invalid GPA");
+                                    gpa = parsedGPA;
+                                    break;
+                                case "RoommatePreferences":
+                                    String[] roommatePreferences2 = parts2[1].split(",");
+                                    for (String s : roommatePreferences2){
+                                        roommatePreferences.add(s.trim());
+                                    }
+                                    break;
+                                case "PreviousInternships":
+                                    String[] previousInternships2 = parts2[1].split(",");
+                                    for (String s : previousInternships2){
+                                        previousInternships.add(s.trim());
+                                    }
+                                    break;
+                                default:
+                                    break;
+                            }
                         }
                     }
+                    catch (Exception e) {
+                        System.out.println("Error parsing line: " + line2);
+                        System.out.println("    "+e);
+                    }
+                }
+
+                if (name.equals("NoName")){
+                    System.out.println("No Name found");
+                }
+                if (age == 0) {
+                    System.out.println("No Age found");
+                }
+                if (gender.equals("NoGender")) {
+                    System.out.println("No Gender found");
+                }
+                if (year == 0) {
+                    System.out.println("No Year found");
+                }
+                if (major.equals("NoMajor")) {
+                    System.out.println("No Major found");
+                }
+                if (gpa == 0) {
+                    System.out.println("No GPA found");
                 }
 
                 uniStudentsList.add(new UniversityStudent(name, age, gender, year, major, gpa, roommatePreferences, previousInternships));
