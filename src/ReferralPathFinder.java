@@ -36,7 +36,7 @@ public class ReferralPathFinder {
                 visited.add(student);
                 for (Edge nextEdge : graph.getEdges(student)) {
                     UniversityStudent nextStudent = nextEdge.getStudent();
-                    int weight = nextEdge.getWeight();
+                    int weight = 10 - nextEdge.getWeight();
                     if (!visited.contains(nextStudent)) {
                         int newDistance = distances.get(student) + weight;
                         if (!distances.containsKey(nextStudent) || newDistance < distances.get(nextStudent)) {
@@ -55,6 +55,9 @@ public class ReferralPathFinder {
             current = parents.get(current);
         }
         Collections.reverse(path);
+        for(UniversityStudent student : path) {
+            System.out.println(student.getName());
+        }   
         return path;
     }
 
