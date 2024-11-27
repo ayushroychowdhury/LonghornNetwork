@@ -19,10 +19,7 @@ public class Main {
 
             // Roommate matching
             GaleShapley.assignRoommates(students);
-            System.out.println("Roommate matching has been completed.");
-            for (UniversityStudent student : students) {
-                System.out.println(student.getName() + " is roommates with " + student.getRoommate());
-            }
+            System.out.println(students.toString() + "\n");
 
 
             // Pod formation

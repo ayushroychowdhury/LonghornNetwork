@@ -144,8 +144,13 @@ public class UniversityStudent extends Student {
         result += "Year: " + year + "\n";
         result += "Major: " + major + "\n";
         result += "GPA: " + gpa + "\n";
+        if(roommate != null) {
+            result += "Roommate: " + roommate + "\n";
+        } else {
+            result += "Roommate: None\n";
+        }
         result += "Roommate Preferences: " + roommatePreferences + "\n";
-        result += "Previous Internships: " + previousInternships + "\n";
+        result += "Previous Internships: " + previousInternships + "\n\n";
         return result;
     }
 }

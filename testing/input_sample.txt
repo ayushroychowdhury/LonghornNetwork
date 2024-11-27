@@ -5,7 +5,7 @@ Gender: Female
 Year: 2
 Major: Computer Science
 GPA: 3.8
-RoommatePreferences: Bob, Charlie
+RoommatePreferences: Gary, Bob, Charlie
 PreviousInternships: Google, Amazon
 
 Student:
@@ -15,7 +15,7 @@ Gender: Male
 Year: 3
 Major: Electrical Engineering
 GPA: 3.5
-RoommatePreferences: Alice
+RoommatePreferences: Charlie, Gary, Alice
 PreviousInternships: Microsoft
 
 Student:
@@ -25,5 +25,15 @@ Gender: Male
 Year: 3
 Major: Electrical Engineering
 GPA: 3.5
-RoommatePreferences: Bob
+RoommatePreferences: Gary, Bob, Alice
 PreviousInternships: Microsoft
+
+Student:
+Name: Gary
+Age: 20
+Gender: Male
+Year: 2
+Major: Computer Science
+GPA: 3.8
+RoommatePreferences: Charlie, Bob, Alice
+PreviousInternships: Google, Amazon
