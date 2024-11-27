@@ -3,6 +3,9 @@
  * This handles sending a message from the sender to the receiver.
  */
 public class ChatThread implements Runnable {
+    private final UniversityStudent sender;
+    private final UniversityStudent receiver;
+    private final String message;
     /**
      * a chat thread with a sender, receiver, and a message.
      * @param sender the student sending the message
@@ -11,6 +14,9 @@ public class ChatThread implements Runnable {
      */
     public ChatThread(UniversityStudent sender, UniversityStudent receiver, String message) {
         // Constructor
+        this.sender = sender;
+        this.receiver = receiver;
+        this.message = message;
     }
 
     /**
@@ -20,5 +26,6 @@ public class ChatThread implements Runnable {
     @Override
     public void run() {
         // Method signature only
+        //????????
     }
 }

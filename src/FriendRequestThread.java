@@ -2,6 +2,8 @@
  * a thread to handle sending a friend request between two university students.
  */
 public class FriendRequestThread implements Runnable {
+    private final UniversityStudent sender;
+    private final UniversityStudent receiver;
     /**
      * make a FriendRequestThread with a sender and a receiver.
      *
@@ -9,7 +11,8 @@ public class FriendRequestThread implements Runnable {
      * @param receiver the student receiving the friend request
      */
     public FriendRequestThread(UniversityStudent sender, UniversityStudent receiver) {
-        // Constructor
+        this.sender = sender;
+        this.receiver = receiver;
     }
 
     /**
@@ -18,6 +21,10 @@ public class FriendRequestThread implements Runnable {
      */
     @Override
     public void run() {
-        // Method signature only
+        System.out.println(sender.name + " sent a friend request to " + receiver.name);
+        synchronized (receiver) {
+            //when accept or reject?
+            System.out.println(receiver.name + " accepted the friend request from " + sender.name);
+        }
     }
 }
