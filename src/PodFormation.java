@@ -27,6 +27,7 @@ public class PodFormation {
         Set<UniversityStudent> visited = new HashSet<>();
         List<UniversityStudent> allStudents = new ArrayList<>(graph.getAllStudents());
 
+        //for all students
         for (UniversityStudent student : allStudents) {
             //graph.printerGraph(UniversityStudent student);
             if (!visited.contains(student)) {
@@ -77,6 +78,7 @@ public class PodFormation {
         PriorityQueue<Edge> edgeQueue = new PriorityQueue<>(Comparator.comparingInt(e -> e.weight));
         Set<UniversityStudent> inPod = new HashSet<>();
 
+        //initialise
         UniversityStudent start = component.get(0);
         addEdgesToQueue(start, edgeQueue, inPod);
 
@@ -88,14 +90,17 @@ public class PodFormation {
             currentPod.add(edge.student2);
             inPod.add(edge.student2);
 
+            //add edge
             addEdgesToQueue(edge.student2, edgeQueue, inPod);
 
+            //start a new one if the current one is full
             if (currentPod.size() == podSize) {
                 pods.add(new ArrayList<>(currentPod));
                 currentPod.clear();
             }
         }
 
+        //add the remaining students as a pod
         if (!currentPod.isEmpty()) {
             pods.add(currentPod);
         }
