@@ -35,5 +35,15 @@ Gender: Male
 Year: 2
 Major: Computer Science
 GPA: 3.8
-RoommatePreferences: Charlie, Bob, Alice
+RoommatePreferences: Beavis, Bob, Alice
 PreviousInternships: Google, Amazon
+
+Student:
+Name: Beavis
+Age: 20
+Gender: Idiot
+Year: 1
+Major: Mechanical Engineering
+GPA: 1.0
+RoommatePreferences: 
+PreviousInternships: Butthead Inc.,

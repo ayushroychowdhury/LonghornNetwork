@@ -37,7 +37,23 @@ public class UniversityStudent extends Student {
         if (other instanceof UniversityStudent) {
             UniversityStudent otherStudent = (UniversityStudent) other;
             int connectionStrength = 0;
-            
+            if(roommate != null && roommate.equals(otherStudent.getName())) {
+                connectionStrength += 5;
+            }
+            for(String internship : previousInternships) {
+                if(otherStudent.getPreviousInternships().contains(internship)) {
+                    connectionStrength += 4;
+                }
+            }
+            if(major.equals(otherStudent.getMajor())) {
+                connectionStrength += 3;
+            }
+            if(this.age == otherStudent.getAge()) {
+                connectionStrength += 2;
+            }
+            if(connectionStrength >= 10) {
+                connectionStrength = 10;
+            }
             return connectionStrength;
         }
         return 0;

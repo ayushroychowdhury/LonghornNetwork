@@ -14,21 +14,19 @@ public class Main {
         String inputFile = args[0];
         try {
             List<UniversityStudent> students = DataParser.parseStudents(inputFile);
-            System.out.println(students.size() + " students have been loaded.");
-            System.out.println(students.toString());
 
             // Roommate matching
             GaleShapley.assignRoommates(students);
-            System.out.println(students.toString() + "\n");
-
 
             // Pod formation
             StudentGraph graph = new StudentGraph(students);
+            System.out.println(graph);
             PodFormation podFormation = new PodFormation(graph);
             podFormation.formPods(4);
 
             // Referral path finding
             ReferralPathFinder pathFinder = new ReferralPathFinder(graph);
+            pathFinder.findReferralPath(students.get(0), "Butthead Inc.");
             // TODO: Implement user interaction for specifying a target company
 
         } catch (IOException e) {
