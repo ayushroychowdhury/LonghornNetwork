@@ -1,4 +1,6 @@
 public class FriendRequestThread implements Runnable {
+    UniversityStudent sender;
+    UniversityStudent receiver;
     /**
      * Constructor for FriendRequestThread
      * @param sender
@@ -6,6 +8,8 @@ public class FriendRequestThread implements Runnable {
      */
     public FriendRequestThread(UniversityStudent sender, UniversityStudent receiver) {
         // Constructor
+        this.sender = sender;
+        this.receiver = receiver;
     }
 
     /**
@@ -14,5 +18,15 @@ public class FriendRequestThread implements Runnable {
     @Override
     public void run() {
         // Method signature only
+        System.out.println(sender.getName() + " sent a friend request to " + receiver.getName());
+    }
+
+    /**
+     * Updates the friend request history of the sender and receiver
+     */
+    private void updateFriendRequestHistory() {
+        // Updates the friend request history of the sender and receiver
+        Main.friends.get(sender.getName()).add(receiver);
+        Main.chatHistory.add(sender.getName() + " sent a friend request to " + receiver.getName());
     }
 }

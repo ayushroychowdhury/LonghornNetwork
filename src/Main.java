@@ -1,7 +1,14 @@
 import java.io.IOException;
 import java.util.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 public class Main {
+    public HashMap<String, UniversityStudent> students;
+    public static HashMap<String, List<UniversityStudent>> friends;
+    public static ArrayList<String> chatHistory;
+
     /**
      * Main method that runs the Longhorn Network Simulation.
      * @param args
@@ -29,8 +36,46 @@ public class Main {
             pathFinder.findReferralPath(students.get(0), "Butthead Inc.");
             // TODO: Implement user interaction for specifying a target company
 
+            // Friend request simulation
+            simulateFriendRequests(students);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * Simulates friend requests between students.
+     * @param students
+     */
+    public static void simulateFriendRequests(List<UniversityStudent> students) {
+        ExecutorService executor = Executors.newCachedThreadPool();
+        try {
+            for (UniversityStudent student : students) {
+                for (UniversityStudent other : students) {
+                    if (!student.equals(other)) {
+                        executor.submit(new FriendRequestThread(student, other));
+                    }
+                }
+            }
+            for (UniversityStudent student : students) {
+                for (UniversityStudent other : students) {
+                    if (!student.equals(other)) {
+                        executor.submit(new ChatThread(student, other, "Hello!"));
+                    }
+                }
+            }
+        } finally {
+            executor.shutdown();
+            try {
+                if (!executor.awaitTermination(10, TimeUnit.SECONDS)) {
+                    executor.shutdownNow();
+                }
+            } catch (InterruptedException e) {
+                executor.shutdownNow();
+                Thread.currentThread().interrupt();
+            }
+        }
+        
     }
 }

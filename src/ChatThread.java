@@ -1,4 +1,7 @@
 public class ChatThread implements Runnable {
+    UniversityStudent sender;
+    UniversityStudent receiver;
+    String message;
     /**
      * Constructor for ChatThread
      * @param sender
@@ -7,6 +10,9 @@ public class ChatThread implements Runnable {
      */
     public ChatThread(UniversityStudent sender, UniversityStudent receiver, String message) {
         // Constructor
+        this.sender = sender;
+        this.receiver = receiver;
+        this.message = message;
     }
 
     /**
@@ -15,5 +21,15 @@ public class ChatThread implements Runnable {
     @Override
     public void run() {
         // Method signature only
+        updateChatHistory();
+    }
+
+    /**
+     * Updates the chat history of the sender and receiver
+     */
+    private void updateChatHistory() {
+        // Updates the chat history of the sender and receiver
+        System.out.println(sender.name + " sent a message to " + receiver.name + ": " + message);
+        Main.chatHistory.add(sender.name + " sent a message to " + receiver.name + ": " + message);
     }
 }
