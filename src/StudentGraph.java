@@ -66,6 +66,15 @@ public class StudentGraph {
     }
 
     /**
+     * Retrieves all students (nodes) in the graph.
+     *
+     * @return a set of all students in the graph
+     */
+    public Set<UniversityStudent> getAllStudents() {
+        return relationshipMap.keySet();
+    }
+
+    /**
      * Performs a bfs starting from a given student
      * to find a path to another student who has interned at the specified company.
      *
@@ -111,12 +120,30 @@ public class StudentGraph {
      */
     private List<UniversityStudent> buildPath(Map<UniversityStudent, UniversityStudent> parentMap,
                                               UniversityStudent start, UniversityStudent end) {
-                                                List <UniversityStudent> path = new ArrayList<>();
-                                                for (UniversityStudent at = end; at != null; at = parentMap.get(at)) {
-                                                    path.add(at);
-                                                }
-                                                Collections.reverse(path);
-                                                return path;
-                                              }
+        List <UniversityStudent> path = new ArrayList<>();
+        for (UniversityStudent at = end; at != null; at = parentMap.get(at)) {
+            path.add(at);
+        }
+        Collections.reverse(path);
+        return path;
+    }
+
+    public void printerGraph(UniversityStudent student) {
+        if (!relationshipMap.containsKey(student)) {
+            System.out.println("Student not found in the graph.");
+            return;
+        }
+
+        List<UniversityStudent> connections = relationshipMap.get(student);
+        System.out.println("Connections for " + student.name + ":");
+
+        if (connections.isEmpty()) {
+            System.out.println("  No connections.");
+        } else {
+            for (UniversityStudent connection : connections) {
+                System.out.println("  - " + connection.name);
+            }
+        }
+    }
 }
 
