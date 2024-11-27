@@ -18,7 +18,7 @@ public class FriendRequestThread implements Runnable {
     @Override
     public void run() {
         // Method signature only
-        System.out.println(sender.getName() + " sent a friend request to " + receiver.getName());
+        updateFriendRequestHistory();
     }
 
     /**
