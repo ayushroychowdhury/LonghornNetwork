@@ -30,7 +30,9 @@ public class PodFormation {
      * @param podSize the maxNumber of students in a Pod
      */
     public void formPods(int podSize) {
+        // Copy the original graph and create an array of visited students
         StudentGraph tempGraph = new StudentGraph(podGraph);
+        List<UniversityStudent> visited = new ArrayList<>();
 
         // All students in the Graph need to be in a Pod
         // So continue this loop until no Students exist
@@ -43,10 +45,13 @@ public class PodFormation {
             UniversityStudent PBAC = tempGraph.getRoot();
             if (PBAC == null) {break;}
             workingGraph.addStudent(PBAC);
-            List<UniversityStudent> visited = new ArrayList<>();
             visited.add(PBAC);
             tempGraph.removeStudent(PBAC);
+
+            // DEBUG
             System.out.println("PBAC Node for PodFormation: " + PBAC.getName());
+            System.out.println("TempGraph before pod formation: ");
+            tempGraph.printGraph();
 
             // Continue Creating a Pod until the podSize is reached or there are no more students in the original graph;
             while (workingGraph.numberOfStudents() < podSize) {
@@ -73,6 +78,12 @@ public class PodFormation {
                         throw new Exception();
                     }
 
+                    if (visited.contains(strongestEdge.getDestStudent())){
+                        continue;
+                    }
+
+                    // Add Edges and student into subGraph
+                    // source Student is guaranteed to already exit in the graph
                     workingGraph.addEdge(strongestEdge.getSourceStudent(), strongestEdge);
                     workingGraph.addStudent(strongestEdge.getDestStudent());
                     workingGraph.addEdge(strongestEdge.getDestStudent(), strongestEdge.getSourceStudent(), strongestEdge.getWeight());
@@ -83,6 +94,9 @@ public class PodFormation {
                    break;
                 }
             }
+
+            System.out.println("PodGraph: ");
+            workingGraph.printGraph();
 
             pods.add(workingGraph);
         }

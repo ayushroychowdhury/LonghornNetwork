@@ -26,6 +26,43 @@ public class StudentGraph {
         }
 
         // Print out Constructed Graph
+        System.out.println("Constructed Graph: ");
+        printGraph();
+    }
+
+    /**
+     * Construct an empty student Graph
+     */
+    public StudentGraph() {
+        graph = new HashMap<>();
+
+        System.out.println("Constructed Graph: ");
+        printGraph();
+    }
+
+    /**
+     * Construct a graph from an existing graph
+     * Everything but UniversityStudent objects are deep-copied
+     * @param original StudentGraph
+     */
+    public StudentGraph(StudentGraph original){
+        graph = new HashMap<>();
+        for (Map.Entry<UniversityStudent, List<StudentGraphEdge>> entry : original.graph.entrySet()) {
+            graph.put(entry.getKey(), new LinkedList<>());
+            for (StudentGraphEdge edge : entry.getValue()) {
+                graph.get(entry.getKey()).add(new StudentGraphEdge(edge.getSourceStudent(), edge.getDestStudent(), edge.getWeight()));
+            }
+        }
+
+        System.out.println("Constructed Graph: ");
+        printGraph();
+    }
+
+    /**
+     * DEBUG
+     * Print Out Constructed Graph
+     */
+    public void printGraph() {
         for (UniversityStudent student : graph.keySet()) {
             System.out.print(student.getName() + " -> ");
             List<StudentGraphEdge> edges = graph.get(student);
@@ -37,22 +74,6 @@ public class StudentGraph {
             }
             System.out.println();
         }
-    }
-
-    /**
-     * Construct an empty student Graph
-     */
-    public StudentGraph() {
-        graph = new HashMap<>();
-    }
-
-    /**
-     * Construct a graph from an existing graph
-     * @param graph StudentGraph
-     */
-    public StudentGraph(StudentGraph graph){
-        this.graph = new HashMap<>();
-        this.graph.putAll(graph.graph);
     }
 
     /**
@@ -78,6 +99,20 @@ public class StudentGraph {
             students.add(student);
         }
         return students;
+    }
+
+    /**
+     * Get a UniversityStudent Object from the Graph via it's name
+     * @param name String
+     * @return UniversityStudent
+     */
+    public UniversityStudent getStudent(String name) {
+        for (UniversityStudent student : graph.keySet()) {
+            if (student.getName().equals(name)) {
+                return student;
+            }
+        }
+        return null;
     }
 
     /**

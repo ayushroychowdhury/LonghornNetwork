@@ -25,6 +25,9 @@ public class Main {
             // Referral path finding
             ReferralPathFinder pathFinder = new ReferralPathFinder(graph);
             // TODO: Implement user interaction for specifying a target company
+            pathFinder.findReferralPath(graph.getStudent("Timmy"), "FindMe");
+            pathFinder.findReferralPath(graph.getStudent("Issac"), "FindMe");
+            pathFinder.findReferralPath(graph.getStudent("Timmy"), "IDontExist");
 
         } catch (IOException e) {
             e.printStackTrace();
