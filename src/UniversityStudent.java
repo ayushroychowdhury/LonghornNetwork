@@ -58,17 +58,17 @@ public class UniversityStudent extends Student {
             }
         }
         // interacted can be one-way but friends must be two-way
-        if (Main.friends.containsKey(name) && Main.friends.containsKey(other.name) && (Main.interacted.containsKey(name) || Main.interacted.containsKey(other.name))) {
-            if (Main.interacted.get(name).contains(other.name) || Main.friends.get(name).contains(other.name) && Main.friends.get(other.name).contains(name)) {
-                connectionStrength += 3;
-            }
-        }
+//        if (Main.friends.containsKey(name) && Main.friends.containsKey(other.name) && (Main.interacted.containsKey(name) || Main.interacted.containsKey(other.name))) {
+//            if (Main.interacted.get(name).contains(other.name) || Main.friends.get(name).contains(other.name) && Main.friends.get(other.name).contains(name)) {
+//                connectionStrength += 3;
+//            }
+//        }
 
         if (major.equals(other.major)) {
-            connectionStrength += 2;
+            connectionStrength += 3;
         }
         if (age == other.age) {
-            connectionStrength += 1;
+            connectionStrength += 2;
         }
 
         return connectionStrength;

@@ -31,7 +31,7 @@ public class ReferralPathFinder {
         Map<String, UniversityStudent> previousStudent = new HashMap<>(); // For reconstructing the path
         Set<String> visited = new HashSet<>(); // To track visited nodes
 
-        // Initialize the priority queue with the starting student
+        // Initialize
         pq.add(new DijkstraNode(start, 0, null));
         distances.put(start.name, 0);
 
