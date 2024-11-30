@@ -27,7 +27,7 @@ public class StudentGraph {
                 if (!student.equals(other)) {
                     int connectionStrength = student.calculateConnectionStrength(other);
                     if (connectionStrength > 0) {
-                        adjacencyList.get(student).add(new StudentEdge(other, connectionStrength));
+                        adjacencyList.get(student).add(new StudentEdge(student, other, connectionStrength));
                     }
                 }
             }
@@ -51,7 +51,7 @@ public class StudentGraph {
     public List<UniversityStudent> getAdjacentStudents(UniversityStudent student) {
         List<UniversityStudent> adjacentStudents = new ArrayList<UniversityStudent>();
         for (StudentEdge edge : adjacencyList.get(student)) {
-            adjacentStudents.add((UniversityStudent) edge.getStudent());
+            adjacentStudents.add((UniversityStudent) edge.getTargetStudent());
         }
         return adjacentStudents;
     }
@@ -63,5 +63,17 @@ public class StudentGraph {
      */
     public List<StudentEdge> getEdges(UniversityStudent student) {
         return adjacencyList.get(student);
+    }
+
+    public List<StudentEdge> getNonCyclicEdges(List<Student> mstNodes){
+        List<StudentEdge> nonCyclicEdges = new ArrayList<StudentEdge>();
+        for(Student student : mstNodes){
+            for(StudentEdge edge : adjacencyList.get(student)){
+                if(!mstNodes.contains(edge.getTargetStudent())){
+                    nonCyclicEdges.add(edge);
+                }
+            }
+        }
+        return nonCyclicEdges;
     }
 }
