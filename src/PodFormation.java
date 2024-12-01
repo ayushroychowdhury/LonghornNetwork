@@ -27,7 +27,9 @@ public class PodFormation {
             }
         });
         for(UniversityStudent start : students) {
+            System.out.println("Start: " + start.getName());
             if(visited.contains(start)) {
+                System.out.println("Already visited");
                 continue;
             }
             pods.put(start, new ArrayList<>());
@@ -40,8 +42,8 @@ public class PodFormation {
                 Edge edge = pq.poll();
                 UniversityStudent student = edge.getStudent();
                 if (!visited.contains(student)) {
-                    visited.add(student);
                     if(pods.get(start).size() < podSize) {
+                        visited.add(student);
                         pods.get(start).add(student);
                     } else {
                         break;

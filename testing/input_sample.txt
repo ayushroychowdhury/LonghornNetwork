@@ -41,9 +41,19 @@ PreviousInternships: Google, Amazon
 Student:
 Name: Beavis
 Age: 20
-Gender: Idiot
+Gender: Male
 Year: 1
 Major: Mechanical Engineering
 GPA: 1.0
 RoommatePreferences: 
-PreviousInternships: Butthead Inc.,
+PreviousInternships: Butthead Inc.
+
+Student:
+Name: John
+Age: 21
+Gender: Male
+Year: 1
+Major: Biomedical Engineering
+GPA: 3.0
+RoommatePreferences: Alice
+PreviousInternships: 
