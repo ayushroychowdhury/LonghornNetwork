@@ -10,13 +10,13 @@ public class PodFormation {
     public PodFormation(StudentGraph graph) {
         // Constructor
         this.graph = graph;
-        pods = new HashMap<>();
+        pods = new HashMap<UniversityStudent, List<UniversityStudent>>();
     }
     /**
      * Forms pods of the given size using Prims algorithm.
      * @param podSize
      */
-    public void formPods(int podSize) {
+    public Map<UniversityStudent, List<UniversityStudent>> formPods(int podSize) {
         // Forms pods of the given size using Prims algorithm
         List<UniversityStudent> students = graph.getStudents();
         Set<UniversityStudent> visited = new HashSet<>();
@@ -26,29 +26,33 @@ public class PodFormation {
                 return e1.getWeight() - e2.getWeight();
             }
         });
-        UniversityStudent start = students.get(0);
-        pods.put(start, new ArrayList<>());
-        pods.get(start).add(start);
-        visited.add(start);
-        for (Edge edge : graph.getEdges(start)) {
-            pq.add(edge);
-        }
-        while (!pq.isEmpty()) {
-            Edge edge = pq.poll();
-            UniversityStudent student = edge.getStudent();
-            if (!visited.contains(student)) {
-                visited.add(student);
-                if(pods.get(start).size() < podSize) {
-                    pods.get(start).add(student);
-                } else {
-                    start = student;
-                    pods.put(start, new ArrayList<>());
-                    pods.get(start).add(start);
-                }
-                for (Edge nextEdge : graph.getEdges(student)) {
-                    pq.add(nextEdge);
+        for(UniversityStudent start : students) {
+            if(visited.contains(start)) {
+                continue;
+            }
+            pods.put(start, new ArrayList<>());
+            pods.get(start).add(start);
+            visited.add(start);
+            for (Edge edge : graph.getEdges(start)) {
+                pq.add(edge);
+            }
+            while (!pq.isEmpty()) {
+                Edge edge = pq.poll();
+                UniversityStudent student = edge.getStudent();
+                if (!visited.contains(student)) {
+                    visited.add(student);
+                    if(pods.get(start).size() < podSize) {
+                        pods.get(start).add(student);
+                    } else {
+                        break;
+                    }
+                    for (Edge nextEdge : graph.getEdges(student)) {
+                        pq.add(nextEdge);
+                    }
                 }
             }
+            pq.clear();
         }
+        return pods;
     }
 }

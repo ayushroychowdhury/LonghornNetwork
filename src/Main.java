@@ -31,7 +31,7 @@ public class Main {
             // Pod formation
             StudentGraph graph = new StudentGraph(students);
             PodFormation podFormation = new PodFormation(graph);
-            podFormation.formPods(4);
+            Map<UniversityStudent, List<UniversityStudent>> pods = podFormation.formPods(4);
 
             // Referral path finding
             ReferralPathFinder pathFinder = new ReferralPathFinder(graph);
@@ -40,17 +40,26 @@ public class Main {
 
             // Friend request simulation
             simulateFriendRequests(students);
+
+            // Output results
+            System.out.println("\n\nRoommates:");
             for (UniversityStudent student : students) {
                 System.out.println(student.getName() + " is roommates with:");
                 System.out.println(student.getRoommate());
             }
-            for (UniversityStudent student : students) {
-                System.out.println(student.getName() + " is in a pod with:");
-                for(UniversityStudent podmate : podFormation.pods.get(student)) {
-                    System.out.println(podmate.getName());
+            // Student Graph output
+            System.out.println("\n\nStudent Graph:");
+            System.out.println(graph);
+            System.out.println("\n\nPods:");
+            for (UniversityStudent student : pods.keySet()) {
+                System.out.println("Pod: " + student.getName());
+                for (UniversityStudent podMember : pods.get(student)) {
+                    System.out.println(podMember.getName());
                 }
+                System.out.println();
             }
-            System.out.println("Referral path to Butthead Inc.:");
+            System.out.println("\n\n");
+            System.out.println("Referral path to Butthead Inc:");
             for (UniversityStudent student : pathFinder.findReferralPath(students.get(0), "Butthead Inc.")) {
                 System.out.println(student.getName());
             }
