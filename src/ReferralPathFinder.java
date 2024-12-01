@@ -1,7 +1,7 @@
 import java.util.*;
 
 public class ReferralPathFinder {
-    StudentGraph graph;
+    private StudentGraph graph;
     /**
      * Constructor for the ReferralPathFinder class.
      * @param graph

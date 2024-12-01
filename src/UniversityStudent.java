@@ -150,7 +150,7 @@ public class UniversityStudent extends Student {
                 return i;
             }
         }
-        return -1;
+        return Integer.MAX_VALUE;
     }
 
     public String toString() {

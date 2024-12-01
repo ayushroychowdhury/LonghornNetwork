@@ -40,6 +40,20 @@ public class Main {
 
             // Friend request simulation
             simulateFriendRequests(students);
+            for (UniversityStudent student : students) {
+                System.out.println(student.getName() + " is roommates with:");
+                System.out.println(student.getRoommate());
+            }
+            for (UniversityStudent student : students) {
+                System.out.println(student.getName() + " is in a pod with:");
+                for(UniversityStudent podmate : podFormation.pods.get(student)) {
+                    System.out.println(podmate.getName());
+                }
+            }
+            System.out.println("Referral path to Butthead Inc.:");
+            for (UniversityStudent student : pathFinder.findReferralPath(students.get(0), "Butthead Inc.")) {
+                System.out.println(student.getName());
+            }
 
         } catch (IOException e) {
             e.printStackTrace();
