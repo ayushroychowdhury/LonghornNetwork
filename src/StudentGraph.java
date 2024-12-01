@@ -76,4 +76,46 @@ public class StudentGraph {
         }
         return nonCyclicEdges;
     }
+
+    /**
+     * Divides a graph into groups with a maximum size. The groups are connected in the graph.
+     * @param nodes Nodes of the graph
+     * @param edges Edges of the graph
+     * @param maxSize Maximum size of the groups
+     * @return List of groups of nodes
+     */
+    public static List<List<Student>> divideGraph(List<Student> nodes, List<StudentEdge> edges, int maxSize){
+        List<List<Student>> groups = new ArrayList<List<Student>>();
+        List<Student> visited = new ArrayList<Student>();
+        for(Student node : nodes){
+            if(!visited.contains(node)){
+                List<Student> group = new ArrayList<Student>();
+                group.add(node);
+                visited.add(node);
+                divideGraphHelper(node, edges, visited, group, maxSize);
+                groups.add(group);
+            }
+        }
+        return groups;
+    }
+
+    /**
+     * Recursive method that adds connected nodes to a group in a graph
+     * @param node Node from which to continue adding connected nodes
+     * @param edges Edges of the graph
+     * @param visited List of visited nodes
+     * @param group current group of nodes
+     * @param maxSize Maximum size of the groups
+     */
+    private static void divideGraphHelper(Student node, List<StudentEdge> edges, List<Student> visited, List<Student> group, int maxSize){
+        for(StudentEdge edge : edges){
+            if(edge.getSourceStudent().equals(node) && !visited.contains(edge.getTargetStudent())){
+                visited.add(edge.getTargetStudent());
+                group.add(edge.getTargetStudent());
+                if(group.size() < maxSize){
+                    divideGraphHelper(edge.getTargetStudent(), edges, visited, group, maxSize);
+                }
+            }
+        }
+    }
 }

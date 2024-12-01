@@ -48,8 +48,20 @@ public class PodFormation {
                 potentialEdges = new ArrayList<StudentEdge>(graph.getNonCyclicEdges(mstNodes));
             }
         }
+        System.out.println("Formation of MST completed.");
 
         /* Second part: divide minimum spanning forest in pods with size <= podSize */
-        System.out.printf("Formation of pods completed.");
+        pods = StudentGraph.divideGraph(mstNodes, mstEdges, podSize);
+
+        /* Print pods */
+        System.out.println("Pods formed:");
+        for (int i=0; i<pods.size(); i++) {
+            System.out.print("Pod " + (i+1) + ": ");
+            List<Student> pod = pods.get(i);
+            for (Student student: pod){
+                System.out.print(student.getName() + " ");
+            }
+            System.out.println();
+        }
     }
 }

@@ -33,4 +33,12 @@ public class StudentEdge {
     public int getWeight() {
         return weight;
     }
+
+    /**
+     * Gets the source student of the edge
+     * @return the source student of the edge
+     */
+    public Student getSourceStudent() {
+        return sourceStudent;
+    }
 }
