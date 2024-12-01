@@ -118,4 +118,31 @@ public class StudentGraph {
             }
         }
     }
+
+
+    /**
+     * Inverts the weights of all edges in the graph to a value between 0 and 10
+     */
+    public void invertWeights(){
+        for(UniversityStudent student : adjacencyList.keySet()){
+            for(StudentEdge edge : adjacencyList.get(student)){
+                edge.invertWeight();
+            }
+        }
+    }
+
+    /**
+     * Gets the weight of the edge between two students
+     * @param current the current student
+     * @param neighbor the neighboring student
+     * @return the weight of the edge between the two students
+     */
+    public Integer getEdgeWeight(UniversityStudent current, UniversityStudent neighbor) {
+        for (StudentEdge edge : adjacencyList.get(current)) {
+            if (edge.getTargetStudent().equals(neighbor)) {
+                return edge.getWeight();
+            }
+        }
+        return 0;
+    }
 }

@@ -41,4 +41,14 @@ public class StudentEdge {
     public Student getSourceStudent() {
         return sourceStudent;
     }
+
+    /**
+     * Inverts the weight of the edge to a value between 0 and 10
+     */
+    public void invertWeight() {
+        weight = 10 - weight;
+        if (weight < 0) {
+            weight = 0;
+        }
+    }
 }

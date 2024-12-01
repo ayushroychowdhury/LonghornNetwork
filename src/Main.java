@@ -27,6 +27,9 @@ public class Main {
             PodFormation podFormation = new PodFormation(graph);
             podFormation.formPods(4);
 
+            /* Invert weights in studentgraph for referral path finding */
+            graph.invertWeights();
+
             /* Referral path finding */
             ReferralPathFinder pathFinder = new ReferralPathFinder(graph);
             // TODO: Implement user interaction for specifying a target company
@@ -59,7 +62,16 @@ public class Main {
 
                 /* Get referral path */
                 List<UniversityStudent> referralPath = pathFinder.findReferralPath(start, targetCompany);
-                System.out.println("Referral Path: " + referralPath);
+
+                if(referralPath == null) {
+                    System.out.println("No path found.");
+                }else{
+                    System.out.print("Referral Path: ");
+                    for(UniversityStudent student : referralPath){
+                        System.out.print(student.getName() + " -> ");
+                    }
+                    System.out.println(targetCompany);
+                }
 
                 /* Ask if user wants to quit */
                 System.out.print("Do you want to quit? (y/n): ");
