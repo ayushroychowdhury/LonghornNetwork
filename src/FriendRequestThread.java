@@ -6,6 +6,8 @@ import java.util.HashSet;
 public class FriendRequestThread implements Runnable {
     private final UniversityStudent sender;
     private final UniversityStudent receiver;
+    private static final Object lock = new Object();
+
 
     /**
      * Friend request thread constructor.
@@ -33,8 +35,10 @@ public class FriendRequestThread implements Runnable {
      * Thread-safe method to update friends map
      */
     private synchronized void updateFriends() {
-        if (!Main.friends.containsKey(sender.name)) Main.friends.put(sender.name, new HashSet<String>());
-        Main.friends.get(sender.name).add(receiver.name);
-        Main.chatHistory.add(sender.name + " sent a friend request to " + receiver.name + ".");
+        synchronized (lock) {
+            if (!Main.friends.containsKey(sender.name)) Main.friends.put(sender.name, new HashSet<String>());
+            Main.friends.get(sender.name).add(receiver.name);
+            ChatThread.chatHistory.add(sender.name + " sent a friend request to " + receiver.name + ".");
+        }
     }
 }

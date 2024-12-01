@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.HashSet;
 
 /**
@@ -7,6 +8,9 @@ public class ChatThread implements Runnable {
     private final UniversityStudent sender;
     private final UniversityStudent receiver;
     private final String message;
+    private static final Object lock = new Object();
+    // Chat messages and friend requests are stored sequentially as strings
+    public static final ArrayList<String> chatHistory = new ArrayList<>();
 
     /**
      * Chat thread constructor.
@@ -36,10 +40,13 @@ public class ChatThread implements Runnable {
      * Thread-safe method to update map of interactions
      */
     private synchronized void updateInteractions() {
-        if (!Main.interacted.containsKey(sender.name)) Main.interacted.put(sender.name, new HashSet<String>());
-        if (!Main.interacted.containsKey(receiver.name)) Main.interacted.put(receiver.name, new HashSet<String>());
-        Main.interacted.get(sender.name).add(receiver.name);
-        Main.interacted.get(receiver.name).add(sender.name);
-        Main.chatHistory.add(sender.name + " says to " + receiver.name + ": " + message);
+        synchronized (lock) {
+            if (!Main.interacted.containsKey(sender.name)) Main.interacted.put(sender.name, new HashSet<String>());
+            if (!Main.interacted.containsKey(receiver.name)) Main.interacted.put(receiver.name, new HashSet<String>());
+            Main.interacted.get(sender.name).add(receiver.name);
+            Main.interacted.get(receiver.name).add(sender.name);
+            chatHistory.add(sender.name + " says to " + receiver.name + ": " + message);
+        }
+
     }
 }

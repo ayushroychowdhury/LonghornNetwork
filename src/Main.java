@@ -15,8 +15,7 @@ public class Main {
     public static HashMap<String, HashSet<String>> friends = new HashMap<>();
     public static HashMap<String, HashSet<String>> interacted = new HashMap<>();
 
-    // Chat messages and friend requests are stored sequentially as strings
-    public static ArrayList<String> chatHistory = new ArrayList<>();
+
 
     public static void main(String[] args) {
         if (args.length == 0) {
@@ -35,7 +34,7 @@ public class Main {
 
             // Use Gale Shapley to assign roommates
             GaleShapley.assignRoommates(students);
-            System.out.println("Roommate assignments:");
+            System.out.println("Roommate Assignments:");
             for (Student s : students) {
                 if (s.roommate != null) {
                     System.out.println(s.name + " is roommates with " + s.roommate);
@@ -63,8 +62,13 @@ public class Main {
             // Pod formation
             // StudentGraph graph = new StudentGraph(students);
             PodFormation podFormation = new PodFormation(graph);
-            System.out.println("Pods are as follows:");
-            System.out.println(podFormation.formPods(4));
+            System.out.println("Pod Assignments:");
+            List<List<String>> pods = podFormation.formPods(4);
+            int podNum = 0;
+            for (List<String> pod : pods) {
+                System.out.print("Pod " + ++podNum + ": ");
+                for (int i = 0 ; i < pod.size()-1 ; i++) System.out.print(pod.get(i) + ", "); System.out.println(pod.get(pod.size()-1));
+            }
             System.out.println();
 
 
@@ -81,7 +85,7 @@ public class Main {
 
             ArrayList<String> studentNames = new ArrayList<>();
             for (UniversityStudent s : students) studentNames.add(s.name);
-            // simulate(studentNames);
+            simulate(studentNames);
             //System.out.println(chatHistory);
 
         } catch (IOException e) {
@@ -97,37 +101,38 @@ public class Main {
 
         try {
             // Simulate friend requests
-            for (String student : students) {
-                for (String target : students) {
-                    if (!student.equals(target)) {
-                        executor.submit(new FriendRequestThread(nameMap.get(student), nameMap.get(target)));
-                    }
-                }
-            }
+            executor.submit(new FriendRequestThread(nameMap.get("Alice"), nameMap.get("Bob")));
+            executor.submit(new FriendRequestThread(nameMap.get("Bob"), nameMap.get("Alice")));
+            executor.submit(new FriendRequestThread(nameMap.get("Alice"), nameMap.get("Charlie")));
+            executor.submit(new FriendRequestThread(nameMap.get("Alice"), nameMap.get("Debbie")));
 
             // Simulate chat threads
-            for (String student : students) {
-                for (String target : students) {
-                    if (!student.equals(target)) {
-                        executor.submit(new ChatThread(nameMap.get(student), nameMap.get(target), "Hi " + target + " from " + student + "!"));
-                    }
-                }
-            }
+            executor.submit(new ChatThread(nameMap.get("Edward"), nameMap.get("Frank"), "Hello, longhorn!"));
+            executor.submit(new ChatThread(nameMap.get("Frank"), nameMap.get("Debbie"), "Hello, longhorn!"));
+            executor.submit(new ChatThread(nameMap.get("Charlie"), nameMap.get("Alice"), "Hello, longhorn!"));
+            executor.submit(new ChatThread(nameMap.get("Bob"), nameMap.get("Edward"), "Hello, longhorn!"));
+
         } finally {
             executor.shutdown();
+
             try {
-                if (!executor.awaitTermination(10, TimeUnit.SECONDS)) {
-                    executor.shutdownNow();
+                // Wait for all tasks to complete
+                if (!executor.awaitTermination(10, TimeUnit.SECONDS)) { // Adjust timeout as needed
+                    System.out.println("Some threads didn't finish in time, forcing shutdown.");
+                    executor.shutdownNow(); // Forcefully terminate running tasks
                 }
             } catch (InterruptedException e) {
+                System.out.println("Interrupted while waiting for threads to finish.");
                 executor.shutdownNow();
                 Thread.currentThread().interrupt();
             }
         }
 
         // Print results after simulation
-        System.out.println("Friend Lists:");
-        friends.forEach((student, friends) -> System.out.println(student + ": " + friends));
+        System.out.println("\nFriend Lists:");
+        for (String s : friends.keySet()) System.out.println(s + " is friends with " + friends.get(s));
+        System.out.println("\nChat History: " + ChatThread.chatHistory);
+
 
     }
 }
