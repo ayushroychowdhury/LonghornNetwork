@@ -2,7 +2,7 @@ import java.util.*;
 
 public class PodFormation {
     StudentGraph graph;
-    Map<UniversityStudent, List<UniversityStudent>> pods;
+    Map<Integer, List<UniversityStudent>> pods;
     /**
      * Constructs a PodFormation object with the given graph.
      * @param graph
@@ -10,13 +10,13 @@ public class PodFormation {
     public PodFormation(StudentGraph graph) {
         // Constructor
         this.graph = graph;
-        pods = new HashMap<UniversityStudent, List<UniversityStudent>>();
+        pods = new HashMap<Integer, List<UniversityStudent>>();
     }
     /**
      * Forms pods of the given size using Prims algorithm.
      * @param podSize
      */
-    public Map<UniversityStudent, List<UniversityStudent>> formPods(int podSize) {
+    public Map<Integer, List<UniversityStudent>> formPods(int podSize) {
         // Forms pods of the given size using Prims algorithm
         List<UniversityStudent> students = graph.getStudents();
         Set<UniversityStudent> visited = new HashSet<>();
@@ -27,13 +27,12 @@ public class PodFormation {
             }
         });
         for(UniversityStudent start : students) {
-            System.out.println("Start: " + start.getName());
             if(visited.contains(start)) {
-                System.out.println("Already visited");
                 continue;
             }
-            pods.put(start, new ArrayList<>());
-            pods.get(start).add(start);
+            int podId = pods.size() + 1;
+            pods.put(podId, new ArrayList<>());
+            pods.get(podId).add(start);
             visited.add(start);
             for (Edge edge : graph.getEdges(start)) {
                 pq.add(edge);
@@ -42,9 +41,9 @@ public class PodFormation {
                 Edge edge = pq.poll();
                 UniversityStudent student = edge.getStudent();
                 if (!visited.contains(student)) {
-                    if(pods.get(start).size() < podSize) {
+                    if(pods.get(podId).size() < podSize) {
                         visited.add(student);
-                        pods.get(start).add(student);
+                        pods.get(podId).add(student);
                     } else {
                         break;
                     }

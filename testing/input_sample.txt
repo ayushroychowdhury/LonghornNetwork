@@ -5,7 +5,7 @@ Gender: Female
 Year: 2
 Major: Computer Science
 GPA: 3.8
-RoommatePreferences: Gary, Bob, Charlie
+RoommatePreferences: Bob, Charlie
 PreviousInternships: Google, Amazon
 
 Student:
@@ -15,45 +15,5 @@ Gender: Male
 Year: 3
 Major: Electrical Engineering
 GPA: 3.5
-RoommatePreferences: Charlie, Gary, Alice
-PreviousInternships: Microsoft
-
-Student:
-Name: Charlie
-Age: 21
-Gender: Male
-Year: 3
-Major: Electrical Engineering
-GPA: 3.5
-RoommatePreferences: Gary, Bob, Alice
-PreviousInternships: Microsoft
-
-Student:
-Name: Gary
-Age: 20
-Gender: Male
-Year: 2
-Major: Computer Science
-GPA: 3.8
-RoommatePreferences: Beavis, Bob, Alice
-PreviousInternships: Google, Amazon
-
-Student:
-Name: Beavis
-Age: 20
-Gender: Male
-Year: 1
-Major: Mechanical Engineering
-GPA: 1.0
-RoommatePreferences: 
-PreviousInternships: Butthead Inc.
-
-Student:
-Name: John
-Age: 21
-Gender: Male
-Year: 1
-Major: Biomedical Engineering
-GPA: 3.0
 RoommatePreferences: Alice
-PreviousInternships: 
+PreviousInternships: Microsoft

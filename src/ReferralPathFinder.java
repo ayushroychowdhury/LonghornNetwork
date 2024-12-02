@@ -1,7 +1,10 @@
 import java.util.*;
 
 public class ReferralPathFinder {
-    private StudentGraph graph;
+    private final StudentGraph graph;
+    private Map<UniversityStudent, Integer> distances;
+    private Map<UniversityStudent, UniversityStudent> parents;
+    private Set<UniversityStudent> visited;
     /**
      * Constructor for the ReferralPathFinder class.
      * @param graph
@@ -18,9 +21,14 @@ public class ReferralPathFinder {
      */
     public List<UniversityStudent> findReferralPath(UniversityStudent start, String targetCompany) {
         // Finds the shortest referral path from the start student to the target company using Dijkstra's algorithm, inverting the edge weights
-        Map<UniversityStudent, Integer> distances = new HashMap<>();
-        Map<UniversityStudent, UniversityStudent> parents = new HashMap<>();
-        Set<UniversityStudent> visited = new HashSet<>();
+        distances = new HashMap<>();
+        parents = new HashMap<>();
+        visited = new HashSet<>();
+        for(UniversityStudent student : graph.getStudents()) {
+            distances.put(student, Integer.MAX_VALUE);
+            parents.put(student, null);
+            visited.clear();
+        }
         PriorityQueue<Edge> pq = new PriorityQueue<>(new Comparator<Edge>() {
             @Override
             public int compare(Edge e1, Edge e2) {
@@ -54,6 +62,9 @@ public class ReferralPathFinder {
             path.add(current);
             current = parents.get(current);
         }
+        if(path.size() == 1) {
+            return new ArrayList<>();
+        }
         Collections.reverse(path); 
         return path;
     }
@@ -65,11 +76,14 @@ public class ReferralPathFinder {
      */
     private UniversityStudent getStudentByCompany(String company) {
         // Returns the student with the given company name
+        UniversityStudent shortestStudent = null;
         for (UniversityStudent student : graph.getStudents()) {
             if (student.getPreviousInternships().contains(company)) {
-                return student;
+                if(shortestStudent == null || distances.get(student) < distances.get(shortestStudent)) {
+                    shortestStudent = student;
+                }
             }
         }
-        return null;
+        return shortestStudent;
     }
 }

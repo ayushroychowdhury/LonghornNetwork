@@ -31,7 +31,7 @@ public class Main {
             // Pod formation
             StudentGraph graph = new StudentGraph(students);
             PodFormation podFormation = new PodFormation(graph);
-            Map<UniversityStudent, List<UniversityStudent>> pods = podFormation.formPods(4);
+            Map<Integer, List<UniversityStudent>> pods = podFormation.formPods(4);
 
             // Referral path finding
             ReferralPathFinder pathFinder = new ReferralPathFinder(graph);
@@ -42,27 +42,30 @@ public class Main {
             simulateFriendRequests(students);
 
             // Output results
-            System.out.println("\n\nRoommates:");
+            System.out.println("\n\nRoommate Assignments:\n");
             for (UniversityStudent student : students) {
-                System.out.println(student.getName() + " is roommates with:");
-                System.out.println(student.getRoommate());
+                System.out.println(student.getName() + " is roommates with " + student.getRoommate());
             }
-            // Student Graph output
-            System.out.println("\n\nStudent Graph:");
-            System.out.println(graph);
-            System.out.println("\n\nPods:");
-            for (UniversityStudent student : pods.keySet()) {
-                System.out.println("Pod: " + student.getName());
-                for (UniversityStudent podMember : pods.get(student)) {
-                    System.out.println(podMember.getName());
+            System.out.println("\nPods:");
+            for (Integer i : pods.keySet()) {
+                System.out.print("Pod " + i + ": ");
+                System.out.print(pods.get(i).get(0).getName());
+                for (UniversityStudent podMember : pods.get(i)) {
+                    if(podMember != pods.get(i).get(0)) {
+                        System.out.print(", " + podMember.getName());
+                    }
                 }
                 System.out.println();
             }
-            System.out.println("\n\n");
-            System.out.println("Referral path to Butthead Inc:");
-            for (UniversityStudent student : pathFinder.findReferralPath(students.get(0), "Butthead Inc.")) {
-                System.out.println(student.getName());
+            System.out.println();
+            System.out.println("Referral path to Microsoft for " + students.get(0).getName() + ":");
+            System.out.print(students.get(0).getName());
+            for (UniversityStudent student : pathFinder.findReferralPath(students.get(0), "Microsoft")) {
+                if(student != students.get(0)) {
+                    System.out.print(" -> " + student.getName());
+                }
             }
+            System.out.println();
 
         } catch (IOException e) {
             e.printStackTrace();

@@ -16,19 +16,19 @@ public class DataParser {
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
                 if(line.equals("Student:")) {
-                    String name = scanner.nextLine().substring(6);
-                    int age = Integer.parseInt(scanner.nextLine().substring(5));
-                    String gender = scanner.nextLine().substring(8);
-                    int year = Integer.parseInt(scanner.nextLine().substring(6));
-                    String major = scanner.nextLine().substring(7);
-                    double gpa = Double.parseDouble(scanner.nextLine().substring(5));
+                    String name = scanner.nextLine().split(":")[1].trim();
+                    int age = Integer.parseInt(scanner.nextLine().split(":")[1].trim());
+                    String gender = scanner.nextLine().split(":")[1].trim();
+                    int year = Integer.parseInt(scanner.nextLine().split(":")[1].trim());
+                    String major = scanner.nextLine().split(":")[1].trim();
+                    double gpa = Double.parseDouble(scanner.nextLine().split(":")[1].trim());
                     List<String> roommatePreferences = new ArrayList<>();
-                    String preferences = scanner.nextLine().substring(20);
+                    String preferences = scanner.nextLine().split(":")[1].trim();
                     if (!preferences.equals("")) {
                         roommatePreferences = parseList(preferences);
                     }
                     List<String> previousInternships = new ArrayList<>();
-                    String internships = scanner.nextLine().substring(21);
+                    String internships = scanner.nextLine().split(":")[1].trim();
                     if (!internships.equals("")) {
                         previousInternships = parseList(internships);
                     }
