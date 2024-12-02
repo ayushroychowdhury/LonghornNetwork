@@ -2,6 +2,11 @@
  * ChatThread class that implements the Runnable interface and manages threads for chat messages
  */
 public class ChatThread implements Runnable {
+
+    private UniversityStudent sender;
+    private UniversityStudent receiver;
+    private String message;
+
     /**
      * Constructor for a ChatThread, which represents a chat message between two students
      * @param sender the student who sent the message
@@ -9,7 +14,9 @@ public class ChatThread implements Runnable {
      * @param message the message content
      */
     public ChatThread(UniversityStudent sender, UniversityStudent receiver, String message) {
-        // Constructor
+        this.sender = sender;
+        this.receiver = receiver;
+        this.message = message;
     }
 
     /**
@@ -17,6 +24,6 @@ public class ChatThread implements Runnable {
      */
     @Override
     public void run() {
-        // Method signature only
+        ChatManager.handleChatMessage(sender, receiver, message);
     }
 }
