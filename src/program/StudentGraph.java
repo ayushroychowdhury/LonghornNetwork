@@ -1,3 +1,5 @@
+package program;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -11,7 +13,7 @@ public class StudentGraph {
     private Map<UniversityStudent, List<StudentEdge>> adjacencyList;
 
     /**
-     * Constructor for a StudentGraph, which represents the connections between students
+     * Constructor for a program.StudentGraph, which represents the connections between students
      * @param students
      */
     public StudentGraph(List<UniversityStudent> students) {
@@ -36,8 +38,8 @@ public class StudentGraph {
     }
 
     /**
-     * Gets all the students in the StudentGraph
-     * @return a list of all the students in the StudentGraph
+     * Gets all the students in the program.StudentGraph
+     * @return a list of all the students in the program.StudentGraph
      */
     public List<UniversityStudent> getStudents() {
         return List.of(adjacencyList.keySet().toArray(new UniversityStudent[0]));

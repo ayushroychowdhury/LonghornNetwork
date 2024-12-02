@@ -1,7 +1,9 @@
+package program;
+
 import java.util.*;
 
 /**
- * A class that represents a university student and extends the Student class
+ * A class that represents a university student and extends the program.Student class
  */
 public class UniversityStudent extends Student {
 
@@ -68,9 +70,9 @@ public class UniversityStudent extends Student {
 
 
     /**
-     * Extracts student data from a list of strings and creates a UniversityStudent object
+     * Extracts student data from a list of strings and creates a program.UniversityStudent object
      * @param studentData the list of strings containing the student data in the format: Name, Age, Gender, Year, Major, GPA, RoommatePreferences, PreviousInternships
-     * @return a UniversityStudent object created from the student data, or null if the data is invalid
+     * @return a program.UniversityStudent object created from the student data, or null if the data is invalid
      */
     public static UniversityStudent createStudentFromData(ArrayList<String> studentData) {
         /* Check for proper length */
@@ -210,15 +212,15 @@ public class UniversityStudent extends Student {
             return null;
         }
 
-        /* Create new UniversityStudent with the extracted data and return it */
+        /* Create new program.UniversityStudent with the extracted data and return it */
         return new UniversityStudent(name, age, gender, year, major, gpa, roommatePreferences, previousInternships);
     }
 
     /**
-     * Finds UniversityStudent object from name
+     * Finds program.UniversityStudent object from name
      * @param name Name of the university student
      * @param students List of university students
-     * @return UniversityStudent object with the given name or null if not found
+     * @return program.UniversityStudent object with the given name or null if not found
      */
     public static UniversityStudent getStudentFromString(String name, List<UniversityStudent> students){
         for(UniversityStudent student : students){

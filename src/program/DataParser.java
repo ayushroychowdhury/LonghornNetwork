@@ -1,3 +1,5 @@
+package program;
+
 import java.io.*;
 import java.util.*;
 
@@ -6,9 +8,9 @@ import java.util.*;
  */
 public class DataParser {
     /**
-     * Parses the students from the given file and returns a list of UniversityStudent objects.
+     * Parses the students from the given file and returns a list of program.UniversityStudent objects.
      * @param filename The name of the file containing the data
-     * @return List of UniversityStudent objects
+     * @return List of program.UniversityStudent objects
      * @throws IOException If an error occurs while reading the file
      */
     public static List<UniversityStudent> parseStudents(String filename) throws IOException {
@@ -39,7 +41,7 @@ public class DataParser {
                     throw new IOException("Invalid student data in file: " + filename);
                 }
                 studentData.clear();
-            }else if (line.equals("Student:")){
+            }else if (line.equals("program.Student:")){
                 /* Do nothing */
                 studentData.clear();
             }else{

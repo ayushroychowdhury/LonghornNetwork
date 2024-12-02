@@ -65,8 +65,8 @@ This project simulates a social network called **Longhorn Network**, where stude
 
 Follow the steps below to implement the core functionality of the Longhorn Network. Each section provides specific details, common edge cases, and additional clarifications to help you complete the assignment.
 
-#### 1. Data Parsing (`DataParser.java`)
-- **Task**: Implement the `parseStudents` method to read student information from a file and create `UniversityStudent` objects.
+#### 1. Data Parsing (`program.DataParser.java`)
+- **Task**: Implement the `parseStudents` method to read student information from a file and create `program.UniversityStudent` objects.
 - **Details**:
   - Input file format is provided in `input_sample.txt`.
   - Parse all attributes (e.g., name, age, gender, major, GPA).
@@ -79,7 +79,7 @@ Follow the steps below to implement the core functionality of the Longhorn Netwo
 
 ---
 
-#### 2. Roommate Matching (`GaleShapley.java`)
+#### 2. Roommate Matching (`program.GaleShapley.java`)
 - **Task**: Implement the Gale-Shapley stable matching algorithm to pair students based on roommate preferences.
 - **Details**:
   - Each student has a list of preferred roommates. Mutual preferences are prioritized.
@@ -97,7 +97,7 @@ Follow the steps below to implement the core functionality of the Longhorn Netwo
 
 ---
 
-#### 3. Pod Formation (`PodFormation.java`)
+#### 3. Pod Formation (`program.PodFormation.java`)
 - **Task**: Use Prim’s algorithm to form pods (groups of students) by minimizing connection strengths.
 - **Details**:
   - **Number of Pods**: Divide the students into pods of size ≤ `podSize`.
@@ -115,7 +115,7 @@ Follow the steps below to implement the core functionality of the Longhorn Netwo
 
 ---
 
-#### 4. Referral Path Finding (`ReferralPathFinder.java`)
+#### 4. Referral Path Finding (`program.ReferralPathFinder.java`)
 - **Task**: Use Dijkstra’s algorithm to find the shortest path (strongest connection) to a student who interned at a specific company.
 - **Details**:
   - Stronger connections should be treated as "shorter" paths.
@@ -140,7 +140,7 @@ Follow the steps below to implement the core functionality of the Longhorn Netwo
   - **Same Age**: Add 2 if they are the same age.
 
 - **Details**:
-  - This method will be implemented in the `UniversityStudent` class as an override of the abstract method in `Student`.
+  - This method will be implemented in the `program.UniversityStudent` class as an override of the abstract method in `program.Student`.
   - Ensure the method accurately accounts for all the above factors to return the correct connection strength.
 
 - **Edge Cases**:
@@ -150,7 +150,7 @@ Follow the steps below to implement the core functionality of the Longhorn Netwo
 
 ---
 
-#### 6. Multithreading (`FriendRequestThread` and `ChatThread`)
+#### 6. Multithreading (`program.FriendRequestThread` and `program.ChatThread`)
 - **Task**: Simulate concurrent actions like sending friend requests and chatting between students.
 - **Details**:
   - Use threads to manage these interactions concurrently, simulating real-time behavior.
@@ -201,14 +201,14 @@ Follow the steps below to implement the core functionality of the Longhorn Netwo
 
 ---
 
-### Suggestions for `StudentGraph`
+### Suggestions for `program.StudentGraph`
 
-The `StudentGraph` class is intentionally left for you to design and implement. This component is critical for both pod formation (using Prim’s algorithm) and referral path finding (using Dijkstra’s algorithm). Follow the steps below to implement it effectively.
+The `program.StudentGraph` class is intentionally left for you to design and implement. This component is critical for both pod formation (using Prim’s algorithm) and referral path finding (using Dijkstra’s algorithm). Follow the steps below to implement it effectively.
 
 ---
 
 #### 1. Purpose of the Graph
-The `StudentGraph` represents the relationships between students as a weighted graph. Each student is a node, and the connection strength between two students is an edge with a corresponding weight.
+The `program.StudentGraph` represents the relationships between students as a weighted graph. Each student is a node, and the connection strength between two students is an edge with a corresponding weight.
 
 ---
 
@@ -232,7 +232,7 @@ The graph should support the following:
 ---
 
 #### 4. Methods to Implement
-Here are the key methods you should include in the `StudentGraph` class:
+Here are the key methods you should include in the `program.StudentGraph` class:
 
 1. **Constructor**:
    - Initialize the graph structure (e.g., an adjacency list).
@@ -279,13 +279,13 @@ Test your graph implementation before using it in algorithms:
 ---
 
 ### Notes for Students
-- The `StudentGraph` class provides the foundation for both pod formation and referral path finding. Ensure your implementation is robust and efficient.
+- The `program.StudentGraph` class provides the foundation for both pod formation and referral path finding. Ensure your implementation is robust and efficient.
 - Use the provided method signatures and adjust as needed to meet the requirements of Prim’s and Dijkstra’s algorithms.
 - Ask questions during lab sessions or office hours if you’re stuck. Debugging the graph structure is critical for completing this assignment successfully.
 
 ## FAQs
 
-### 1. Should we use inverted edge weights (10 - weight) in `PodFormation`?
+### 1. Should we use inverted edge weights (10 - weight) in `program.PodFormation`?
 - **No**, inverted edge weights are only used in the referral path finder to prioritize stronger connections as shorter paths.
 - For pod formation, use the **calculated connection strength** directly to minimize the total weight of the pods. This ensures that pods are formed based on the strongest relationships between students.
 

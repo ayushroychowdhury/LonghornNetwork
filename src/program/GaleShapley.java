@@ -1,12 +1,14 @@
+package program;
+
 import java.util.*;
 
 /**
- * GaleShapley is a utility class that assigns roommates to students based on their preferences using the GaleShapley algorithm
+ * program.GaleShapley is a utility class that assigns roommates to students based on their preferences using the program.GaleShapley algorithm
  */
 public class GaleShapley {
     private static Map<UniversityStudent, UniversityStudent> roommates = new HashMap<UniversityStudent, UniversityStudent>();
     /**
-     * Assigns roommates to students based on their preferences using the GaleShapley algorithm
+     * Assigns roommates to students based on their preferences using the program.GaleShapley algorithm
      * @param students the list of students which have to be assigned
      */
     public static void assignRoommates(List<UniversityStudent> students) {

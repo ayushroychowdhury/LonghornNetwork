@@ -1,8 +1,10 @@
+package program;
+
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * ChatManager class is responsible for handling chat messages between students.
+ * program.ChatManager class is responsible for handling chat messages between students.
  */
 public class ChatManager {
 

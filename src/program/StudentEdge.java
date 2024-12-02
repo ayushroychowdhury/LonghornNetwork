@@ -1,3 +1,5 @@
+package program;
+
 /**
  * Class that represents an edge between two students in the graph.
  */
@@ -7,7 +9,7 @@ public class StudentEdge {
     private int weight;
 
     /**
-     * Constructs a StudentEdge object with the given student and weight
+     * Constructs a program.StudentEdge object with the given student and weight
      * @param sourceStudent the student at the start of the edge
      * @param targetStudent the student at the other end of the edge
      * @param weight the weight of the edge

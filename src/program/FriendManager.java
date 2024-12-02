@@ -1,7 +1,9 @@
+package program;
+
 import java.util.*;
 
 /**
- * FriendManager is a utility class that manages friend requests and friendships between students
+ * program.FriendManager is a utility class that manages friend requests and friendships between students
  */
 public class FriendManager {
     private static List<Set<Student>> friends = new ArrayList<Set<Student>>();
@@ -33,8 +35,8 @@ public class FriendManager {
 
     /**
      * Asks receiver of friend request if they want to accept it
-     * @param sender Student sending the friend request
-     * @param receiver Student receiving the friend request
+     * @param sender program.Student sending the friend request
+     * @param receiver program.Student receiving the friend request
      */
     private synchronized static void askReceiver(UniversityStudent sender, UniversityStudent receiver) {
         System.out.print("Does " + receiver.getName() + " want to accept the friend request? (y/n): ");
@@ -76,7 +78,7 @@ public class FriendManager {
 
     /**
      * Finds all friends of a student
-     * @param student Student whose friends are to be found
+     * @param student program.Student whose friends are to be found
      * @return List of friends of the student
      */
     public static List<UniversityStudent> getFriends(UniversityStudent student) {
