@@ -118,4 +118,17 @@ public class GaleShapley {
             return false;
         }
     }
+
+    /**
+     * Get a Student Object's Roommate if any
+     * @param a Student
+     * @return UniversityStudent or null
+     */
+    public static UniversityStudent getRoommate(Student a) {
+        if (roommatePairs.containsKey(a)) {
+            return roommatePairs.get(a);
+        } else {
+            return null;
+        }
+    }
 }

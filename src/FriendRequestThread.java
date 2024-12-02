@@ -1,6 +1,11 @@
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * Reference for a friend request
@@ -12,6 +17,10 @@ public class FriendRequestThread implements Runnable {
      * Static Map to store who are friends
      */
     private static Map<UniversityStudent, List<UniversityStudent>> friends = new HashMap<>();
+    private static final Lock lock = new ReentrantLock();
+
+    private UniversityStudent sender;
+    private UniversityStudent receiver;
 
     /**
      * Construct a FriendRequestThread
@@ -20,6 +29,8 @@ public class FriendRequestThread implements Runnable {
      */
     public FriendRequestThread(UniversityStudent sender, UniversityStudent receiver) {
         // Constructor
+        this.sender = sender;
+        this.receiver = receiver;
     }
 
     /**
@@ -27,7 +38,19 @@ public class FriendRequestThread implements Runnable {
      */
     @Override
     public void run() {
-        // Method signature only
+        if (areFriends(sender, receiver)) {
+            System.out.println(sender.getName() + " already added " + receiver.getName());
+            return;
+        }
+
+        lock.lock();
+        if (!friends.containsKey(sender)) {
+            friends.put(sender, new ArrayList<>());
+        }
+        friends.get(sender).add(receiver);
+        lock.unlock();
+
+        System.out.println(sender.getName() + " added " + receiver.getName() + " to their friends list");
     }
 
     /**
@@ -37,9 +60,11 @@ public class FriendRequestThread implements Runnable {
      * @return boolean
      */
     static public boolean areFriends(UniversityStudent a, UniversityStudent b) {
-        for (UniversityStudent s : friends.get(a)) {
-            if (s.equals(b)) {
-                return true;
+        if (friends.containsKey(a)) {
+            for (UniversityStudent s : friends.get(a)) {
+                if (s.equals(b)) {
+                    return true;
+                }
             }
         }
         return false;
