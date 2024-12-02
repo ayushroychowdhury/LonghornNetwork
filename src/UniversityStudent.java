@@ -153,6 +153,10 @@ public class UniversityStudent extends Student {
         return Integer.MAX_VALUE;
     }
 
+    /**
+     * Returns a string representation of the student.
+     * @return
+     */
     public String toString() {
         String result = "Name: " + name + "\n";
         result += "Age: " + age + "\n";

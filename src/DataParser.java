@@ -43,7 +43,12 @@ public class DataParser {
         }
         return students;
     }
-
+    
+    /**
+     * Parses a list of elements from a comma-separated string.
+     * @param line
+     * @return
+     */
     private static List<String> parseList(String line) {
         List<String> list = new ArrayList<>();
         String[] elements = line.split(",");

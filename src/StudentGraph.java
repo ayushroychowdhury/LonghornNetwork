@@ -42,8 +42,13 @@ public class StudentGraph {
         return graph.get(student);
     }
 
+    /**
+     * Returns a string representation of the graph.
+     * @param student1
+     * @param student2
+     * @return
+     */
     public String toString() {
-        // Returns a string representation of the graph
         StringBuilder sb = new StringBuilder();
         for (UniversityStudent student : graph.keySet()) {
             sb.append(student.getName() + " -> ");

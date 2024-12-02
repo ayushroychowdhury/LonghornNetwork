@@ -67,6 +67,12 @@ public class GaleShapley {
         }
     }
 
+    /**
+     * Returns the student with the given name from the list of students.
+     * @param name
+     * @param students
+     * @return
+     */
     private static UniversityStudent getStudent(String name, List<UniversityStudent> students) {
         for(UniversityStudent student : students) {
             if(student.getName().equals(name)) {
