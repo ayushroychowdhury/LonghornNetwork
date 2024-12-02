@@ -38,7 +38,6 @@ GPA: 3.5
 RoommatePreferences: Timmy
 PreviousInternships: Amazon, Microsoft, Logitech
 
-
 Student:
 Name: Issac
 Age: 20

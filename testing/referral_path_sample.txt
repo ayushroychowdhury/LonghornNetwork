@@ -40,3 +40,10 @@ PreviousInternships: Amazon, Microsoft, Logitech, FindMe
 
 Student:
 Name: Issac
+Age: 100
+Gender: No
+Year: 60
+Major: Undecided
+GPA: 1.0
+RoommatePreferences:
+PreviousInternships:
