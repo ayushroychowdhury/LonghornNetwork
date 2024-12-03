@@ -61,7 +61,7 @@ This project simulates a social network called **Longhorn Network**, where stude
   - Include descriptions of parameters and return types.
 ---
 
-### Step 3: Implement Core Components
+### Step 3: Implement Core Components DUE DATE FOR EVERYTHING BELOW: Dec 4th, 2024 11:59pm
 
 Follow the steps below to implement the core functionality of the Longhorn Network. Each section provides specific details, common edge cases, and additional clarifications to help you complete the assignment.
 
@@ -277,6 +277,11 @@ Test your graph implementation before using it in algorithms:
   2. Students with identical connection strengths to multiple others.
 
 ---
+
+### BONUS: SWING UI (20%)
+
+#### An implementation of an user interface using Swing UI will earn a bonus of 20%. An easy implementation would be to visualize the student graph as either an adjacency list or adjacency matrix, as well as visualizing the roommates, pod formations. Ultimately, the implemtation of the UI is up to you but there should be a use case for it. The UI has to also be fully functional to earn full bonus points. There is partial of 10% only if part of the UI works. 
+
 
 ### Notes for Students
 - The `StudentGraph` class provides the foundation for both pod formation and referral path finding. Ensure your implementation is robust and efficient.
