@@ -3,6 +3,8 @@ import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableColumn;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
 
 public class StudentGraphGUI extends JPanel {
@@ -10,7 +12,7 @@ public class StudentGraphGUI extends JPanel {
     private static final int NameCol = 0, AgeCol = 1, GenderCol = 2, YearCol = 3, MajorCol = 4, GPACol = 5, RoommateCol = 6, InternshipsCol = 7, ConnectedStudentsCol = 8;
 
     public StudentGraphGUI(StudentGraph graph) {
-        super(new GridLayout(1,0));
+        //super(new GridLayout(1,0));
 
         JTable table = new JTable(new TableModel(graph));
 
@@ -50,7 +52,35 @@ public class StudentGraphGUI extends JPanel {
         //Add the scroll pane to this panel.
         add(scrollPane);
 
-
+//        // Adding Button's to Page
+//        JButton button = new JButton("Button 1 (PAGE_START)");
+//        add(button, BorderLayout.PAGE_START);
+//
+//        //Make the center component big, since that's the
+//        //typical usage of BorderLayout.
+//        button = new JButton("Button 2 (CENTER)");
+//        button.setPreferredSize(new Dimension(200, 100));
+//        add(button, BorderLayout.CENTER);
+//
+//        button = new JButton("Button 3 (LINE_START)");
+//        add(button, BorderLayout.LINE_START);
+//
+//        button = new JButton("Long-Named Button 4 (PAGE_END)");
+//        button.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                System.out.println("HEY");
+//            }
+//        });
+//        add(button, BorderLayout.PAGE_END);
+//
+//        button = new JButton("5 (LINE_END)");
+//        add(button, BorderLayout.LINE_END);
+//
+//        // Adding Text Fields
+//        JTextField textField = new JTextField();
+//        textField.setPreferredSize(new Dimension(200, 100));
+//        add(textField, BorderLayout.PAGE_END);
 
     }
 

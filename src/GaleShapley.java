@@ -24,7 +24,7 @@ public class GaleShapley {
         }
 
         // Find the potential Roommates to Run the Algo on
-        List<String> potentialRoommates = new LinkedList<>();
+        Set<String> potentialRoommates = new HashSet<>();
         for (UniversityStudent student : students) {
             for (String student2 : student.getRoommatePreferences()) {
 

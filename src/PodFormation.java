@@ -112,4 +112,16 @@ public class PodFormation {
             System.out.println();
         }
     }
+
+    public List<List<UniversityStudent>> getPods() {
+        List r = new LinkedList<>();
+        for (StudentGraph pod : pods) {
+            List r2 = new LinkedList<>();
+            for (UniversityStudent student : pod.getStudents()) {
+                r2.add(student);
+            }
+            r.add(r2);
+        }
+        return r;
+    }
 }

@@ -1,4 +1,5 @@
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Reference for Referral Path finder
@@ -28,6 +29,9 @@ public class ReferralPathFinder {
     public List<UniversityStudent> findReferralPath(UniversityStudent start, String targetCompany) {
         // Create a list of University Student and associated weight
         // Initialize all to 0 (meaning unconnected)
+
+        if (start == null || targetCompany == null) { return null; }
+
         Map<UniversityStudent, Integer> weights = new HashMap<>();
         for (UniversityStudent student : referralGraph.getStudents()) {
             weights.put(student, 0);
@@ -58,7 +62,9 @@ public class ReferralPathFinder {
 
         // Print out the students with targetCompany
         boolean found = false;
+        List<UniversityStudent> r = new ArrayList<>();
         for (UniversityStudent student : weights.keySet()) {
+            r.add(student);
             for (String company : student.getPreviousInternships()) {
                 if (company.equals(targetCompany) && !(weights.get(student).equals(0)) ) {
                     found = true;
@@ -72,7 +78,7 @@ public class ReferralPathFinder {
             return null;
         }
 
-        return new ArrayList<>();
+        return r;
     }
 
     /**

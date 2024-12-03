@@ -22,25 +22,24 @@ public class Main {
 
             // Pod formation
             StudentGraph graph = new StudentGraph(students);
-//            PodFormation podFormation = new PodFormation(graph);
-//            podFormation.formPods(4);
-//
-//            // Referral path finding
-//            ReferralPathFinder pathFinder = new ReferralPathFinder(graph);
-//            // TODO: Implement user interaction for specifying a target company
-//            pathFinder.findReferralPath(graph.getStudent("Timmy"), "FindMe");
-//            pathFinder.findReferralPath(graph.getStudent("Issac"), "FindMe");
-//            pathFinder.findReferralPath(graph.getStudent("Timmy"), "IDontExist");
-//
-//            ExecutorService service = Executors.newSingleThreadExecutor();
-//            for (UniversityStudent student : graph.getStudents()) {
-//                for (UniversityStudent student1 : graph.getStudents()) {
-//                    service.execute(new FriendRequestThread(student, student1));
-//                    service.execute(new FriendRequestThread(student1, student));
+            PodFormation podFormation = new PodFormation(graph);
+            podFormation.formPods(4);
+
+            // Referral path finding
+            ReferralPathFinder pathFinder = new ReferralPathFinder(graph);
+            pathFinder.findReferralPath(graph.getStudent("Timmy"), "FindMe");
+            pathFinder.findReferralPath(graph.getStudent("Issac"), "FindMe");
+            pathFinder.findReferralPath(graph.getStudent("Timmy"), "IDontExist");
+
+            ExecutorService service = Executors.newSingleThreadExecutor();
+            for (UniversityStudent student : graph.getStudents()) {
+                for (UniversityStudent student1 : graph.getStudents()) {
+                    //service.execute(new FriendRequestThread(student, student1));
+                    //service.execute(new FriendRequestThread(student1, student));
 //                    service.execute(new ChatThread(student, student1, "HELLO!"));
-//                }
-//            }
-//            service.shutdown();
+                }
+            }
+            service.shutdown();
 //            try {
 //                service.awaitTermination(1, TimeUnit.MINUTES);
 //            } catch (InterruptedException e) {
@@ -69,6 +68,15 @@ public class Main {
 
             MainGUI gui = new MainGUI(graph);
             gui.show();
+
+
+//            service.shutdown();
+//            try {
+//                service.awaitTermination(1, TimeUnit.MINUTES);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+
 
         } catch (IOException e) {
             e.printStackTrace();

@@ -1,12 +1,16 @@
 import javax.swing.*;
 import java.awt.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class MainGUI {
 
     StudentGraph graph;
+    ExecutorService executor;
 
     public MainGUI(StudentGraph graph) {
         this.graph = graph;
+        this.executor = Executors.newSingleThreadExecutor();
     }
 
     public void show() {
@@ -25,7 +29,7 @@ public class MainGUI {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         //Add content to the window.
-        frame.add(new TabbedPane(this.graph), BorderLayout.CENTER);
+        frame.add(new TabbedPaneGUI(this.graph, this.executor), BorderLayout.CENTER);
 
         //Display the window.
         frame.pack();

@@ -55,6 +55,25 @@ public class ChatThread implements Runnable {
 
     }
 
+    public static List<String> getChatHistory(UniversityStudent sender, UniversityStudent receiver) {
+        lock.lock();
+
+        List<String> r = new ArrayList<>();
+
+        for (ChatPair chatpair : chatHistory.keySet()) {
+            if (chatpair.sender.equals(sender) && chatpair.receiver.equals(receiver)) {
+                Chat chatMessages = chatHistory.get(chatpair);
+                for (String message : chatMessages.chatMessages) {
+                    r.add(message);
+                }
+            }
+        }
+
+        lock.unlock();
+
+        return r;
+    }
+
     /**
      * Reference for a Pair of UniversityStudents who have a chat history
      */
