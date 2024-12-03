@@ -28,39 +28,25 @@ public class GaleShapley {
             // Get the first free student
             UniversityStudent student = freeStudents.poll();
             UniversityStudent preferredRoommate = studentPreferences.get(student).poll();
+
             if(preferredRoommate == null) {
-                // If the student has no more preferences, they remain free and are not reconsidered
                 continue;
             }
 
-            if(preferredRoommate.getRoommate() == null) {
-                if(student.getRoommate() != null) {
-                    UniversityStudent currentRoommate = getStudent(student.getRoommate(), students);
-                    if(student.preferenceRank(preferredRoommate.getName()) < student.preferenceRank(student.getRoommate())) {
-                        freeStudents.add(currentRoommate);
-                    } else {
-                        freeStudents.add(student);
-                        continue;
-                    }
-                    currentRoommate.setRoommate(null);
-                    freeStudents.add(currentRoommate);
-                }
+            UniversityStudent preferredRoommateCurrentRoommate = getStudent(preferredRoommate.getRoommate(), students);
+
+            if(preferredRoommateCurrentRoommate == null) {
                 student.setRoommate(preferredRoommate.getName());
                 preferredRoommate.setRoommate(student.getName());
+                freeStudents.remove(preferredRoommate);
             } else {
-                if(student.getRoommate() == preferredRoommate.getName()) {
-                    continue;
-                }
-                // If the preferred roommate is not free, check if they prefer the current student
-                if(preferredRoommate.preferenceRank(student.getName()) < preferredRoommate.preferenceRank(preferredRoommate.getRoommate())) {
-                    // If the preferred roommate prefers the current student, they become roommates
-                    UniversityStudent currentRoommate = getStudent(preferredRoommate.getRoommate(), students);
-                    currentRoommate.setRoommate(null);
+                if(preferredRoommate.preferenceRank(student.getName()) < preferredRoommate.preferenceRank(preferredRoommateCurrentRoommate.getName())) {
                     student.setRoommate(preferredRoommate.getName());
                     preferredRoommate.setRoommate(student.getName());
-                    freeStudents.add(currentRoommate);
+                    freeStudents.remove(preferredRoommate);
+                    freeStudents.add(preferredRoommateCurrentRoommate);
                 } else {
-                    // If the preferred roommate does not prefer the current student, they remain free
+                    studentPreferences.get(student).remove(preferredRoommate);
                     freeStudents.add(student);
                 }
             }
