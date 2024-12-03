@@ -1,4 +1,4 @@
-program.Student:
+Student:
 Name: Alice
 Age: 20
 Gender: Female
@@ -8,7 +8,7 @@ GPA: 3.8
 RoommatePreferences: Bob, Charlie
 PreviousInternships: Google, Amazon
 
-program.Student:
+Student:
 Name: Bob
 Age: 21
 Gender: Male

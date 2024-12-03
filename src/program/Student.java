@@ -74,7 +74,7 @@ public abstract class Student {
      * Gets the age of the student
      * @return the age of the student
      */
-    protected int getAge() {
+    public int getAge() {
         return age;
     }
 
@@ -84,5 +84,26 @@ public abstract class Student {
      */
     public List<String> getRoommatePreferences() {
         return roommatePreferences;
+    }
+
+    public String toString() {
+        String representation = "";
+        representation += "Name: " + name + "\n";
+        representation += "Age: " + age + "\n";
+        representation += "Gender:" + gender + "\n";
+        representation += "Year: " + year + "\n";
+        representation += "Major: " + major + "\n";
+        representation += "GPA: " + gpa + "\n";
+        representation += "Roommate Preferences: " + roommatePreferences + "\n";
+        representation += "Previous Internships: " + previousInternships + "\n";
+        return representation;
+    }
+
+    /**
+     * Gets the year of the student
+     * @return the year of the student
+     */
+    public int getYear() {
+        return year;
     }
 }

@@ -7,6 +7,9 @@ import java.util.*;
  * Utility class for parsing student data from files
  */
 public class DataParser {
+
+    private static List<UniversityStudent> savedStudents;
+
     /**
      * Parses the students from the given file and returns a list of program.UniversityStudent objects.
      * @param filename The name of the file containing the data
@@ -15,7 +18,7 @@ public class DataParser {
      */
     public static List<UniversityStudent> parseStudents(String filename) throws IOException {
         /* Arraylist that will later contain all the parsed students */
-        ArrayList<UniversityStudent> students = new ArrayList<UniversityStudent>();
+        List<UniversityStudent> students = new ArrayList<UniversityStudent>();
 
         /* Opening the file */
         File file = new File(filename);
@@ -41,7 +44,7 @@ public class DataParser {
                     throw new IOException("Invalid student data in file: " + filename);
                 }
                 studentData.clear();
-            }else if (line.equals("program.Student:")){
+            }else if (line.equals("Student:")){
                 /* Do nothing */
                 studentData.clear();
             }else{
@@ -59,6 +62,16 @@ public class DataParser {
                 throw new IOException("Invalid student data in file: " + filename);
             }
         }
+        savedStudents = students;
         return students;
+    }
+
+
+    /**
+     * Gets all the students
+     * @return List of all the students
+     */
+    public static List<UniversityStudent> getStudents(){
+        return savedStudents;
     }
 }
