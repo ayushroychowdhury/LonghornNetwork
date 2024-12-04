@@ -29,19 +29,12 @@ public class Main {
             // Set up name map
             for (UniversityStudent s : students) {
                 nameMap.put(s.name, s);
+                // System.out.println(s.name + " wants to be roommates with " + s.roommatePreferences);
             }
 
 
             // Use Gale Shapley to assign roommates
             GaleShapley.assignRoommates(students);
-            System.out.println("Roommate Assignments:");
-            for (Student s : students) {
-                if (s.roommate != null) {
-                    System.out.println(s.name + " is roommates with " + s.roommate);
-                } else {
-                    System.out.println(s.name + " is not paired with a roommate.");
-                }
-            }
             System.out.println();
 
 
@@ -75,12 +68,9 @@ public class Main {
             // Referral path finding
             ReferralPathFinder pathFinder = new ReferralPathFinder(graph);
             // TODO: Implement user interaction for specifying a target company
-            List<UniversityStudent> path = pathFinder.findReferralPath(nameMap.get("Alice"), "Meta");
-            for (int i = 0 ; i < path.size() ; i++) {
-                System.out.print(path.get(i).name);
-                if (i < path.size() - 1) System.out.print(" --> ");
-            }
-            System.out.println();
+//            pathFinder.findReferralPath(nameMap.get("Timmy"), "FindMe");
+//            pathFinder.findReferralPath(nameMap.get("Issac"), "FindMe");
+//            pathFinder.findReferralPath(nameMap.get("Timmy"), "IDontExist");
 
 
             ArrayList<String> studentNames = new ArrayList<>();

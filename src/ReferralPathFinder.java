@@ -26,7 +26,7 @@ public class ReferralPathFinder {
     public List<UniversityStudent> findReferralPath(UniversityStudent start, String targetCompany) {
         // Method signature only
         // Priority queue for Dijkstra's algorithm: stores (current distance, student, path)
-        PriorityQueue<DijkstraNode> pq = new PriorityQueue<>(Comparator.comparingInt(a -> 10 - a.distance));
+        PriorityQueue<DijkstraNode> pq = new PriorityQueue<>(Comparator.comparingInt(a -> Math.max(10 - a.distance, 0)));
         Map<String, Integer> distances = new HashMap<>(); // Map to track shortest distances
         Map<String, UniversityStudent> previousStudent = new HashMap<>(); // For reconstructing the path
         Set<String> visited = new HashSet<>(); // To track visited nodes
@@ -48,6 +48,14 @@ public class ReferralPathFinder {
             // Check if the current student has interned at the target company
             if (currentStudent.previousInternships.contains(targetCompany)) {
                 // Reconstruct and return the path
+
+                List<UniversityStudent> path = reconstructPath(previousStudent, currentStudent);
+                for (int i = 0 ; i < path.size() ; i++) {
+                    System.out.print(path.get(i).name);
+                    if (i < path.size() - 1) System.out.print(" --> ");
+                }
+                System.out.println(" with weight " + distances.get(path.get(path.size()-1).name));
+
                 return reconstructPath(previousStudent, currentStudent);
             }
 
@@ -67,6 +75,7 @@ public class ReferralPathFinder {
         }
 
         // If no path found, return an empty list
+        System.out.println("No referral path found.");
         return new ArrayList<>();
     }
 
@@ -86,6 +95,7 @@ public class ReferralPathFinder {
             path.addFirst(current);
             current = previousStudent.get(current.name);
         }
+
 
         return path;
     }

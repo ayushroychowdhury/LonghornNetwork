@@ -26,6 +26,15 @@ public class UniversityStudent extends Student {
         this.gpa = gpa;
         this.roommatePreferences = roommatePreferences;
         this.previousInternships = previousInternships;
+        this.roommate = null;
+    }
+
+    public List<UniversityStudent> getPreferredRoommates() {
+        List<UniversityStudent> roommates = new LinkedList<>();
+        for (String s : roommatePreferences) {
+            roommates.add(Main.nameMap.get(s));
+        }
+        return roommates;
     }
 
     /**
