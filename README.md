@@ -30,7 +30,7 @@ This project simulates a social network called **Longhorn Network**, where stude
 ### Instructions
 
 #### Step 1: Setting Up
-1. **Fork** this repository to start working on your own copy.
+1. **Fork** this repository to start working on your own copy. (Not necessary if you can do step 2-6 without any Forbidden Errors)
 2. **Clone** the repository to your local machine:
    ```bash
    git clone https://github.com/ayushroychowdhury/LonghornNetwork.git
@@ -61,7 +61,7 @@ This project simulates a social network called **Longhorn Network**, where stude
   - Include descriptions of parameters and return types.
 ---
 
-### Step 3: Implement Core Components
+### Step 3: Implement Core Components DUE DATE FOR EVERYTHING BELOW: Dec 4th, 2024 11:59pm
 
 Follow the steps below to implement the core functionality of the Longhorn Network. Each section provides specific details, common edge cases, and additional clarifications to help you complete the assignment.
 
@@ -136,9 +136,8 @@ Follow the steps below to implement the core functionality of the Longhorn Netwo
 - **Task**: Implement a formula to calculate the connection strength between two students based on the following criteria:
   - **Roommate**: Add 5 if they are roommates.
   - **Shared Internships**: Add 4 for each shared internship.
-  - **Chat History**: Add 3 if they have interacted or are friends.
-  - **Same Major**: Add 2 if they share the same major.
-  - **Same Gender**: Add 1 if they are the same age.
+  - **Same Major**: Add 3 if they share the same major.
+  - **Same Age**: Add 2 if they are the same age.
 
 - **Details**:
   - This method will be implemented in the `UniversityStudent` class as an override of the abstract method in `Student`.
@@ -279,9 +278,42 @@ Test your graph implementation before using it in algorithms:
 
 ---
 
+### BONUS: SWING UI (20%)
+
+#### An implementation of an user interface using Swing UI will earn a bonus of 20%. An easy implementation would be to visualize the student graph as either an adjacency list or adjacency matrix, as well as visualizing the roommates, pod formations. Ultimately, the implemtation of the UI is up to you but there should be a use case for it. The UI has to also be fully functional to earn full bonus points. There is partial of 10% only if part of the UI works. 
+
+
 ### Notes for Students
 - The `StudentGraph` class provides the foundation for both pod formation and referral path finding. Ensure your implementation is robust and efficient.
 - Use the provided method signatures and adjust as needed to meet the requirements of Prim’s and Dijkstra’s algorithms.
 - Ask questions during lab sessions or office hours if you’re stuck. Debugging the graph structure is critical for completing this assignment successfully.
+
+## FAQs
+
+### 1. Should we use inverted edge weights (10 - weight) in `PodFormation`?
+- **No**, inverted edge weights are only used in the referral path finder to prioritize stronger connections as shorter paths.
+- For pod formation, use the **calculated connection strength** directly to minimize the total weight of the pods. This ensures that pods are formed based on the strongest relationships between students.
+
+---
+
+### 2. How do we get disconnected graphs as mentioned in the edge cases?
+- Students are disconnected if their **connection strength is 0**, meaning they share no attributes such as internships, pods, etc.
+- Disconnected graphs occur naturally when there are groups of students with no connections to each other.
+  - For example:
+    ```
+    Component 1: Alice - Bob
+    Component 2: Charlie
+    ```
+- **Important**: 
+  - Do not add an edge for pairs of students with a connection strength of 0.
+  - These students are simply not connected in the graph.
+
+---
+
+### 3. Can two students have the exact same name?
+- **No**, all student names are guaranteed to be distinct in this assignment.
+- You can safely use student names to uniquely identify nodes in the graph and validate roommate preferences.
+
+---
 
 
