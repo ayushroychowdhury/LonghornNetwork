@@ -1,13 +1,13 @@
 import java.util.*;
 
 /**
- * the Gale-Shapley algorithm main logic for assigning roommates to students based on their preferences.
+ * Implements the Gale-Shapley algorithm for assigning roommates based on student preferences.
  */
 public class GaleShapley {
     private static Map<UniversityStudent, UniversityStudent> roommateMatches = new HashMap<>();
 
     /**
-     * Assigns roommates to students using this algorithm.
+     * Assigns roommates to students using the Gale-Shapley algorithm.
      *
      * @param students the list of students
      */
@@ -57,8 +57,8 @@ public class GaleShapley {
                 }
             }
 
-            // Re-add proposer only if they didn't find a match
-            if (!matched && !roommateMatches.containsKey(proposer)) {
+            // Re-add proposer only if they didn't find a match and still have untried preferences
+            if (!matched && proposals.get(proposer).size() < preferences.size()) {
                 unmatched.add(proposer);
             }
         }
@@ -68,7 +68,6 @@ public class GaleShapley {
             roommateMatches.putIfAbsent(student, null);
         }
     }
-
 
     /**
      * Checks if a student prefers one proposer over another.

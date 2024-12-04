@@ -32,7 +32,7 @@ public class ReferralPathFinder {
 
         // Initialize the starting student
         priorityQueue.add(new Pathcost(start, 0)); // Starting student with cost 0
-        costMap.put(start, 0);
+        costMap.put(start, Integer.valueOf(0));
 
         while (!priorityQueue.isEmpty()) {
             Pathcost current = priorityQueue.poll();
@@ -53,11 +53,11 @@ public class ReferralPathFinder {
 
                 // Calculate the "cost" for this neighbor (inverted connection strength)
                 int connectionStrength = currentStudent.calculateConnectionStrength(neighbor);
-                int newCost = costMap.getOrDefault(currentStudent, Integer.MAX_VALUE) - connectionStrength;
+                int newCost = costMap.getOrDefault(currentStudent, Integer.valueOf(Integer.MAX_VALUE)) - connectionStrength;
 
                 // Update the path if a stronger connection or shorter path is found
-                if (newCost < costMap.getOrDefault(neighbor, Integer.MAX_VALUE)) {
-                    costMap.put(neighbor, newCost);
+                if (newCost < costMap.getOrDefault(neighbor, Integer.valueOf(Integer.MAX_VALUE))) {
+                    costMap.put(neighbor, Integer.valueOf(newCost));
                     parentMap.put(neighbor, currentStudent);
                     priorityQueue.add(new Pathcost(neighbor, newCost));
                 }
