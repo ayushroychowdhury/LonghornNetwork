@@ -43,7 +43,7 @@ public class UniversityStudent extends Student {
      */
     @Override
     public String toString() {
-        return name + "\n" + age + "\n" + gender + "\n" + year + "\n" + major + "\n" + gpa + "\n" + roommatePreferences + "\n" + previousInternships;
+        return "Name: " + name + "\nAge: " + age + "\nGender: " + gender + "\nYear: " + year + "\nMajor: " + major + "\nGPA: " + gpa + "\nRoommate Preferences: " + roommatePreferences + "\nPrevious Internships: " + previousInternships;
     }
 
     /**
