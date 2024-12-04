@@ -73,29 +73,6 @@ public class ReferralPathFinder {
     }
 
     /**
-     * Prints the total connection weight of the shortest referral path.
-     */
-    private void printTotalConnectionWeight(String target) {
-        // Prints the total connection weight of the shortest referral path
-        int totalWeight = 0;
-        for(UniversityStudent student : graph.getStudents()) {
-            if(student.previousInternships.contains(target)) {
-                UniversityStudent current = student;
-                while(parents.get(current) != null) {
-                    UniversityStudent parent = parents.get(current);
-                    for(Edge edge : graph.getEdges(parent)) {
-                        if(edge.getStudent().equals(current)) {
-                            totalWeight += edge.getWeight();
-                        }
-                    }
-                    current = parent;
-                }
-            }
-        }
-        System.out.println("Total connection weight: " + totalWeight);
-    }
-
-    /**
      * Returns the student with the given company name.
      * @param company
      * @return
