@@ -5,6 +5,15 @@
  */
 
 public class ChatThread implements Runnable {
+    UniversityStudent sender;
+    UniversityStudent receiver;
+    String message;
+
+    private synchronized void sendMessage(){
+        sender.addSentMessage(message,receiver);
+        receiver.addReceiveMessage(message, sender);
+    }
+
     /**
      * This is the constructor for creating the chat thread itself. It takes the two students that we 
      * are handling the communication between and the message that we intend to send between them
@@ -14,6 +23,9 @@ public class ChatThread implements Runnable {
      */
     public ChatThread(UniversityStudent sender, UniversityStudent receiver, String message) {
         // Constructor
+        this.sender = sender;
+        this.receiver = receiver;
+        this.message = message;
     }
 
 
@@ -23,5 +35,6 @@ public class ChatThread implements Runnable {
     @Override
     public void run() {
         // Method signature only
+        sendMessage();
     }
 }

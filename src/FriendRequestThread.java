@@ -7,6 +7,21 @@
  */
 
 public class FriendRequestThread implements Runnable {
+    UniversityStudent sender;
+    UniversityStudent receiver;
+    int response;
+
+    private synchronized void sendRequest(){
+        receiver.addRequest(sender);
+    }
+
+    private synchronized void respond(){
+        if (response == 1){
+            receiver.addFriend(sender.name);
+        } else {
+            receiver.declineRequest(sender);
+        }
+    }
 
     /**
      * This the constructor for the thread where we input the student who is sending the 
@@ -14,8 +29,11 @@ public class FriendRequestThread implements Runnable {
      * @param sender The student sending the friend request
      * @param receiver The student receiving the friend request
      */
-    public FriendRequestThread(UniversityStudent sender, UniversityStudent receiver) {
+    public FriendRequestThread(UniversityStudent sender, UniversityStudent receiver, int response) {
         // Constructor
+        this.sender = sender;
+        this.receiver = receiver;
+        this.response = response;
     }
 
 
@@ -26,5 +44,11 @@ public class FriendRequestThread implements Runnable {
     @Override
     public void run() {
         // Method signature only
+        if (response == 0){
+            sendRequest();
+        } else {
+            respond();
+        }
+
     }
 }

@@ -48,9 +48,11 @@ public class Main {
         switch (cmd){
             case "Referral": handleReferral(consoleScanner, graph, pathFinder);
                 break;
-            case "Friend":
+            case "Friend Request": handleFriendRequest(consoleScanner, graph);
                 break;
-            case "Message":
+            case "Friend Respond": handleFriendResponse(consoleScanner, graph);
+                break;
+            case "Message": handleMessage(consoleScanner, graph);
                 break;
             default: System.out.println("Improper Input, please try again");
         }
@@ -82,6 +84,99 @@ public class Main {
             }
             System.out.println("");
         }
+    }
+
+    private static void handleFriendRequest( Scanner consoleScanner, StudentGraph graph){
+        System.out.println("");
+
+        System.out.print("Enter sending student: ");
+        while(!consoleScanner.hasNext()){}
+        String send = consoleScanner.nextLine();
+        UniversityStudent sendStu = graph.getStudent(send);
+        if (sendStu == null){
+            System.out.println("Not a student name, retry");
+            return;
+        }
+
+        System.out.print("\nEnter receiving student: ");
+        while(!consoleScanner.hasNext()){}
+        String receive = consoleScanner.nextLine();
+        UniversityStudent receiveStu = graph.getStudent(receive);
+        if (receiveStu == null){
+            System.out.println("Not a student name, retry");
+            return;
+        }
+        FriendRequestThread friendThread = new FriendRequestThread(sendStu, receiveStu, 0);
+        Thread thread = new Thread(friendThread);
+        thread.start();
+    }
+
+    private static void handleFriendResponse( Scanner consoleScanner, StudentGraph graph){
+        System.out.println("");
+
+        System.out.print("Enter sending student: ");
+        while(!consoleScanner.hasNext()){}
+        String send = consoleScanner.nextLine();
+        UniversityStudent sendStu = graph.getStudent(send);
+        if (sendStu == null){
+            System.out.println("Not a student name, retry");
+            return;
+        }
+
+        System.out.print("\nEnter receiving student: ");
+        while(!consoleScanner.hasNext()){}
+        String receive = consoleScanner.nextLine();
+        UniversityStudent receiveStu = graph.getStudent(receive);
+        if (receiveStu == null){
+            System.out.println("Not a student name, retry");
+            return;
+        }
+
+        System.out.print("\nDo you accept their request? y/n:");
+        while(!consoleScanner.hasNext()){}
+        String response = consoleScanner.nextLine();
+        if (response.equals("y")){
+            FriendRequestThread friendThread = new FriendRequestThread(sendStu, receiveStu, 1);
+            Thread thread = new Thread(friendThread);
+            thread.start();
+        } else if (response.equals("n")){
+            FriendRequestThread friendThread = new FriendRequestThread(sendStu, receiveStu, 2);
+            Thread thread = new Thread(friendThread);
+            thread.start();
+        } else {
+            System.out.println("Not a valid response retry!");
+        }
+
+    }
+
+    private static void handleMessage( Scanner consoleScanner, StudentGraph graph){
+        System.out.println("");
+
+        System.out.print("Enter sending student: ");
+        while(!consoleScanner.hasNext()){}
+        String send = consoleScanner.nextLine();
+        UniversityStudent sendStu = graph.getStudent(send);
+        if (sendStu == null){
+            System.out.println("Not a student name, retry");
+            return;
+        }
+
+        System.out.print("\nEnter receiving student: ");
+        while(!consoleScanner.hasNext()){}
+        String receive = consoleScanner.nextLine();
+        UniversityStudent receiveStu = graph.getStudent(receive);
+        if (receiveStu == null){
+            System.out.println("Not a student name, retry");
+            return;
+        }
+
+        System.out.print("\nEnter the message sent: ");
+        while(!consoleScanner.hasNext()){}
+        String message = consoleScanner.nextLine();
+
+        ChatThread newMessage = new ChatThread(sendStu, receiveStu,message);
+        Thread messThread = new Thread(newMessage);
+        messThread.start();
     }
 
 }
