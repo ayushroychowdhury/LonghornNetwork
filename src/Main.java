@@ -11,9 +11,14 @@ public class Main {
         //     return;
         // }
         // String inputFile = args[0];
-        
-        String inputFile = "../testing/input_sample.txt"; // For CMD LINE
-        // String inputFile = "testing/input_sample.txt"; // For DEBUGGER
+
+        // For CMD LINE
+        // String inputFile = "../testing/input_sample.txt";
+        String inputFile = "../testing/pod_sample.txt";
+
+        // For DEBUGGER
+        // String inputFile = "testing/input_sample.txt";
+        // String inputFile = "testing/pod_sample.txt";
 
         try {
             List<UniversityStudent> students = DataParser.parseStudents(inputFile);
@@ -26,11 +31,12 @@ public class Main {
             for (UniversityStudent student : students) {
                 System.out.println(student.name + " is roommates with " + student.roommate);
             }
+            System.out.println();
 
             // // Pod formation
             System.out.println("\nPod Assignments:");
-            // StudentGraph graph = new StudentGraph(students);
-            // PodFormation podFormation = new PodFormation(graph);
+            StudentGraph graph = new StudentGraph(students);
+            PodFormation podFormation = new PodFormation(graph);
             // podFormation.formPods(4);
 
             // // Referral path finding

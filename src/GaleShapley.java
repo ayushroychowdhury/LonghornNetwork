@@ -60,9 +60,21 @@ public class GaleShapley {
                 }
                 else {
                     String otherStudentCurrRoommateName = otherStudent.roommate;
-                    int otherPreference = inversePreferenceList.get(otherStudentName).get(otherStudentCurrRoommateName);
-                    int currPreference = inversePreferenceList.get(otherStudentName).get(student.name);
-                    if (currPreference > otherPreference) {
+                    Integer otherPreference = inversePreferenceList.get(otherStudentName).get(otherStudentCurrRoommateName);
+                    Integer currPreference = inversePreferenceList.get(otherStudentName).get(student.name);
+                    boolean swap;
+                    if (otherPreference == null)
+                    {
+                        if (currPreference == null)
+                            swap = false;
+                        else
+                            swap = true;
+                    }
+                    else if (currPreference == null)
+                        swap = false;
+                    else
+                        swap = currPreference > otherPreference;
+                    if (swap) {
                         // this preferred to other
                         otherStudent.roommate = student.name;
                         student.roommate = otherStudent.name;
