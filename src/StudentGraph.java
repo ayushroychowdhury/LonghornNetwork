@@ -1,7 +1,7 @@
 import java.util.*;
 
 public class StudentGraph {
-    Map<UniversityStudent, List<Edge>> graph;
+    private Map<UniversityStudent, List<Edge>> graph;
     /**
      * Constructs a StudentGraph object with the given list of students.
      * @param students
@@ -30,6 +30,15 @@ public class StudentGraph {
     public List<UniversityStudent> getStudents() {
         // Returns the list of students in the graph
         return new ArrayList<>(graph.keySet());
+    }
+
+    public UniversityStudent getStudent(String name) {
+        for (UniversityStudent student : graph.keySet()) {
+            if (student.getName().equals(name)) {
+                return student;
+            }
+        }
+        return null;
     }
 
     /**

@@ -1,27 +1,35 @@
 import java.io.IOException;
 import java.util.*;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class Main {
 
     public static HashMap<UniversityStudent, List<UniversityStudent>> friends = new HashMap<>();
     public static ArrayList<String> chatHistory = new ArrayList<>();
+
+    private static List<UniversityStudent> students;
+    private static StudentGraph graph;
+    private static Map<Integer, List<UniversityStudent>> pods;
     
     /**
      * Main method that runs the Longhorn Network Simulation.
      * @param args
      */
     public static void main(String[] args) {
-    
         if (args.length == 0) {
             System.out.println("Please provide the input file name as a command-line argument.");
             return;
         }
         String inputFile = args[0];
         try {
-            List<UniversityStudent> students = DataParser.parseStudents(inputFile);
+            students = DataParser.parseStudents(inputFile);
             for (UniversityStudent student : students) {
                 Main.friends.put(student, new ArrayList<>());
             }
@@ -29,13 +37,16 @@ public class Main {
             GaleShapley.assignRoommates(students);
 
             // Pod formation
-            StudentGraph graph = new StudentGraph(students);
+            graph = new StudentGraph(students);
+            System.out.println(graph);
             PodFormation podFormation = new PodFormation(graph);
-            Map<Integer, List<UniversityStudent>> pods = podFormation.formPods(4);
+            pods = podFormation.formPods(4);
 
             // Referral path finding
             ReferralPathFinder pathFinder = new ReferralPathFinder(graph);
-            pathFinder.findReferralPath(students.get(0), "Butthead Inc.");
+            pathFinder.findReferralPath(students.get(1), "FindMe");
+            pathFinder.findReferralPath(students.get(2), "FindMe");
+            pathFinder.findReferralPath(students.get(1), "IDontExist");
             // TODO: Implement user interaction for specifying a target company
 
             // Friend request simulation
@@ -58,25 +69,119 @@ public class Main {
                 System.out.println();
             }
             System.out.println();
-            System.out.println("Referral path to Microsoft for " + students.get(0).getName() + ":");
-            System.out.print(students.get(0).getName());
-            for (UniversityStudent student : pathFinder.findReferralPath(students.get(0), "Microsoft")) {
+            System.out.println("Referral Paths:");
+            System.out.print("Simon ");
+            for (UniversityStudent student : pathFinder.findReferralPath(graph.getStudent("Simon"), "FindMe")) {
                 if(student != students.get(0)) {
                     System.out.print(" -> " + student.getName());
                 }
             }
             System.out.println();
+            System.out.print("Jimmy ");
+            for (UniversityStudent student : pathFinder.findReferralPath(graph.getStudent("Jimmy"), "FindMe")) {
+                if(student != students.get(0)) {
+                    System.out.print(" -> " + student.getName());
+                }
+            }
+            System.out.println();
+            System.out.print("Whale ");
+            for (UniversityStudent student : pathFinder.findReferralPath(graph.getStudent("Whale"), "IDontExist")) {
+                if(student != students.get(0)) {
+                    System.out.print(" -> " + student.getName());
+                }
+            }
 
         } catch (IOException e) {
             e.printStackTrace();
         }
+        runGUI();
+    }
+
+    private static void runGUI() {
+        // Create the frame
+        JFrame frame = new JFrame("LONGHORN NETWORK");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(400, 300);
+        frame.setLayout(new BorderLayout());
+        
+        // Create the title label
+        JLabel titleLabel = new JLabel("--- Longhorn Network ---", SwingConstants.CENTER);
+        frame.add(titleLabel, BorderLayout.NORTH);
+
+        // Create the text area
+        JTextArea textArea = new JTextArea();
+        textArea.setEditable(false);
+        JScrollPane scrollPane = new JScrollPane(textArea);
+        frame.add(scrollPane, BorderLayout.CENTER);
+
+        // Create the button panel
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout(new FlowLayout());
+        
+        // Create buttons
+        JButton showGraphButton = new JButton("Show Graph");
+        JButton showRoommatesButton = new JButton("Show Roommates");
+        JButton showPodsButton = new JButton("Show Pods");
+        
+        // Add buttons to the panel
+        buttonPanel.add(showGraphButton);
+        buttonPanel.add(showRoommatesButton);
+        buttonPanel.add(showPodsButton);
+        
+        // Add the panel to the frame
+        frame.add(buttonPanel, BorderLayout.SOUTH);
+
+        // Add action listeners to the buttons
+        showGraphButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                textArea.setText(graph.toString());
+            }
+        });
+
+        showRoommatesButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String Roommates = "";
+                for (UniversityStudent student : students) {
+                    String studentName = student.getName();
+                    String roommateName = student.getRoommate();
+                    if(roommateName != null) {
+                        Roommates += studentName + " is roommates with " + roommateName + ".\n";
+                    } else {
+                        Roommates += studentName + " is not assigned a roommate.\n";
+                    }
+                }
+                textArea.setText(Roommates);
+            }
+        });
+
+        showPodsButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String Pods = "";
+                for (Integer i : pods.keySet()) {
+                    Pods += "Pod " + i + ": ";
+                    Pods += pods.get(i).get(0).getName();
+                    for (UniversityStudent podMember : pods.get(i)) {
+                        if(podMember != pods.get(i).get(0)) {
+                            Pods += ", " + podMember.getName();
+                        }
+                    }
+                    Pods += "\n";
+                }
+                textArea.setText(Pods);
+            }
+        });
+        // Set the frame visibility
+        frame.setVisible(true);
     }
 
     /**
      * Simulates friend requests between students.
      * @param students
      */
-    public static void simulateFriendRequests(List<UniversityStudent> students) {
+    private static void simulateFriendRequests(List<UniversityStudent> students) {
         ExecutorService executor = Executors.newCachedThreadPool();
         try {
             for (UniversityStudent student : students) {

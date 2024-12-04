@@ -8,3 +8,16 @@ Pod 1: Alice, Bob, Charlie
 
 Referral Path:
 Path to Google: Alice -> Charlie -> David
+
+
+Roommate Assignment:
+M1 is roommates with W5
+M2 is roommates with W2
+M3 is roommates with W4
+M4 is roommates with W1
+M5 is roommates with W3
+W1 is roommates with M4
+W2 is roommates with M2
+W3 is roommates with M5
+W4 is roommates with M3
+W5 is roommates with M1
