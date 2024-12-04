@@ -1,13 +1,12 @@
-import jdk.dynalink.linker.support.CompositeTypeBasedGuardingDynamicLinker;
-
 import java.util.*;
 
 /**
- * formation of pods of students based on the student graph.
+ * Forms pods of students based on the student graph using Prim's algorithm.
  */
 public class PodFormation {
     private StudentGraph graph;
     private Map<UniversityStudent, List<UniversityStudent>> pods;
+
     /**
      * Constructs a PodFormation object using the given graph.
      *
@@ -19,88 +18,89 @@ public class PodFormation {
     }
 
     /**
-     * Forms pods of the specified size.
+     * Forms pods of the specified size using Prim's algorithm.
      *
-     * @param podSize size
+     * @param podSize the maximum size of each pod
      */
     public void formPods(int podSize) {
         Set<UniversityStudent> visited = new HashSet<>();
         List<UniversityStudent> allStudents = new ArrayList<>(graph.getAllStudents());
 
-        //for all students
         for (UniversityStudent student : allStudents) {
-            //graph.printerGraph(UniversityStudent student);
             if (!visited.contains(student)) {
-                List<UniversityStudent> component = getConnectedComponent(student, visited);
-                List<List<UniversityStudent>> componentPods = createPodsFromComponent(component, podSize);
+                // Get connected component using Prim's algorithm
+                List<UniversityStudent> connectedComponent = getConnectedComponentPrim(student, visited);
+
+                // Divide the connected component into pods
+                List<List<UniversityStudent>> componentPods = divideIntoPods(connectedComponent, podSize);
                 assignPods(componentPods);
             }
         }
     }
 
-
-
     /**
-     * Get all students in a connected component starting from one student.
+     * Retrieves all students in a connected component using Prim's algorithm.
      *
-     * @param start the starting student
+     * @param start   the starting student
      * @param visited the set of visited students
-     * @return a list of students in connected component
+     * @return a list of students in the connected component
      */
-    private List<UniversityStudent> getConnectedComponent(UniversityStudent start, Set<UniversityStudent> visited) {
+    private List<UniversityStudent> getConnectedComponentPrim(UniversityStudent start, Set<UniversityStudent> visited) {
+        PriorityQueue<Edge> edgeQueue = new PriorityQueue<>(Comparator.comparingInt(e -> e.weight));
         List<UniversityStudent> component = new ArrayList<>();
-        Queue<UniversityStudent> queue = new LinkedList<>();
-        queue.add(start);
         visited.add(start);
+        component.add(start);
 
-        while (!queue.isEmpty()) {
-            UniversityStudent current = queue.poll();
-            component.add(current);
-            for (UniversityStudent neighbor : graph.getConnections(current)) {
-                if (!visited.contains(neighbor)) {
-                    visited.add(neighbor);
-                    queue.add(neighbor);
-                }
-            }
+        // Add all edges from the starting node
+        addEdgesToQueue(start, edgeQueue, visited);
+
+        while (!edgeQueue.isEmpty()) {
+            Edge edge = edgeQueue.poll();
+            if (visited.contains(edge.student2)) continue;
+
+            visited.add(edge.student2);
+            component.add(edge.student2);
+            addEdgesToQueue(edge.student2, edgeQueue, visited);
         }
+
         return component;
     }
 
     /**
-     * Diides a connected component into pods using Prim's algorithm (this is pod formation)
+     * Adds edges from a student to the priority queue for processing.
+     *
+     * @param student   the student whose edges are being added
+     * @param edgeQueue the priority queue of edges
+     * @param visited   the set of visited students
+     */
+    private void addEdgesToQueue(UniversityStudent student, PriorityQueue<Edge> edgeQueue, Set<UniversityStudent> visited) {
+        for (UniversityStudent neighbor : graph.getConnections(student)) {
+            if (!visited.contains(neighbor)) {
+                int weight = student.calculateConnectionStrength(neighbor);
+                edgeQueue.add(new Edge(student, neighbor, weight));
+            }
+        }
+    }
+
+    /**
+     * Divides a connected component into pods of the specified size.
      *
      * @param component the list of students in the connected component
-     * @param podSize the maximum size of each pod
-     * @return a list a pods
+     * @param podSize   the maximum size of each pod
+     * @return a list of pods
      */
-    private List<List<UniversityStudent>> createPodsFromComponent(List<UniversityStudent> component, int podSize) {
+    private List<List<UniversityStudent>> divideIntoPods(List<UniversityStudent> component, int podSize) {
         List<List<UniversityStudent>> pods = new ArrayList<>();
-        PriorityQueue<Edge> edgeQueue = new PriorityQueue<>(Comparator.comparingInt(e -> e.weight));
-        Set<UniversityStudent> inPod = new HashSet<>();
-
-        //initialise
-        UniversityStudent start = component.get(0);
-        addEdgesToQueue(start, edgeQueue, inPod);
-
         List<UniversityStudent> currentPod = new ArrayList<>();
-        while (!edgeQueue.isEmpty()) {
-            Edge edge = edgeQueue.poll();
-            if (inPod.contains(edge.student2)) continue;
 
-            currentPod.add(edge.student2);
-            inPod.add(edge.student2);
-
-            //add edge
-            addEdgesToQueue(edge.student2, edgeQueue, inPod);
-
-            //start a new one if the current one is full
+        for (UniversityStudent student : component) {
+            currentPod.add(student);
             if (currentPod.size() == podSize) {
                 pods.add(new ArrayList<>(currentPod));
                 currentPod.clear();
             }
         }
 
-        //add the remaining students as a pod
         if (!currentPod.isEmpty()) {
             pods.add(currentPod);
         }
@@ -109,55 +109,38 @@ public class PodFormation {
     }
 
     /**
-     * Adds edges from the given student to theq ueue.
-     *
-     * @param student the student whose edges are being added
-     * @param edgeQueue the priority queue
-     * @param inPod the students that are already in the pod
-     */
-    private void addEdgesToQueue(UniversityStudent student, PriorityQueue<Edge> edgeQueue, Set<UniversityStudent> inPod) {
-        for (UniversityStudent neighbor : graph.getConnections(student)) {
-            if (!inPod.contains(neighbor)) {
-                int weight = student.calculateConnectionStrength(neighbor);
-                edgeQueue.add(new Edge(student, neighbor, weight));
-            }
-        }
-    }
-
-    /**
-     * assign pods
+     * Assigns the pods to the global map.
      *
      * @param componentPods the list of pods to assign
      */
     private void assignPods(List<List<UniversityStudent>> componentPods) {
         for (List<UniversityStudent> pod : componentPods) {
             for (UniversityStudent student : pod) {
-                pods.put(student, new ArrayList<>(pod));
+                pods.put(student, pod);
             }
         }
     }
 
     /**
-     * just an edge
+     * Retrieves the formed pods.
+     *
+     * @return a map of students and their corresponding pods
+     */
+    public Map<UniversityStudent, List<UniversityStudent>> getPods() {
+        return pods;
+    }
+
+    /**
+     * Represents an edge in the graph.
      */
     public static class Edge {
         UniversityStudent student1, student2;
         int weight;
 
-        Edge(UniversityStudent student1, UniversityStudent student2, int weight) {
+        public Edge(UniversityStudent student1, UniversityStudent student2, int weight) {
             this.student1 = student1;
             this.student2 = student2;
             this.weight = weight;
         }
-    }
-
-    /**
-     * get pods after they are foemed.
-     *
-     * @return student and their pod
-     */
-
-    public Map<UniversityStudent, List<UniversityStudent>> getPods() {
-        return pods;
     }
 }

@@ -21,10 +21,16 @@ public class FriendRequestThread implements Runnable {
      */
     @Override
     public void run() {
-        System.out.println(sender.name + " sent a friend request to " + receiver.name);
         synchronized (receiver) {
-            //when accept or reject?
-            System.out.println(receiver.name + " accepted the friend request from " + sender.name);
+            System.out.println(sender.name + " sent a friend request to " + receiver.name);
+
+            if (receiver.isFriend(sender)) {
+                System.out.println(receiver.name + " and " + sender.name + " are already friends. Cannot add again.");
+            } else {
+                receiver.addFriend(sender);
+                sender.addFriend(receiver);
+                System.out.println(receiver.name + " accepted the friend request from " + sender.name);
+            }
         }
     }
 }

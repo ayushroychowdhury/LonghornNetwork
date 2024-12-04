@@ -5,6 +5,9 @@ import java.util.*;
  * to university students.
  */
 public class UniversityStudent extends Student {
+    private Map<UniversityStudent, List<String>> chatHistory = new HashMap<>();
+    private List<UniversityStudent> friends = new ArrayList<>();
+
     /**
      * Constructor to initialize a UniversityStudent with all necessary attributes.
      *
@@ -89,4 +92,48 @@ public class UniversityStudent extends Student {
                 ", previousInternships=" + previousInternships +
                 '}';
     }
+
+    /**
+     * this method receives a message from the sender and store the message in the corresponding attribute
+     * @param sender the sender
+     * @param message the message
+     */
+    public void receiveMessage(UniversityStudent sender, String message) {
+        if (sender == null || message == null || message.isEmpty()) {
+            System.out.println("Invalid message or sender.");
+            return;
+        }
+        System.out.println("Message received from " + sender.name + ": " + message);
+        chatHistory.computeIfAbsent(sender, k -> new ArrayList<>()).add(message);
+    }
+
+    /**
+     * add friend
+     * @param friend the friend
+     */
+    public void addFriend(UniversityStudent friend) {
+        if (!friends.contains(friend)) {
+            friends.add(friend);
+        }
+    }
+
+    /**
+     * check if they are friends
+     * @param friend friend
+     * @return friend check result
+     */
+    public boolean isFriend(UniversityStudent friend) {
+        return friends.contains(friend);
+    }
+
+    /**
+     * gets message history
+     * @param sender
+     * @return message
+     */
+    public List<String> getChatHistoryWith(UniversityStudent sender) {
+        return chatHistory.getOrDefault(sender, Collections.emptyList());
+    }
+
+
 }

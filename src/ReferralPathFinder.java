@@ -24,55 +24,59 @@ public class ReferralPathFinder {
      * @return a list of students representing the referral path, or an empty list if no path exists
      */
     public List<UniversityStudent> findReferralPath(UniversityStudent start, String targetCompany) {
-        //maps and queues I need
-        PriorityQueue<Pathcost> priorityQueue = new PriorityQueue<>(Comparator.comparingInt(n -> n.cost));
-        Set<UniversityStudent> visited = new HashSet<>();
+        // Priority queue to prioritize paths with stronger connections
+        PriorityQueue<Pathcost> priorityQueue = new PriorityQueue<>(Comparator.comparingInt(p -> p.cost));
         Map<UniversityStudent, UniversityStudent> parentMap = new HashMap<>();
         Map<UniversityStudent, Integer> costMap = new HashMap<>();
+        Set<UniversityStudent> visited = new HashSet<>();
 
-        //initialise
-        priorityQueue.add(new Pathcost(start, 0));
+        // Initialize the starting student
+        priorityQueue.add(new Pathcost(start, 0)); // Starting student with cost 0
         costMap.put(start, 0);
 
         while (!priorityQueue.isEmpty()) {
             Pathcost current = priorityQueue.poll();
-            UniversityStudent currentstudent = current.student;
+            UniversityStudent currentStudent = current.student;
 
-            //if visited
-            if (visited.contains(currentstudent)) {
-                continue;
-            }
-            visited.add(currentstudent);
+            // Skip if the student has already been processed
+            if (visited.contains(currentStudent)) continue;
+            visited.add(currentStudent);
 
-            //if has the target company in their internship history
-            if (currentstudent.previousInternships.contains(targetCompany)) {
-                return buildPath(start, currentstudent, parentMap);
+            // If the target company is found, build the path
+            if (currentStudent.previousInternships.contains(targetCompany)) {
+                return buildPath(parentMap, start, currentStudent);
             }
 
-            //check neighbors
-            for (UniversityStudent neighbor : graph.getConnections(currentstudent)) {
-                int connectionStrength = currentstudent.calculateConnectionStrength(neighbor);
-                int newCost = current.cost;
+            // Explore all neighbors
+            for (UniversityStudent neighbor : graph.getConnections(currentStudent)) {
+                if (visited.contains(neighbor)) continue;
 
-                if (!costMap.containsKey(neighbor) || newCost < costMap.get(neighbor)) {
+                // Calculate the "cost" for this neighbor (inverted connection strength)
+                int connectionStrength = currentStudent.calculateConnectionStrength(neighbor);
+                int newCost = costMap.getOrDefault(currentStudent, Integer.MAX_VALUE) - connectionStrength;
+
+                // Update the path if a stronger connection or shorter path is found
+                if (newCost < costMap.getOrDefault(neighbor, Integer.MAX_VALUE)) {
                     costMap.put(neighbor, newCost);
-                    parentMap.put(neighbor, currentstudent);
+                    parentMap.put(neighbor, currentStudent);
                     priorityQueue.add(new Pathcost(neighbor, newCost));
                 }
             }
         }
-        return new ArrayList<>();
+
+        return new ArrayList<>(); // No path found
     }
 
     /**
-     * build the referal path from the start student to the target student
+     * Builds the referral path from the start student to the target student.
      *
      * @param parentMap map containing the parent of each visited student
-     * @param start the starting student
-     * @param end the target
+     * @param start     the starting student
+     * @param end       the target
      * @return list of students representing the referral path
      */
-    private List<UniversityStudent> buildPath(UniversityStudent start, UniversityStudent end, Map<UniversityStudent, UniversityStudent> parentMap) {
+    private List<UniversityStudent> buildPath(Map<UniversityStudent, UniversityStudent> parentMap,
+                                              UniversityStudent start, UniversityStudent end) {
         List<UniversityStudent> path = new ArrayList<>();
         for (UniversityStudent at = end; at != null; at = parentMap.get(at)) {
             path.add(at);
@@ -82,7 +86,7 @@ public class ReferralPathFinder {
     }
 
     /**
-     * helper clcass to store students and costs in Dijkstra's algorithm
+     * Helper class to store students and costs in Dijkstra's algorithm.
      */
     private static class Pathcost {
         UniversityStudent student;
@@ -93,5 +97,4 @@ public class ReferralPathFinder {
             this.cost = cost;
         }
     }
-
 }

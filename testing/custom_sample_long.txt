@@ -1,0 +1,600 @@
+Student:
+Name: Hans
+Age: 23
+Gender: Male
+Year: 5
+Major: Mechanical Engineering
+GPA: 3.6
+RoommatePreferences: Felix, Thomas
+PreviousInternships: BMW, Tesla
+
+Student:
+Name: Anika
+Age: 21
+Gender: Female
+Year: 3
+Major: Computer Science
+GPA: 3.9
+RoommatePreferences: Ellie, Chloe
+PreviousInternships: Google, Amazon
+
+Student:
+Name: Ming
+Age: 22
+Gender: Male
+Year: 4
+Major: Electrical Engineering
+GPA: 3.8
+RoommatePreferences: Daniel, Victor
+PreviousInternships: Huawei, Tesla
+
+Student:
+Name: Mei
+Age: 20
+Gender: Female
+Year: 2
+Major: Mathematics
+GPA: 4.0
+RoommatePreferences: Wendy, Sophie
+PreviousInternships: Tencent, Google
+
+Student:
+Name: Hiroshi
+Age: 24
+Gender: Male
+Year: 5
+Major: Aerospace Engineering
+GPA: 3.5
+RoommatePreferences: Xavier, Liam
+PreviousInternships: Mitsubishi, SpaceX
+
+Student:
+Name: Sakura
+Age: 21
+Gender: Female
+Year: 3
+Major: Computer Science
+GPA: 3.8
+RoommatePreferences: Anika, Ellie
+PreviousInternships: Sony, Amazon
+
+Student:
+Name: Juan
+Age: 22
+Gender: Male
+Year: 4
+Major: Civil Engineering
+GPA: 3.7
+RoommatePreferences: Zach, Peter
+PreviousInternships: CEMEX, Tesla
+
+Student:
+Name: Lucia
+Age: 20
+Gender: Female
+Year: 2
+Major: Mathematics
+GPA: 3.9
+RoommatePreferences: Mei, Wendy
+PreviousInternships: Facebook, Intel
+
+Student:
+Name: Soo-jin
+Age: 21
+Gender: Female
+Year: 3
+Major: Computer Science
+GPA: 4.0
+RoommatePreferences: Anika, Sakura
+PreviousInternships: Samsung, Google
+
+Student:
+Name: Min-jun
+Age: 22
+Gender: Male
+Year: 4
+Major: Electrical Engineering
+GPA: 3.7
+RoommatePreferences: Ming, Victor
+PreviousInternships: LG, Tesla
+
+Student:
+Name: Thao
+Age: 20
+Gender: Female
+Year: 2
+Major: Civil Engineering
+GPA: 3.6
+RoommatePreferences: Juan, Peter
+PreviousInternships: CEMEX, Facebook
+
+Student:
+Name: Pierre
+Age: 23
+Gender: Male
+Year: 5
+Major: Aerospace Engineering
+GPA: 3.8
+RoommatePreferences: Felix, Hiroshi
+PreviousInternships: Airbus, SpaceX
+
+Student:
+Name: Emilie
+Age: 21
+Gender: Female
+Year: 3
+Major: Mathematics
+GPA: 3.9
+RoommatePreferences: Lucia, Mei
+PreviousInternships: Google, Amazon
+
+Student:
+Name: Ivan
+Age: 24
+Gender: Male
+Year: 5
+Major: Mechanical Engineering
+GPA: 3.6
+RoommatePreferences: Hans, Thomas
+PreviousInternships: Tesla, BMW
+
+Student:
+Name: Elena
+Age: 22
+Gender: Female
+Year: 4
+Major: Computer Science
+GPA: 3.8
+RoommatePreferences: Soo-jin, Anika
+PreviousInternships: Yandex, Google
+
+Student:
+Name: Dmitry
+Age: 23
+Gender: Male
+Year: 5
+Major: Electrical Engineering
+GPA: 3.7
+RoommatePreferences: Min-jun, Ming
+PreviousInternships: Huawei, Tesla
+
+Student:
+Name: Isabelle
+Age: 20
+Gender: Female
+Year: 2
+Major: Mathematics
+GPA: 4.0
+RoommatePreferences: Emilie, Mei
+PreviousInternships: Amazon, Facebook
+
+Student:
+Name: Sergey
+Age: 22
+Gender: Male
+Year: 4
+Major: Aerospace Engineering
+GPA: 3.6
+RoommatePreferences: Pierre, Hiroshi
+PreviousInternships: Roscosmos, SpaceX
+
+Student:
+Name: Akira
+Age: 23
+Gender: Male
+Year: 5
+Major: Mechanical Engineering
+GPA: 3.5
+RoommatePreferences: Ivan, Hans
+PreviousInternships: Toyota, Tesla
+
+Student:
+Name: Sofia
+Age: 21
+Gender: Female
+Year: 3
+Major: Computer Science
+GPA: 3.9
+RoommatePreferences: Elena, Soo-jin
+PreviousInternships: Sony, Google
+
+Student:
+Name: Rafael
+Age: 24
+Gender: Male
+Year: 5
+Major: Civil Engineering
+GPA: 3.7
+RoommatePreferences: Thao, Juan
+PreviousInternships: CEMEX, Tesla
+
+Student:
+Name: Mariam
+Age: 22
+Gender: Female
+Year: 4
+Major: Computer Science
+GPA: 4.0
+RoommatePreferences: Isabelle, Emilie
+PreviousInternships: Google, Amazon
+
+Student:
+Name: Victorien
+Age: 23
+Gender: Male
+Year: 5
+Major: Electrical Engineering
+GPA: 3.8
+RoommatePreferences: Dmitry, Min-jun
+PreviousInternships: Airbus, Tesla
+
+Student:
+Name: Nina
+Age: 20
+Gender: Female
+Year: 2
+Major: Mathematics
+GPA: 4.0
+RoommatePreferences: Isabelle, Emilie
+PreviousInternships: Facebook, Intel
+
+Student:
+Name: Mateo
+Age: 21
+Gender: Male
+Year: 3
+Major: Civil Engineering
+GPA: 3.5
+RoommatePreferences: Rafael, Juan
+PreviousInternships: CEMEX, Tesla
+
+Student:
+Name: Yukiko
+Age: 22
+Gender: Female
+Year: 4
+Major: Computer Science
+GPA: 3.9
+RoommatePreferences: Sofia, Soo-jin
+PreviousInternships: Sony, Google
+
+Student:
+Name: Mikhail
+Age: 23
+Gender: Male
+Year: 5
+Major: Aerospace Engineering
+GPA: 3.6
+RoommatePreferences: Sergey, Pierre
+PreviousInternships: Roscosmos, SpaceX
+
+Student:
+Name: Tatiana
+Age: 21
+Gender: Female
+Year: 3
+Major: Mathematics
+GPA: 3.8
+RoommatePreferences: Nina, Isabelle
+PreviousInternships: Amazon, Google
+
+Student:
+Name: Xiang
+Age: 22
+Gender: Male
+Year: 4
+Major: Electrical Engineering
+GPA: 3.7
+RoommatePreferences: Victorien, Dmitry
+PreviousInternships: Huawei, Tesla
+
+Student:
+Name: Selene
+Age: 20
+Gender: Female
+Year: 2
+Major: Computer Science
+GPA: 4.0
+RoommatePreferences: Yukiko, Sofia
+PreviousInternships: Google, Amazon
+
+Student:
+Name: Charlie
+Age: 22
+Gender: Male
+Year: 4
+Major: Electrical Engineering
+GPA: 3.7
+RoommatePreferences: Alice, Bob
+PreviousInternships: Tesla, Google
+
+Student:
+Name: David
+Age: 23
+Gender: Male
+Year: 4
+Major: Mechanical Engineering
+GPA: 3.6
+RoommatePreferences: Eve, Frank
+PreviousInternships: Boeing, Tesla
+
+Student:
+Name: Eve
+Age: 21
+Gender: Female
+Year: 3
+Major: Computer Science
+GPA: 3.9
+RoommatePreferences: Frank, David
+PreviousInternships: Google, Facebook
+
+Student:
+Name: Frank
+Age: 22
+Gender: Male
+Year: 3
+Major: Civil Engineering
+GPA: 3.4
+RoommatePreferences: David, Eve
+PreviousInternships: Amazon, Tesla
+
+Student:
+Name: Grace
+Age: 20
+Gender: Female
+Year: 2
+Major: Computer Science
+GPA: 4.0
+RoommatePreferences: Hannah, Eve
+PreviousInternships: Amazon, Google
+
+Student:
+Name: Hannah
+Age: 20
+Gender: Female
+Year: 2
+Major: Mathematics
+GPA: 3.8
+RoommatePreferences: Grace, Eve
+PreviousInternships: Intel, Facebook
+
+Student:
+Name: Ian
+Age: 24
+Gender: Male
+Year: 5
+Major: Electrical Engineering
+GPA: 3.7
+RoommatePreferences: Jack, Charlie
+PreviousInternships: Tesla, Intel
+
+Student:
+Name: Jack
+Age: 23
+Gender: Male
+Year: 4
+Major: Mechanical Engineering
+GPA: 3.5
+RoommatePreferences: Ian, Frank
+PreviousInternships: Boeing, Amazon
+
+Student:
+Name: Katie
+Age: 21
+Gender: Female
+Year: 3
+Major: Physics
+GPA: 3.9
+RoommatePreferences: Grace, Hannah
+PreviousInternships: SpaceX, Intel
+
+Student:
+Name: Liam
+Age: 22
+Gender: Male
+Year: 4
+Major: Aerospace Engineering
+GPA: 3.6
+RoommatePreferences: Charlie, David
+PreviousInternships: SpaceX, Tesla
+
+Student:
+Name: Mia
+Age: 20
+Gender: Female
+Year: 2
+Major: Computer Science
+GPA: 3.8
+RoommatePreferences: Grace, Hannah
+PreviousInternships: Google, Amazon
+
+Student:
+Name: Noah
+Age: 23
+Gender: Male
+Year: 5
+Major: Mechanical Engineering
+GPA: 3.5
+RoommatePreferences: Jack, Ian
+PreviousInternships: Boeing, SpaceX
+
+Student:
+Name: Olivia
+Age: 22
+Gender: Female
+Year: 4
+Major: Electrical Engineering
+GPA: 3.7
+RoommatePreferences: Mia, Grace
+PreviousInternships: Tesla, Intel
+
+Student:
+Name: Peter
+Age: 23
+Gender: Male
+Year: 5
+Major: Civil Engineering
+GPA: 3.6
+RoommatePreferences: Frank, Ian
+PreviousInternships: Tesla, Amazon
+
+Student:
+Name: Quinn
+Age: 20
+Gender: Female
+Year: 2
+Major: Computer Science
+GPA: 3.9
+RoommatePreferences: Mia, Grace
+PreviousInternships: Google, Facebook
+
+Student:
+Name: Riley
+Age: 21
+Gender: Female
+Year: 3
+Major: Aerospace Engineering
+GPA: 3.8
+RoommatePreferences: Liam, Jack
+PreviousInternships: SpaceX, Boeing
+
+Student:
+Name: Sophie
+Age: 22
+Gender: Female
+Year: 4
+Major: Mathematics
+GPA: 3.7
+RoommatePreferences: Katie, Hannah
+PreviousInternships: Intel, Google
+
+Student:
+Name: Thomas
+Age: 24
+Gender: Male
+Year: 5
+Major: Mechanical Engineering
+GPA: 3.5
+RoommatePreferences: Jack, Noah
+PreviousInternships: Boeing, Tesla
+
+Student:
+Name: Uma
+Age: 21
+Gender: Female
+Year: 3
+Major: Computer Science
+GPA: 4.0
+RoommatePreferences: Quinn, Grace
+PreviousInternships: Google, Amazon
+
+Student:
+Name: Victor
+Age: 22
+Gender: Male
+Year: 4
+Major: Electrical Engineering
+GPA: 3.6
+RoommatePreferences: Charlie, Liam
+PreviousInternships: Tesla, Facebook
+
+Student:
+Name: Wendy
+Age: 21
+Gender: Female
+Year: 3
+Major: Mathematics
+GPA: 3.9
+RoommatePreferences: Sophie, Katie
+PreviousInternships: Intel, Google
+
+Student:
+Name: Xavier
+Age: 23
+Gender: Male
+Year: 5
+Major: Aerospace Engineering
+GPA: 3.5
+RoommatePreferences: Liam, Riley
+PreviousInternships: SpaceX, Tesla
+
+Student:
+Name: Yara
+Age: 22
+Gender: Female
+Year: 4
+Major: Computer Science
+GPA: 3.8
+RoommatePreferences: Quinn, Uma
+PreviousInternships: Amazon, Google
+
+Student:
+Name: Zach
+Age: 23
+Gender: Male
+Year: 5
+Major: Civil Engineering
+GPA: 3.6
+RoommatePreferences: Peter, Ian
+PreviousInternships: Tesla, Intel
+
+Student:
+Name: Abigail
+Age: 21
+Gender: Female
+Year: 3
+Major: Mathematics
+GPA: 3.8
+RoommatePreferences: Sophie, Wendy
+PreviousInternships: Google, Intel
+
+Student:
+Name: Brandon
+Age: 22
+Gender: Male
+Year: 4
+Major: Mechanical Engineering
+GPA: 3.5
+RoommatePreferences: Noah, Thomas
+PreviousInternships: Boeing, SpaceX
+
+Student:
+Name: Chloe
+Age: 20
+Gender: Female
+Year: 2
+Major: Computer Science
+GPA: 4.0
+RoommatePreferences: Uma, Quinn
+PreviousInternships: Google, Amazon
+
+Student:
+Name: Daniel
+Age: 21
+Gender: Male
+Year: 3
+Major: Electrical Engineering
+GPA: 3.7
+RoommatePreferences: Victor, Charlie
+PreviousInternships: Tesla, Facebook
+
+Student:
+Name: Ellie
+Age: 22
+Gender: Female
+Year: 4
+Major: Computer Science
+GPA: 3.8
+RoommatePreferences: Yara, Chloe
+PreviousInternships: Tesla, Amazon
+
+Student:
+Name: Felix
+Age: 23
+Gender: Male
+Year: 5
+Major: Aerospace Engineering
+GPA: 3.6
+RoommatePreferences: Xavier, Riley
+PreviousInternships: SpaceX, Tesla
+

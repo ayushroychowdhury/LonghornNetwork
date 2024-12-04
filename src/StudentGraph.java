@@ -1,45 +1,62 @@
 import java.util.*;
 
 /**
- * A graph representing the UniversityStudent's relationship with other UniversityStudents 
- * and there are some methods to add/delete relationships,
- * also there is a method to perform perform bfs for specific targets.
+ * A graph representing the UniversityStudent's relationship with other UniversityStudents
+ * and there are methods to add/delete relationships.
+ * Also includes a method to perform BFS for specific targets.
  */
 public class StudentGraph {
     private Map<UniversityStudent, List<UniversityStudent>> relationshipMap;
 
     /**
-     * Construct a StudentGraph from a list of university students.
-     * Initialize an adjacency list for all students with no connections.
+     * Constructs a StudentGraph from a list of university students.
+     * Initializes an adjacency list for all students and creates connections
+     * based on their calculated connection strengths.
      *
      * @param students the list of students to be included in the graph
      */
-    public StudentGraph (List<UniversityStudent> students) {
+    public StudentGraph(List<UniversityStudent> students) {
         relationshipMap = new HashMap<>();
-        for (UniversityStudent student: students) {
+        for (UniversityStudent student : students) {
             relationshipMap.put(student, new ArrayList<>());
+        }
+
+        // Automatically build connections based on connection strengths
+        for (int i = 0; i < students.size(); i++) {
+            for (int j = i + 1; j < students.size(); j++) {
+                UniversityStudent student1 = students.get(i);
+                UniversityStudent student2 = students.get(j);
+
+                int connectionStrength = student1.calculateConnectionStrength(student2);
+
+                // Add connections only if there is a meaningful relationship
+                if (connectionStrength > 0) {
+                    addConnection(student1, student2);
+                }
+            }
         }
     }
 
     /**
      * Adds a connection between two students.
-     * If student 1 has a connection with student 2 then student 2 should also have a connection with student 1.
+     * If student1 has a connection with student2, then student2 should also have a connection with student1.
      * The connections are undirected.
+     *
      * @param student1 the first student
      * @param student2 the second student
      */
-    public void addConnection (UniversityStudent student1, UniversityStudent student2) {
+    public void addConnection(UniversityStudent student1, UniversityStudent student2) {
         relationshipMap.get(student1).add(student2);
         relationshipMap.get(student2).add(student1);
     }
 
     /**
-     * Removes a between two UniversityStudents.
+     * Removes a connection between two UniversityStudents.
      *
      * @param student1 the first student
      * @param student2 the second student
      */
-    public void removeConnection (UniversityStudent student1, UniversityStudent student2) {
+    public void removeConnection(UniversityStudent student1, UniversityStudent student2) {
         relationshipMap.get(student1).remove(student2);
         relationshipMap.get(student2).remove(student1);
     }
@@ -75,7 +92,7 @@ public class StudentGraph {
     }
 
     /**
-     * Performs a bfs starting from a given student
+     * Performs a BFS starting from a given student
      * to find a path to another student who has interned at the specified company.
      *
      * @param start   the student from which to start the search
@@ -84,7 +101,7 @@ public class StudentGraph {
      *         to a student with the target company in their internships, or an
      *         empty list if no such path exists
      */
-    public List<UniversityStudent> bfs (UniversityStudent start, String company) {
+    public List<UniversityStudent> bfs(UniversityStudent start, String company) {
         Queue<UniversityStudent> queue = new LinkedList<>();
         Set<UniversityStudent> visited = new HashSet<>();
         Map<UniversityStudent, UniversityStudent> parentMap = new HashMap<>();
@@ -94,12 +111,12 @@ public class StudentGraph {
 
         while (!queue.isEmpty()) {
             UniversityStudent current = queue.poll();
-            
+
             if (current.previousInternships.contains(company)) {
                 return buildPath(parentMap, start, current);
             }
 
-            for (UniversityStudent neighbor: relationshipMap.get(current)) {
+            for (UniversityStudent neighbor : relationshipMap.get(current)) {
                 if (!visited.contains(neighbor)) {
                     visited.add(neighbor);
                     parentMap.put(neighbor, current);
@@ -120,7 +137,7 @@ public class StudentGraph {
      */
     private List<UniversityStudent> buildPath(Map<UniversityStudent, UniversityStudent> parentMap,
                                               UniversityStudent start, UniversityStudent end) {
-        List <UniversityStudent> path = new ArrayList<>();
+        List<UniversityStudent> path = new ArrayList<>();
         for (UniversityStudent at = end; at != null; at = parentMap.get(at)) {
             path.add(at);
         }
@@ -128,6 +145,11 @@ public class StudentGraph {
         return path;
     }
 
+    /**
+     * Prints the relationships of the given student.
+     *
+     * @param student the student
+     */
     public void printerGraph(UniversityStudent student) {
         if (!relationshipMap.containsKey(student)) {
             System.out.println("Student not found in the graph.");
@@ -145,5 +167,22 @@ public class StudentGraph {
             }
         }
     }
-}
 
+    /**
+     * Prints the entire graph structure.
+     */
+    public void printFullGraph() {
+        for (UniversityStudent student : relationshipMap.keySet()) {
+            System.out.print(student.name + " -> ");
+            List<UniversityStudent> connections = relationshipMap.get(student);
+            if (connections.isEmpty()) {
+                System.out.println("No connections.");
+            } else {
+                for (UniversityStudent connection : connections) {
+                    System.out.print(connection.name + ", ");
+                }
+                System.out.println();
+            }
+        }
+    }
+}

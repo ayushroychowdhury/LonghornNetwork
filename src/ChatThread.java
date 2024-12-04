@@ -25,7 +25,24 @@ public class ChatThread implements Runnable {
      */
     @Override
     public void run() {
-        // Method signature only
-        //????????
+        handleChat(sender, receiver, message);
     }
+
+    /**
+     * a handle chat method to be called in run() method.
+     * @param sender the sender
+     * @param receiver the receiver
+     * @param message the message
+     */
+    private void handleChat(UniversityStudent sender, UniversityStudent receiver, String message) {
+        synchronized (receiver) {
+            try {
+                System.out.println(sender.name + " sends a message to " + receiver.name + ": " + message);
+                receiver.receiveMessage(sender, message);
+            } catch (Exception e) {
+                System.err.println("Error handling chat between " + sender.name + " and " + receiver.name + ": " + e.getMessage());
+            }
+        }
+    }
+
 }
