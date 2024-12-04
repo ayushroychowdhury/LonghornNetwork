@@ -1,6 +1,5 @@
 package program;
 
-import javax.xml.crypto.Data;
 import java.util.*;
 
 /**
@@ -76,6 +75,13 @@ public class GaleShapley {
             UniversityStudent roommate = roommates.get(student);
             if (roommate != null) {
                 System.out.println(student.getName() + " is roommates with " + roommate.getName());
+            }
+        }
+
+        /* Print unmatched students */
+        for (UniversityStudent student : students) {
+            if (!roommates.containsKey(student)) {
+                System.out.println(student.getName() + " is unmatched.");
             }
         }
     }

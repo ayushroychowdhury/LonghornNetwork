@@ -56,7 +56,7 @@ public class Main {
                     break label;
                 case "p":
                     /* Get student */
-                    System.out.print("Enter the program.Student: ");
+                    System.out.print("Enter the Student: ");
                     String studentName = sc.nextLine();
                     studentName = studentName.strip();
 
@@ -70,7 +70,7 @@ public class Main {
 
                     /* Ask for new student if student was invalid */
                     if (start == null) {
-                        System.out.println("program.Student not found.");
+                        System.out.println("Student not found.");
                         continue;
                     }
 
@@ -103,7 +103,7 @@ public class Main {
                     UniversityStudent friendSender = null;
                     friendSender = UniversityStudent.getStudentFromString(friendSenderName, students);
                     while (friendSender == null){
-                        System.out.println("program.Student not found.");
+                        System.out.println("Student not found.");
                         System.out.print("Enter the Sender: ");
                         friendSenderName = sc.nextLine();
                         friendSender = UniversityStudent.getStudentFromString(friendSenderName, students);
@@ -118,7 +118,7 @@ public class Main {
                     UniversityStudent friendReceiver = null;
                     friendReceiver = UniversityStudent.getStudentFromString(friendReceiverName, students);
                     while (friendReceiver == null){
-                        System.out.println("program.Student not found.");
+                        System.out.println("Student not found.");
                         System.out.print("Enter the Receiver: ");
                         friendReceiverName = sc.nextLine();
                         friendReceiver = UniversityStudent.getStudentFromString(friendReceiverName, students);
@@ -138,7 +138,7 @@ public class Main {
                     UniversityStudent messageSender = null;
                     messageSender = UniversityStudent.getStudentFromString(messageSenderName, students);
                     while (messageSender == null){
-                        System.out.println("program.Student not found.");
+                        System.out.println("Student not found.");
                         System.out.print("Enter the Sender: ");
                         messageSenderName = sc.nextLine();
                         messageSender = UniversityStudent.getStudentFromString(messageSenderName, students);
@@ -153,7 +153,7 @@ public class Main {
                     UniversityStudent messageReceiver = null;
                     messageReceiver = UniversityStudent.getStudentFromString(messageReceiverName, students);
                     while (messageReceiver == null){
-                        System.out.println("program.Student not found.");
+                        System.out.println("Student not found.");
                         System.out.print("Enter the Receiver: ");
                         messageReceiverName = sc.nextLine();
                         messageReceiver = UniversityStudent.getStudentFromString(messageReceiverName, students);

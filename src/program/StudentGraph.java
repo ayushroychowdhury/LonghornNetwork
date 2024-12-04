@@ -88,6 +88,9 @@ public class StudentGraph {
      */
     public static List<List<Student>> divideGraph(List<Student> nodes, List<StudentEdge> edges, int maxSize){
         List<List<Student>> groups = new ArrayList<List<Student>>();
+        if (maxSize <= 0){
+            return groups;
+        }
         List<Student> visited = new ArrayList<Student>();
         for(Student node : nodes){
             if(!visited.contains(node)){
@@ -112,6 +115,9 @@ public class StudentGraph {
     private static void divideGraphHelper(Student node, List<StudentEdge> edges, List<Student> visited, List<Student> group, int maxSize){
         for(StudentEdge edge : edges){
             if(edge.getSourceStudent().equals(node) && !visited.contains(edge.getTargetStudent())){
+                if (group.size() >= maxSize){
+                    return;
+                }
                 visited.add(edge.getTargetStudent());
                 group.add(edge.getTargetStudent());
                 if(group.size() < maxSize){
