@@ -14,15 +14,17 @@ public class Main {
 
         // For CMD LINE
         // String inputFile = "../testing/input_sample.txt";
-        String inputFile = "../testing/pod_sample.txt";
+        // String inputFile = "../testing/pod_sample.txt";
+        String inputFile = "../testing/roommate_sample.txt";
 
         // For DEBUGGER
         // String inputFile = "testing/input_sample.txt";
         // String inputFile = "testing/pod_sample.txt";
+        // String inputFile = "testing/roommate_sample.txt";
 
         try {
             List<UniversityStudent> students = DataParser.parseStudents(inputFile);
-            printStudents(students);
+            // printStudents(students);
 
             // Roommate matching
             System.out.println("Roomate Assignments:");
@@ -35,8 +37,8 @@ public class Main {
 
             // // Pod formation
             System.out.println("\nPod Assignments:");
-            StudentGraph graph = new StudentGraph(students);
-            PodFormation podFormation = new PodFormation(graph);
+            // StudentGraph graph = new StudentGraph(students);
+            // PodFormation podFormation = new PodFormation(graph);
             // podFormation.formPods(4);
 
             // // Referral path finding

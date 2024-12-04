@@ -7,7 +7,7 @@ public class GaleShapley {
      * Roomate matchings may not always be stable
      */
     public static void assignRoommates(List<UniversityStudent> students) {
-        List<UniversityStudent> queue = new LinkedList<>();
+        List<String> stack = new ArrayList<>();
         // index along preference list of proposals
         // QUESTION: how do we handle the cases where a student is rejected by every roommate
         Map<String, Integer> preferenceIndeces = new HashMap<>();
@@ -22,7 +22,7 @@ public class GaleShapley {
 
         // initialization step
         for (UniversityStudent student : students) {
-            queue.add(student);
+            stack.add(student.name);
             preferenceIndeces.put(student.name, 0);
             inversePreferenceList.put(student.name, new HashMap<String, Integer>());
             for (int i = 0; i < student.roommatePreferences.size(); ++i) {
@@ -30,8 +30,8 @@ public class GaleShapley {
             }
         }
 
-        while (!queue.isEmpty()) {
-            UniversityStudent student = queue.remove(0);
+        while (!stack.isEmpty()) {
+            UniversityStudent student = nameStudentMap.get(stack.remove(stack.size() - 1));
 
             // Check if student is already matched
             if (!student.roommate.equals("")) {
@@ -73,14 +73,14 @@ public class GaleShapley {
                     else if (currPreference == null)
                         swap = false;
                     else
-                        swap = currPreference > otherPreference;
+                        swap = currPreference < otherPreference;
                     if (swap) {
                         // this preferred to other
                         otherStudent.roommate = student.name;
                         student.roommate = otherStudent.name;
                         UniversityStudent otherStudentCurrRoommate = nameStudentMap.get(otherStudentCurrRoommateName);
                         otherStudentCurrRoommate.roommate = "";
-                        queue.add(otherStudentCurrRoommate);
+                        stack.add(otherStudentCurrRoommate.name);
                         break;
                     }
                 }
