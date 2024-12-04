@@ -89,6 +89,10 @@ public abstract class Student {
     }
 
 
+    /**
+     * Represents a student as a string
+     * @return a string representation of the student
+     */
     public String toString() {
         String representation = "";
         representation += "Name: " + name + "\n";

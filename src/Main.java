@@ -127,6 +127,7 @@ public class Main {
                     /* Send friend request */
                     FriendRequestThread friendRequestThread = new FriendRequestThread(friendSender, friendReceiver);
                     friendRequestThread.run();
+                    break;
                 case "m":
                     /* Chat message */
                     /* Get sender */
