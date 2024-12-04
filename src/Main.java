@@ -31,52 +31,9 @@ public class Main {
             pathFinder.findReferralPath(graph.getStudent("Issac"), "FindMe");
             pathFinder.findReferralPath(graph.getStudent("Timmy"), "IDontExist");
 
-            ExecutorService service = Executors.newSingleThreadExecutor();
-            for (UniversityStudent student : graph.getStudents()) {
-                for (UniversityStudent student1 : graph.getStudents()) {
-                    //service.execute(new FriendRequestThread(student, student1));
-                    //service.execute(new FriendRequestThread(student1, student));
-//                    service.execute(new ChatThread(student, student1, "HELLO!"));
-                }
-            }
-            service.shutdown();
-//            try {
-//                service.awaitTermination(1, TimeUnit.MINUTES);
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
-//
-//            ExecutorService service2 = Executors.newSingleThreadExecutor();
-//
-//            for (UniversityStudent student : graph.getStudents()) {
-//                for (UniversityStudent student1 : graph.getStudents()) {
-//                    if (FriendRequestThread.areFriends(student, student1)) {
-//                        System.out.println(student.getName() + " is friends with " + student1.getName());
-//                        service2.execute(new ChatThread(student, student1, "HELLO!"));
-//                    } else {
-//                        System.out.println(student.getName() + " is NOT friends with " + student1.getName());
-//                    }
-//                }
-//            }
-//
-//            service2.shutdown();
-//            try {
-//                service2.awaitTermination(1, TimeUnit.MINUTES);
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
 
             MainGUI gui = new MainGUI(graph);
             gui.show();
-
-
-//            service.shutdown();
-//            try {
-//                service.awaitTermination(1, TimeUnit.MINUTES);
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
-
 
         } catch (IOException e) {
             e.printStackTrace();

@@ -69,4 +69,13 @@ public class FriendRequestThread implements Runnable {
         }
         return false;
     }
+
+    static public List<UniversityStudent> getFriends(UniversityStudent sender) {
+        if (friends.containsKey(sender)) {
+            return friends.get(sender);
+        } else {
+            return null;
+        }
+    }
+
 }
