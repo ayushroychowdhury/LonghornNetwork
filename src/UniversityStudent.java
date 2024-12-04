@@ -7,6 +7,7 @@ import java.util.*;
 public class UniversityStudent extends Student {
     // TODO: Constructor and additional methods to be implemented
     private UniversityStudent roommate = null;
+    private ArrayList<UniversityStudent> podMembers = new ArrayList<UniversityStudent>();
     /**
      * This is the defined method that will calculate the strength between two students takes 
      * a student as input to compare against and returns how strong thier connection is.
@@ -31,6 +32,10 @@ public class UniversityStudent extends Student {
         roommate = null;
     }
 
+    public void addPodMember(UniversityStudent student){
+        podMembers.add(student);
+    }
+
     public int calculateConnectionStrength(Student other){
         int strength = 0;
         if (roommate == other){
@@ -46,7 +51,7 @@ public class UniversityStudent extends Student {
         if (this.major.equals(other.major)){
             strength += 3;
         }
-        if (this.year == other.year){
+        if (this.age == other.age){
             strength += 2;
         }
         return strength;
