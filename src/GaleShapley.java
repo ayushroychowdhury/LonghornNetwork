@@ -3,7 +3,7 @@ import java.util.*;
 public class GaleShapley {
     /**
      * Assigns roommates to students based on their preferences using the Gale-Shapley algorithm.
-     * @param students
+     * @param students List of students
      */
     public static void assignRoommates(List<UniversityStudent> students) {
         // Create a map of student preferences (disposable data)
@@ -55,9 +55,9 @@ public class GaleShapley {
 
     /**
      * Returns the student with the given name from the list of students.
-     * @param name
-     * @param students
-     * @return
+     * @param name Name of the student
+     * @param students List of students
+     * @return Student with the given name
      */
     private static UniversityStudent getStudent(String name, List<UniversityStudent> students) {
         for(UniversityStudent student : students) {

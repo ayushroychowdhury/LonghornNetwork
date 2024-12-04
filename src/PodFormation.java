@@ -5,7 +5,7 @@ public class PodFormation {
     Map<Integer, List<UniversityStudent>> pods;
     /**
      * Constructs a PodFormation object with the given graph.
-     * @param graph
+     * @param graph The graph of students.
      */
     public PodFormation(StudentGraph graph) {
         // Constructor
@@ -14,7 +14,7 @@ public class PodFormation {
     }
     /**
      * Forms pods of the given size using Prims algorithm.
-     * @param podSize
+     * @param podSize The size of each pod.
      */
     public Map<Integer, List<UniversityStudent>> formPods(int podSize) {
         // Forms pods of the given size using Prims algorithm

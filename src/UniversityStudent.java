@@ -7,14 +7,14 @@ public class UniversityStudent extends Student {
 
     /**
      * Constructor for the UniversityStudent class.
-     * @param name
-     * @param age
-     * @param gender
-     * @param year
-     * @param major
-     * @param gpa
-     * @param roommatePreferences
-     * @param previousInternships
+     * @param name name of the student
+     * @param age age of the student
+     * @param gender gender of the student
+     * @param year year of the student
+     * @param major major of the student
+     * @param gpa gpa of the student
+     * @param roommatePreferences roommate preferences of the student
+     * @param previousInternships previous internships of the student
      */
     public UniversityStudent(String name, int age, String gender, int year, String major, double gpa, List<String> roommatePreferences, List<String> previousInternships) {
         this.name = name;
@@ -30,8 +30,8 @@ public class UniversityStudent extends Student {
 
     /**
      * Calculates the connection strength between two UniversityStudents.
-     * @param other
-     * @return
+     * @param other student to compare with
+     * @return connection strength
      */
     public int calculateConnectionStrength(Student other) {
         if (other instanceof UniversityStudent) {
@@ -61,7 +61,7 @@ public class UniversityStudent extends Student {
 
     /**
      * Returns the name of the student.
-     * @return
+     * @return name
      */
     public String getName() {
         return name;
@@ -69,7 +69,7 @@ public class UniversityStudent extends Student {
 
     /**
      * Returns age of the student.
-     * @return
+     * @return age
      */
     public int getAge() {
         return age;
@@ -77,7 +77,7 @@ public class UniversityStudent extends Student {
 
     /**
      * Returns the gender of the student.
-     * @return
+     * @return gender
      */
     public String getGender() {
         return gender;
@@ -85,7 +85,7 @@ public class UniversityStudent extends Student {
 
     /**
      * Returns the year of the student.
-     * @return
+     * @return year
      */
     public int getYear() {
         return year;
@@ -93,7 +93,7 @@ public class UniversityStudent extends Student {
 
     /**
      * Returns the major of the student.
-     * @return
+     * @return major
      */
     public String getMajor() {
         return major;
@@ -101,7 +101,7 @@ public class UniversityStudent extends Student {
 
     /**
      * Returns the GPA of the student.
-     * @return
+     * @return gpa
      */
     public double getGpa() {
         return gpa;
@@ -109,7 +109,7 @@ public class UniversityStudent extends Student {
 
     /**
      * Returns the list of roommate preferences.
-     * @return
+     * @return roommate preference list
      */
     public List<String> getRoommatePreferences() {
         return roommatePreferences;
@@ -117,7 +117,7 @@ public class UniversityStudent extends Student {
 
     /**
      * Returns the list of previous internships.
-     * @return
+     * @return previous internship list
      */
     public List<String> getPreviousInternships() {
         return previousInternships;
@@ -125,7 +125,7 @@ public class UniversityStudent extends Student {
 
     /**
      * Returns the name of the roommate.
-     * @return
+     * @return roommate name
      */
     public String getRoommate() {
         return roommate;
@@ -133,7 +133,7 @@ public class UniversityStudent extends Student {
 
     /**
      * Sets the name of the roommate.
-     * @param roommate
+     * @param roommate name of the roommate
      */
     public void setRoommate(String roommate) {
         this.roommate = roommate;
@@ -141,8 +141,8 @@ public class UniversityStudent extends Student {
 
     /**
      * Returns the preference rank of the given name.
-     * @param name
-     * @return
+     * @param name name to check
+     * @return preference rank
      */
     public int preferenceRank(String name) {
         for (int i = 0; i < roommatePreferences.size(); i++) {
@@ -155,7 +155,7 @@ public class UniversityStudent extends Student {
 
     /**
      * Returns a string representation of the student.
-     * @return
+     * @return string representation
      */
     public String toString() {
         String result = "Name: " + name + "\n";
@@ -171,7 +171,7 @@ public class UniversityStudent extends Student {
         }
         result += "Roommate Preferences: " + roommatePreferences + "\n";
         result += "Previous Internships: " + previousInternships + "\n\n";
-        return name;
+        return result;
     }
 }
 

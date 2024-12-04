@@ -4,9 +4,9 @@ import java.util.*;
 public class DataParser {
     /**
      * Parses the students from the given file.
-     * @param filename
-     * @return
-     * @throws IOException
+     * @param filename name of the file
+     * @return list of students
+     * @throws IOException if an error occurs while reading the file
      */
     public static List<UniversityStudent> parseStudents(String filename) throws IOException {
         List<UniversityStudent> students = new ArrayList<>();

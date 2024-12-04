@@ -4,8 +4,8 @@ public class Edge {
 
     /**
      * Constructor for Edge
-     * @param student
-     * @param weight
+     * @param student destination student
+     * @param weight weight of the edge
      */
     public Edge(UniversityStudent student, int weight) {
         // Constructor
@@ -15,7 +15,7 @@ public class Edge {
 
     /**
      * returns head
-     * @return
+     * @return student
      */
     public UniversityStudent getStudent() {
         return student;
@@ -23,7 +23,7 @@ public class Edge {
 
     /**
      * returns weight
-     * @return
+     * @return weight
      */
     public int getWeight() {
         return weight;

@@ -12,8 +12,8 @@ public abstract class Student {
 
     /**
      * Constructor for the Student class.
-     * @param other
-     * @return
+     * @param other The student to compare to.
+     * @return The connection strength between the two students.
      */
     public abstract int calculateConnectionStrength(Student other);
 }

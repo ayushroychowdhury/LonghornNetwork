@@ -4,9 +4,9 @@ public class ChatThread implements Runnable {
     String message;
     /**
      * Constructor for ChatThread
-     * @param sender
-     * @param receiver
-     * @param message
+     * @param sender student who sent the message
+     * @param receiver student who received the message
+     * @param message message sent
      */
     public ChatThread(UniversityStudent sender, UniversityStudent receiver, String message) {
         // Constructor

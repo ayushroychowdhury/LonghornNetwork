@@ -8,7 +8,7 @@ public class ReferralPathFinder {
     private UniversityStudent start;
     /**
      * Constructor for the ReferralPathFinder class.
-     * @param graph
+     * @param graph The graph of students.
      */
     public ReferralPathFinder(StudentGraph graph) {
         // Constructor
@@ -16,9 +16,9 @@ public class ReferralPathFinder {
     }
     /**
      * Finds the shortest referral path from the start student to the target company using Dijkstra's algorithm.
-     * @param start
-     * @param targetCompany
-     * @return
+     * @param start The student to start from.
+     * @param targetCompany The company to find a referral path to.
+     * @return The list of students representing the shortest referral path.
      */
     public List<UniversityStudent> findReferralPath(UniversityStudent start, String targetCompany) {
         // Finds the shortest referral path from the start student to the target company using Dijkstra's algorithm, inverting the edge weights
@@ -74,8 +74,8 @@ public class ReferralPathFinder {
 
     /**
      * Returns the student with the given company name.
-     * @param company
-     * @return
+     * @param company The company name.
+     * @return The student with the given company name.
      */
     private UniversityStudent getStudentByCompany(String company) {
         // Returns the student with the given company name

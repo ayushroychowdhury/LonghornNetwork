@@ -3,8 +3,8 @@ public class FriendRequestThread implements Runnable {
     UniversityStudent receiver;
     /**
      * Constructor for FriendRequestThread
-     * @param sender
-     * @param receiver
+     * @param sender sender of the friend request
+     * @param receiver receiver of the friend request
      */
     public FriendRequestThread(UniversityStudent sender, UniversityStudent receiver) {
         // Constructor

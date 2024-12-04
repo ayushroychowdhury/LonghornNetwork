@@ -20,7 +20,7 @@ public class Main {
     
     /**
      * Main method that runs the Longhorn Network Simulation.
-     * @param args
+     * @param args Command-line arguments
      */
     public static void main(String[] args) {
         if (args.length == 0) {
@@ -97,6 +97,9 @@ public class Main {
         runGUI();
     }
 
+    /**
+     * Runs the Longhorn Network GUI.
+     */
     private static void runGUI() {
         // Create the frame
         JFrame frame = new JFrame("LONGHORN NETWORK");
@@ -192,7 +195,7 @@ public class Main {
 
     /**
      * Simulates friend requests between students.
-     * @param students
+     * @param students List of students
      */
     private static void simulateFriendRequests(List<UniversityStudent> students) {
         ExecutorService executor = Executors.newCachedThreadPool();

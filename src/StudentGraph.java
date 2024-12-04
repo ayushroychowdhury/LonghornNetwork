@@ -4,7 +4,7 @@ public class StudentGraph {
     private Map<UniversityStudent, List<Edge>> graph;
     /**
      * Constructs a StudentGraph object with the given list of students.
-     * @param students
+     * @param students The list of students.
      */
     public StudentGraph(List<UniversityStudent> students) {
         // Constructor
@@ -25,13 +25,18 @@ public class StudentGraph {
 
     /**
      * Returns the list of students in the graph.
-     * @return
+     * @return The list of students in the graph.
      */
     public List<UniversityStudent> getStudents() {
         // Returns the list of students in the graph
         return new ArrayList<>(graph.keySet());
     }
 
+    /**
+     * Returns the student with the given name.
+     * @param name The name of the student to get.
+     * @return The student with the given name.
+     */
     public UniversityStudent getStudent(String name) {
         for (UniversityStudent student : graph.keySet()) {
             if (student.getName().equals(name)) {
@@ -43,8 +48,8 @@ public class StudentGraph {
 
     /**
      * Returns the list of edges for the given student.
-     * @param student
-     * @return
+     * @param student The student to get the edges for.
+     * @return The list of edges for the given student.
      */
     public List<Edge> getEdges(UniversityStudent student) {
         // Returns the list of edges for the given student
@@ -53,9 +58,7 @@ public class StudentGraph {
 
     /**
      * Returns a string representation of the graph.
-     * @param student1
-     * @param student2
-     * @return
+     * @return The connection strength between the two students.
      */
     public String toString() {
         StringBuilder sb = new StringBuilder();
