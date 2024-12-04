@@ -9,6 +9,7 @@ public abstract class Student {
     protected double gpa;
     protected List<String> roommatePreferences;
     protected List<String> previousInternships;
+    protected String roommate = "";
 
     /**
      * Returns the strength of the connection between two students

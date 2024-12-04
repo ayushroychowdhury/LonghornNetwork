@@ -37,32 +37,54 @@ public class DataParser {
             RoommatePreferences: Bob, Charlie
             PreviousInternships: Google, Amazon
          */
-        String line = br.readLine();
+        String line;
         String[] lineSep;
-        while (line != null) {
+        do {
+            // remove leading whitespace until "Student:" is reached
+            do {
+                line = br.readLine();
+                if (line == null)
+                    break;
+            } while (line.strip() == "");
+            if (line == null)
+                break;
+            
             UniversityStudent st = new UniversityStudent();
             // name
-            lineSep = br.readLine().split(" ");
-            st.name = lineSep[1];
+            lineSep = br.readLine().split(":");
+            st.name = lineSep[1].strip();
             // age
-            lineSep = br.readLine().split(" ");
-            st.age = Integer.valueOf(lineSep[1]);
+            lineSep = br.readLine().split(":");
+            st.age = Integer.valueOf(lineSep[1].strip());
             // gender
-            lineSep = br.readLine().split(" ");
-            st.gender = lineSep[1];
+            lineSep = br.readLine().split(":");
+            st.gender = lineSep[1].strip();
             // year
-            lineSep = br.readLine().split(" ");
-            st.year = Integer.valueOf(lineSep[1]);
+            lineSep = br.readLine().split(":");
+            st.year = Integer.valueOf(lineSep[1].strip());
             // major
-            lineSep = br.readLine().split(" ");
-            st.major = lineSep[1];
+            lineSep = br.readLine().split(":");
+            st.major = lineSep[1].strip();
             // gpa
-            lineSep = br.readLine().split(" ");
-            st.gpa = Double.valueOf(lineSep[1]);
+            lineSep = br.readLine().split(":");
+            st.gpa = Double.valueOf(lineSep[1].strip());
             // roomate preferences
-            line = br.readLine();
+            st.roommatePreferences = new ArrayList<>();
+            lineSep = br.readLine().split(":");
+            String[] rms = lineSep[1].split(",");
+            for (String rm : rms) {
+                st.roommatePreferences.add(rm.strip());
+            }
             // previous internships
-        }
+            st.previousInternships = new ArrayList<>();
+            lineSep = br.readLine().split(":");
+            String[] pis = lineSep[1].split(",");
+            for (String pi : pis) {
+                st.previousInternships.add(pi.strip());
+            }
+
+            students.add(st);
+        } while (line != null);
         
 
         br.close();
