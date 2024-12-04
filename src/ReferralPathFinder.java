@@ -1,10 +1,11 @@
 import java.util.*;
 
 public class ReferralPathFinder {
-    private final StudentGraph graph;
+    private StudentGraph graph;
     private Map<UniversityStudent, Integer> distances;
     private Map<UniversityStudent, UniversityStudent> parents;
     private Set<UniversityStudent> visited;
+    private UniversityStudent start;
     /**
      * Constructor for the ReferralPathFinder class.
      * @param graph
@@ -24,6 +25,7 @@ public class ReferralPathFinder {
         distances = new HashMap<>();
         parents = new HashMap<>();
         visited = new HashSet<>();
+        this.start = start;
         for(UniversityStudent student : graph.getStudents()) {
             distances.put(student, Integer.MAX_VALUE);
             parents.put(student, null);
@@ -66,7 +68,31 @@ public class ReferralPathFinder {
             return new ArrayList<>();
         }
         Collections.reverse(path); 
+        //printTotalConnectionWeight(targetCompany);
         return path;
+    }
+
+    /**
+     * Prints the total connection weight of the shortest referral path.
+     */
+    private void printTotalConnectionWeight(String target) {
+        // Prints the total connection weight of the shortest referral path
+        int totalWeight = 0;
+        for(UniversityStudent student : graph.getStudents()) {
+            if(student.previousInternships.contains(target)) {
+                UniversityStudent current = student;
+                while(parents.get(current) != null) {
+                    UniversityStudent parent = parents.get(current);
+                    for(Edge edge : graph.getEdges(parent)) {
+                        if(edge.getStudent().equals(current)) {
+                            totalWeight += edge.getWeight();
+                        }
+                    }
+                    current = parent;
+                }
+            }
+        }
+        System.out.println("Total connection weight: " + totalWeight);
     }
 
     /**
@@ -78,7 +104,7 @@ public class ReferralPathFinder {
         // Returns the student with the given company name
         UniversityStudent shortestStudent = null;
         for (UniversityStudent student : graph.getStudents()) {
-            if (student.getPreviousInternships().contains(company)) {
+            if (student.getPreviousInternships().contains(company) && student != start) {
                 if(shortestStudent == null || distances.get(student) < distances.get(shortestStudent)) {
                     shortestStudent = student;
                 }

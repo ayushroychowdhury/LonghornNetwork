@@ -50,7 +50,6 @@ public class Main {
             // TODO: Implement user interaction for specifying a target company
 
             // Friend request simulation
-            simulateFriendRequests(students);
 
             // Output results
             System.out.println("\n\nRoommate Assignments:\n");
@@ -70,30 +69,31 @@ public class Main {
             }
             System.out.println();
             System.out.println("Referral Paths:");
-            System.out.print("Simon ");
+            System.out.print("Simon");
             for (UniversityStudent student : pathFinder.findReferralPath(graph.getStudent("Simon"), "FindMe")) {
-                if(student != students.get(0)) {
+                if(student != graph.getStudent("Simon")) {
                     System.out.print(" -> " + student.getName());
                 }
             }
             System.out.println();
-            System.out.print("Jimmy ");
+            System.out.print("Jimmy");
             for (UniversityStudent student : pathFinder.findReferralPath(graph.getStudent("Jimmy"), "FindMe")) {
-                if(student != students.get(0)) {
+                if(student != graph.getStudent("Jimmy")) {
                     System.out.print(" -> " + student.getName());
                 }
             }
             System.out.println();
-            System.out.print("Whale ");
-            for (UniversityStudent student : pathFinder.findReferralPath(graph.getStudent("Whale"), "IDontExist")) {
-                if(student != students.get(0)) {
+            System.out.print("Whale");
+            for (UniversityStudent student : pathFinder.findReferralPath(graph.getStudent("Whale"), "FindMe")) {
+                if(student != graph.getStudent("Whale")) {
                     System.out.print(" -> " + student.getName());
                 }
             }
-
+            System.out.println("\n\n");
         } catch (IOException e) {
             e.printStackTrace();
         }
+        simulateFriendRequests(students);
         runGUI();
     }
 
@@ -101,7 +101,7 @@ public class Main {
         // Create the frame
         JFrame frame = new JFrame("LONGHORN NETWORK");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(400, 300);
+        frame.setSize(800, 600);
         frame.setLayout(new BorderLayout());
         
         // Create the title label
@@ -122,14 +122,27 @@ public class Main {
         JButton showGraphButton = new JButton("Show Graph");
         JButton showRoommatesButton = new JButton("Show Roommates");
         JButton showPodsButton = new JButton("Show Pods");
+        JButton simulateThreadsButton = new JButton("Simulate Threads");
         
         // Add buttons to the panel
         buttonPanel.add(showGraphButton);
         buttonPanel.add(showRoommatesButton);
         buttonPanel.add(showPodsButton);
+        buttonPanel.add(simulateThreadsButton);
         
         // Add the panel to the frame
         frame.add(buttonPanel, BorderLayout.SOUTH);
+
+        simulateThreadsButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                simulateFriendRequests(students);
+                String chatHistoryString = "";
+                for (String message : chatHistory) {
+                    chatHistoryString += message + "\n";
+                }
+                textArea.setText(chatHistoryString);
+            }
+        });
 
         // Add action listeners to the buttons
         showGraphButton.addActionListener(new ActionListener() {

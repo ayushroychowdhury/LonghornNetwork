@@ -171,7 +171,7 @@ public class UniversityStudent extends Student {
         }
         result += "Roommate Preferences: " + roommatePreferences + "\n";
         result += "Previous Internships: " + previousInternships + "\n\n";
-        return result;
+        return name;
     }
 }
 
