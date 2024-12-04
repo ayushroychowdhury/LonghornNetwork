@@ -8,7 +8,9 @@ public class GaleShapley {
      * Assigns roommates to students
      * @param students A list of students
      */
-    public static void assignRoommates(List<UniversityStudent> students) {
+    public static String assignRoommates(List<UniversityStudent> students) {
+        String result = "";
+
         Map<UniversityStudent, Queue<UniversityStudent>> proposals = new HashMap<>();
         Queue<UniversityStudent> unmatchedStudents = new LinkedList<>();
 
@@ -59,11 +61,15 @@ public class GaleShapley {
 
         for (Student s : students) {
             if (s.roommate != null) {
-                System.out.println(s.name + " is roommates with " + s.roommate);
+                System.out.println(s.name + " is roommates with " + s.roommate + ".");
+                result += (s.name + " is roommates with " + s.roommate + ".\n");
             } else {
                 System.out.println(s.name + " does not have a roommate.");
+                result += (s.name + " does not have a roommate." + "\n");
             }
         }
+
+        return result;
 
     }
 }

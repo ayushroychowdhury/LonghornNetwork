@@ -15,7 +15,9 @@ public class Main {
     public static HashMap<String, HashSet<String>> friends = new HashMap<>();
     public static HashMap<String, HashSet<String>> interacted = new HashMap<>();
 
-
+    public static String graphText = "";
+    public static String roommateText = "";
+    public static String podText = "";
 
     public static void main(String[] args) {
         if (args.length == 0) {
@@ -34,7 +36,7 @@ public class Main {
 
 
             // Use Gale Shapley to assign roommates
-            GaleShapley.assignRoommates(students);
+            roommateText = GaleShapley.assignRoommates(students);
             System.out.println();
 
 
@@ -48,6 +50,7 @@ public class Main {
 
             for (Student s : students) {
                 System.out.println(s.name + " is connected to " + graph.getNeighborsWeighted(s.name));
+                graphText += s.name + " is connected to " + graph.getNeighborsWeighted(s.name) + ".\n";
             }
 
 
@@ -60,7 +63,13 @@ public class Main {
             int podNum = 0;
             for (List<String> pod : pods) {
                 System.out.print("Pod " + ++podNum + ": ");
-                for (int i = 0 ; i < pod.size()-1 ; i++) System.out.print(pod.get(i) + ", "); System.out.println(pod.get(pod.size()-1));
+                podText += "Pod " + podNum + ": ";
+                for (int i = 0 ; i < pod.size()-1 ; i++) {
+                    System.out.print(pod.get(i) + ", ");
+                    podText += pod.get(i) + ", ";
+                }
+                System.out.println(pod.get(pod.size()-1));
+                podText += pod.get(pod.size()-1) + "\n";
             }
             System.out.println();
 
@@ -123,6 +132,8 @@ public class Main {
         for (String s : friends.keySet()) System.out.println(s + " is friends with " + friends.get(s));
         System.out.println("\nChat History: " + ChatThread.chatHistory);
 
+
+        GUI.displayGUI();
 
     }
 }
