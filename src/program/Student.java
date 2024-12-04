@@ -2,6 +2,8 @@ package program;
 
 import java.util.*;
 
+import static program.UniversityStudent.getStudentFromString;
+
 /**
  * A class that represents a student and stores information about that student
  */
@@ -85,6 +87,7 @@ public abstract class Student {
     public List<String> getRoommatePreferences() {
         return roommatePreferences;
     }
+
 
     public String toString() {
         String representation = "";

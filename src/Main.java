@@ -168,7 +168,6 @@ public class Main {
                     chatThread.run();
                     break;
             }
-
         }
     }
 }

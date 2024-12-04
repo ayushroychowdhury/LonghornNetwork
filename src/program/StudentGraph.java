@@ -147,4 +147,12 @@ public class StudentGraph {
         }
         return 0;
     }
+
+    /**
+     * Gets the adjacency list of the graph
+     * @return the adjacency list of the graph
+     */
+    public Map<UniversityStudent, List<StudentEdge>> getAdjacencyList(){
+        return adjacencyList;
+    }
 }

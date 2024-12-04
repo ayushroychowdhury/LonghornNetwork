@@ -1,6 +1,7 @@
 package gui;
 
 import program.DataParser;
+import program.GaleShapley;
 
 import javax.swing.*;
 import java.awt.*;
@@ -51,6 +52,7 @@ public class ControlPanel extends JPanel {
                 String filename = filenameField.getText();
                 try {
                     DataParser.parseStudents(filename);
+                    GaleShapley.assignRoommates(DataParser.getStudents());
                     for (JPanel subscriber : subscribers) {
                         ((Subscriber) subscriber).update();
                     }

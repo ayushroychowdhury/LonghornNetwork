@@ -177,29 +177,34 @@ public class UniversityStudent extends Student {
         }
 
         /* Get roommate preferences */
-        ArrayList<String> roommatePreferences= new ArrayList<String>();
+        ArrayList<String> roommatePreferences= null;
         contentLine = studentData.get(6);
         if (contentLine != null){
             if (contentLine.startsWith("RoommatePreferences:")) {
-                if (contentLine.length() > 20) {
+                if (contentLine.length() >= 20) {
+                    roommatePreferences = new ArrayList<String>();
                     String roommatePrefString = contentLine.substring(20).trim();
                     String[] roommatePrefArray = roommatePrefString.split(",");
                     for (String pref : roommatePrefArray) {
+                        if (pref.isBlank() || pref.isEmpty()) {
+                            continue;
+                        }
                         roommatePreferences.add(pref.trim());
                     }
                 }
             }
         }
-        if (roommatePreferences.isEmpty()) {
+        if (roommatePreferences == null) {
             return null;
         }
 
         /* Get previous internships */
-        ArrayList<String> previousInternships = new ArrayList<String>();
+        ArrayList<String> previousInternships = null;
         contentLine = studentData.get(7);
         if (contentLine != null){
             if (contentLine.startsWith("PreviousInternships:")) {
-                if (contentLine.length() > 20) {
+                if (contentLine.length() >= 20) {
+                    previousInternships = new ArrayList<String>();
                     String previousInternString = contentLine.substring(20).trim();
                     String[] previousInternArray = previousInternString.split(",");
                     for (String internship : previousInternArray) {
@@ -208,7 +213,7 @@ public class UniversityStudent extends Student {
                 }
             }
         }
-        if (previousInternships.isEmpty()) {
+        if (previousInternships == null) {
             return null;
         }
 
@@ -229,5 +234,18 @@ public class UniversityStudent extends Student {
             }
         }
         return null;
+    }
+
+
+    /**
+     * Gets all the roommate preferences as Student objects
+     * @return List of Students
+     */
+    public List<UniversityStudent> getRoommatePreferencesObj() {
+        List<UniversityStudent> roomatePreferencesObjList = new ArrayList<UniversityStudent>();
+        for (String name : roommatePreferences) {
+            roomatePreferencesObjList.add(getStudentFromString(name, DataParser.getStudents()));
+        }
+        return roomatePreferencesObjList;
     }
 }
