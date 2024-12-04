@@ -24,9 +24,12 @@ public class GaleShapley {
             UniversityStudent proposer = unmatched.poll();
             List<String> preferences = proposer.roommatePreferences;
 
+            boolean matched = false;
+
             for (String preferredName : preferences) {
                 UniversityStudent preferred = findStudentByName(preferredName, students);
 
+                // Skip if the preferred student is null or already proposed to
                 if (preferred == null || proposals.get(proposer).contains(preferred)) {
                     continue;
                 }
@@ -34,31 +37,38 @@ public class GaleShapley {
                 proposals.get(proposer).add(preferred);
 
                 if (!roommateMatches.containsKey(preferred)) {
+                    // Preferred student is unmatched; assign them as roommates
                     roommateMatches.put(proposer, preferred);
                     roommateMatches.put(preferred, proposer);
+                    matched = true;
                     break;
                 } else {
+                    // Preferred student is matched; check if they prefer this proposer
                     UniversityStudent currentMatch = roommateMatches.get(preferred);
                     if (prefers(preferred, proposer, currentMatch)) {
                         roommateMatches.remove(currentMatch);
-                        unmatched.add(currentMatch);
+                        unmatched.add(currentMatch); // Requeue the unmatched student
 
                         roommateMatches.put(proposer, preferred);
                         roommateMatches.put(preferred, proposer);
+                        matched = true;
                         break;
                     }
                 }
             }
 
-            if (!roommateMatches.containsKey(proposer)) {
+            // Re-add proposer only if they didn't find a match
+            if (!matched && !roommateMatches.containsKey(proposer)) {
                 unmatched.add(proposer);
             }
         }
 
+        // Assign null for unmatched students
         for (UniversityStudent student : students) {
             roommateMatches.putIfAbsent(student, null);
         }
     }
+
 
     /**
      * Checks if a student prefers one proposer over another.

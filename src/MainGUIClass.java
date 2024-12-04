@@ -253,13 +253,22 @@ public class MainGUIClass {
 
 
     private void viewRoommateAssignments() {
-        if (students == null) {
-            outputArea.setText("Please select and parse an input file first.");
+        if (students == null || students.isEmpty()) {
+            outputArea.setText("No student data available. Please select and parse an input file first.");
             return;
         }
-        GaleShapley.assignRoommates(students);
+
+        // Ensure Gale-Shapley does not encounter errors for incomplete data
+        try {
+            GaleShapley.assignRoommates(students);
+        } catch (Exception e) {
+            outputArea.setText("Error during roommate assignment: " + e.getMessage());
+            return;
+        }
+
         StringBuilder output = new StringBuilder();
         output.append("Roommate Assignments:\n");
+
         for (UniversityStudent student : students) {
             UniversityStudent roommate = GaleShapley.getRoommateMatches().get(student);
             if (roommate != null) {
@@ -268,8 +277,10 @@ public class MainGUIClass {
                 output.append(student.name).append(" has no roommate assigned.\n");
             }
         }
+
         outputArea.setText(output.toString());
     }
+
 
     private void viewStudentInformation() {
         if (students == null) {
