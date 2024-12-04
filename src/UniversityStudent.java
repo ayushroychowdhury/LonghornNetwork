@@ -6,14 +6,50 @@ import java.util.*;
  */
 public class UniversityStudent extends Student {
     // TODO: Constructor and additional methods to be implemented
-
+    private UniversityStudent roommate = null;
     /**
      * This is the defined method that will calculate the strength between two students takes 
      * a student as input to compare against and returns how strong thier connection is.
      */
-    public int calculateConnectionStrength(Student other){
+    public void setRoommate(UniversityStudent newRoommate){
+        roommate = newRoommate;
+    }
 
-        return 0;
+    public String getRoommateName(){
+        if (roommate == null){
+            return "";
+        } else {
+            return roommate.name;
+        }
+    }
+
+    public UniversityStudent getRoommate(){
+        return roommate;
+    }
+
+    public void unmatch(){
+        roommate = null;
+    }
+
+    public int calculateConnectionStrength(Student other){
+        int strength = 0;
+        if (roommate == other){
+            strength += 5;
+        }
+        for (int i = 0; i < this.previousInternships.size(); ++i){
+            for (int j = 0; j < other.previousInternships.size(); ++j){
+                if (this.previousInternships.get(i).equals(other.previousInternships.get(j))){
+                    strength += 4;
+                }
+            }
+        }
+        if (this.major.equals(other.major)){
+            strength += 3;
+        }
+        if (this.year == other.year){
+            strength += 2;
+        }
+        return strength;
     }
 }
 
