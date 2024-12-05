@@ -63,21 +63,33 @@ public class Main {
             // REFERRAL PATH FINDING
             System.out.println("\nReferral Path:");
             ReferralPathFinder pathFinder = new ReferralPathFinder(graph, nameStudentMap);
-            System.out.println(processPath("Timmy", "FindMe", pathFinder, nameStudentMap));
-            System.out.println(processPath("Issac", "FindMe", pathFinder, nameStudentMap));
-            System.out.println(processPath("Jimmy", "FindMe", pathFinder, nameStudentMap));
-            System.out.println(processPath("Whale", "FindMe", pathFinder, nameStudentMap));
-            System.out.println(processPath("Simon", "FindMe", pathFinder, nameStudentMap));
-            System.out.println(processPath("Timmy", "IDontExist", pathFinder, nameStudentMap));
+            // System.out.println(processPath("Timmy", "FindMe", pathFinder, nameStudentMap));
+            // System.out.println(processPath("Issac", "FindMe", pathFinder, nameStudentMap));
+            // System.out.println(processPath("Jimmy", "FindMe", pathFinder, nameStudentMap));
+            // System.out.println(processPath("Whale", "FindMe", pathFinder, nameStudentMap));
+            // System.out.println(processPath("Simon", "FindMe", pathFinder, nameStudentMap));
+            // System.out.println(processPath("Timmy", "IDontExist", pathFinder, nameStudentMap));
+            
+            List<String> pathsPrinted = new ArrayList<>();
+            String[] names = {"Timmy", "Issac", "Jimmy", "Whale", "Simon", "Timmy"};
+            String[] companies = {"FindMe", "FindMe", "FindMe", "FindMe", "FindMe", "IDontExist"};
+            System.out.println();
+            for (int i = 0; i < names.length; ++i) {
+                String outcome = processPath(names[i], companies[i], pathFinder, nameStudentMap);
+                pathsPrinted.add(outcome);
+                System.out.println(outcome);
+            }
 
             // THREADS
             simulation(students);
 
-            new GUI();
+            // new GUI();
+            new GUI(students, pods, pathsPrinted, chatLog);
 
         } catch (IOException e) {
             e.printStackTrace();
         }
+
     }
 
     private static String processPath(String name, String company, ReferralPathFinder pf, Map<String, UniversityStudent> nsm) {
@@ -131,17 +143,17 @@ public class Main {
         for (UniversityStudent student : students) {
             System.out.print(student.name + " is friends with ");
             if (student.friends.size() == 0)
-                System.out.println(" nobody.");
+                System.out.println("nobody.");
             else {
                 for (String stu : student.friends) {
                     System.out.print(stu + ", ");
                 }
+                System.out.println();
             }
-            System.out.println();
         }
         System.out.println();
 
-        System.out.println("CHAT LOG");
+        System.out.println("CHAT LOG\n");
         for (String log : chatLog) {
             System.out.println(log);
         }
