@@ -2,7 +2,17 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.concurrent.ExecutorService;
 
+/**
+ * Reference for TabbedPane GUI
+ * @author Yahir Lopez
+ */
 public class TabbedPaneGUI extends JPanel {
+
+    /**
+     * Constructor for Tabbed Pane GUI JPanel
+     * @param graph StudentGraph
+     * @param executor ExecutorService
+     */
     public TabbedPaneGUI(StudentGraph graph, ExecutorService executor) {
         super(new GridLayout(1, 1));
 
@@ -41,7 +51,11 @@ public class TabbedPaneGUI extends JPanel {
         tabbedPane.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
     }
 
-    /** Returns an ImageIcon, or null if the path was invalid. */
+    /**
+     * Returns an ImageIcon, or null if the path was invalid.
+     * @param path String
+     * @return ImageIcon
+     * */
     protected static ImageIcon createImageIcon(String path) {
         java.net.URL imgURL = TabbedPaneGUI.class.getResource(path);
         if (imgURL != null) {

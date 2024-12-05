@@ -113,6 +113,10 @@ public class PodFormation {
         }
     }
 
+    /**
+     * Get the pods
+     * @return 2D List of UniversityStudent Objects
+     */
     public List<List<UniversityStudent>> getPods() {
         List r = new LinkedList<>();
         for (StudentGraph pod : pods) {

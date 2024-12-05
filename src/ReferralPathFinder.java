@@ -1,5 +1,4 @@
 import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * Reference for Referral Path finder
@@ -88,18 +87,18 @@ public class ReferralPathFinder {
         /**
          * University Student node
          */
-        UniversityStudent student;
+        private UniversityStudent student;
         /**
          * Weight of edge
          */
-        int weight;
+        private int weight;
 
         /**
          * Construct a pair of Student Object, and it's weight to be used in Dijkstra's algo
          * @param student Student
          * @param weight int
          */
-        StudentQueue(UniversityStudent student, int weight) {
+        public StudentQueue(UniversityStudent student, int weight) {
             this.student = student;
             this.weight = weight;
         }

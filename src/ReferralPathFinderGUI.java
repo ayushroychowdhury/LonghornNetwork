@@ -6,13 +6,24 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
+/**
+ * Reference for ReferralPathFinder GUI
+ * @author Yahir Lopez
+ */
 public class ReferralPathFinderGUI extends JPanel implements ActionListener {
-    ReferralPathFinder referralPathFinder;
-    JTextArea inputStudent;
-    JTextArea inputCompany;
-    JTextArea output;
-    StudentGraph graph;
+    /**
+     * Java Swing Components and related data
+     */
+    private ReferralPathFinder referralPathFinder;
+    private JTextArea inputStudent;
+    private JTextArea inputCompany;
+    private JTextArea output;
+    private StudentGraph graph;
 
+    /**
+     * Constructor for ReferralPathFinder GUI JPanel
+     * @param graph StudentGraph
+     */
     public ReferralPathFinderGUI(StudentGraph graph) {
         super(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
@@ -72,6 +83,10 @@ public class ReferralPathFinderGUI extends JPanel implements ActionListener {
 
     }
 
+    /**
+     * Function to call when a button is pressed
+     * @param e the event to be processed
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         if ("Find".equals(e.getActionCommand())) {

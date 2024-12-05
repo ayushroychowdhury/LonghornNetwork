@@ -70,6 +70,11 @@ public class FriendRequestThread implements Runnable {
         return false;
     }
 
+    /**
+     * Get List of a UniversityStudent Object's friends
+     * @param sender UniversityStudent
+     * @return List of UniversityStudent objects or null
+     */
     static public List<UniversityStudent> getFriends(UniversityStudent sender) {
         if (friends.containsKey(sender)) {
             return friends.get(sender);

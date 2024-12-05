@@ -6,10 +6,22 @@ skinparam classAttributeIconSize 0
 class Main  {
     + {static} main(args: String[]): void
 }
+class MainGUI {
+    - graph: StudentGraph
+    - executor: ExecutorService
+    + MainGUI(graph: StudentGraph)
+    + show(): void
+    - createAndShowGUI(): void
+}
 
 class ChatThread implements Runnable {
+    - chatHistory: Map<ChatPair, Chat>
+    - chatPair: ChatPair
+    - message: String
+    - {static} {final} lock: Lock
     + ChatThread(sender: UniversityStudent, receiver: UniversityStudent, message: String)
     + run(): void
+    + {static} getChatHistory(sender: UniversityStudent, receiver: UniversityStudent): List<String>
 }
 class ChatPair {
     - sender: UniversityStudent
@@ -21,6 +33,17 @@ class Chat {
     + Chat()
     + addMessage(message: String): void
 }
+class ChatThreadGUI extends JPanel implements ActionListener{
+    - inputSender: JTextArea
+    - inputReceiver: JTextArea
+    - inputMessage: JTextArea
+    - inputAmount: JTextArea
+    - output: JTextArea
+    - graph: StudentGraph
+    - executor: ExecutorService
+    + ChatThreadGUI(graph: StudentGraph, executor: ExecutorService)
+    + actionPerformed(e: ActionEvent): void
+}
 
 class DataParser {
     + {static} parseStudents(filename: String): List<UniversityStudent> throws IOException
@@ -28,15 +51,29 @@ class DataParser {
 
 class FriendRequestThread implements Runnable {
     - {static} friends: Map<UniversityStudent, List<UniversityStudent>>
+    - {static} {final} lock: Lock
+    - sender: UniversityStudent
+    - receiver: UniversityStudent
     + FriendRequestThread(sender: UniversityStudent, receiver: UniversityStudent)
     + run(): void
     + {static} areFriends(a: UniversityStudent, b: UniversityStudent): boolean
+    + {static} getFriends(sender: UniversityStudent): List<UniversityStudent>
+}
+class FriendRequestThreadGUI extends JPanel implements ActionListener {
+    - inputSender: JTextArea
+    - inputReceiver: JTextArea
+    - output: JTextArea
+    - graph: StudentGraph
+    - executor: ExecutorService
+    + FriendRequestThreadGUI(graph: StudentGraph, executor: ExecutorService)
+    + actionPerformed((e: ActionEvent): void
 }
 
 class GaleShapley {
     - {static} roommatePairs: Map<UniversityStudent, UniversityStudent>
     + {static} assignRoommates(students: List<UniversityStudent>): void
-    + {static} areRoommates(a: UniversityStudent, b: UniversityStudent): boolean
+    + {static} areRoommates(a: Student, b: Student): boolean
+    + {static} getRoommate(a: Student): UniversityStudent
 }
 
 class PodFormation {
@@ -44,12 +81,48 @@ class PodFormation {
     - pods: List<StudentGraph>
     + PodFormation(graph: StudentGraph)
     + formPods(podSize: int): void
+    + getPods(): List<List<UniversityStudent>>
+}
+class PodFormationGUI extends JPanel implements ActionListener {
+    - {static} {final} PodCol: int
+    - {static} {final} StudentCol: int
+    - {static} podNumber: int
+    - inputPodNumber: JTextArea
+    - graph: StudentGraph
+    - podScroller: JScrollPane
+    + PodFormationGUI(graph: StudentGraph)
+    + actionPerformed((e: ActionEvent): void
+    - formatTable(table: JTable): void
+}
+class TableModelPF extends AbstractTableModel {
+    - columnName: String[]
+    - data: Object[][]
+    + TableModel()
+    + getColumnCount(): int
+    + getRowCount: int
+    + getColumnName(col: int): String
+    + getValueAt(row: int, col: int): Object
 }
 
 class ReferralPathFinder {
     - referralGraph: StudentGraph
     + ReferralPathFinder(graph: StudentGraph)
-    + findReferralPath(start: UniversityStudent, targetCompany: String)
+    + findReferralPath(start: UniversityStudent, targetCompany: String): List<UniversityStudent>
+}
+class StudentQueue implements Comparable<StudentQueue> {
+    - student: UniversityStudent
+    - weight: int
+    + StudentQueue(student: UniversityStudent, weight: int)
+    + compareTo(other: StudentQueue): int
+}
+class ReferralPathFinderGUI extends JPanel implements ActionListener {
+    - referralPathFinder: ReferralPathFinder
+    - inputStudent: JTextArea
+    - inputCompany: JTextArea
+    - output: JTextArea
+    - graph: StudentGraph
+    + ReferralPathFinder(graph: StudentGraph)
+    + actionPerformed((e: ActionEvent): void
 }
 
 abstract class Student {
@@ -80,31 +153,74 @@ class UniversityStudent extends Student {
 class StudentGraph {
     - graph: Map<UniversityStudent, List<StudentGraphEdge>>
     + StudentGraph(students: List<UniversityStudent>)
-    + getEdges(student: UniversityStudent): Map<UniversityStudent, Integer>
+    + StudentGraph()
+    + StudentGraph(original: StudentGraph)
+    + printGraph(): void
+    + getEdges(student: UniversityStudent): List<StudentGraphEdge>
+    + getStudents(): List<UniversityStudent>
+    + getStudent(name: String): UniversityStudent
     + addEdge(start: UniversityStudent, end: UniversityStudent, weight: int): void
+    + addEdge(start: UniversityStudent, edge: StudentGraphEdge): void
+    + getStrongestEdge(student: UniversityStudent, visited: List<UniversityStudent>): StudentGraphEdge
+    + removeStudent(Student: UniversityStudent): void
+    + getRoot(): UniversityStudent
+    + numberOfStudents(): int
+    + isEmpty(): boolean
     + addStudent(student: UniversityStudent): void
+    + addStudent(student: UniversityStudent, edge: StudentGraphEdge): void
 }
 class StudentGraphEdge {
     - weight: int
-    - UniversityStudent: student
-    + StudentGraphEdge(student: UniversityStudent, weight: int)
+    - destStudent: UniversityStudent
+    - sourceStudent: UniversityStudent
+    + StudentGraphEdge(sourceStudent: UniversityStudent, destStudent: UniversityStudent, weight: int)
     + getWeight(): int
-    + getStudent(): UniversityStudent
+    + getDestStudent(): UniversityStudent
+    + getSourceStudent(): UniversityStudent
+}
+class StudentGraphGUI extends JPanel {
+    - {static} {final} NameCol: int
+    - {static} {final} AgeCol: int
+    - {static} {final} GenderCol: int
+    - {static} {final} YearCol: int
+    - {static} {final} MajorCol: int
+    - {static} {final} GPACol: int
+    - {static} {final} RoommateCol: int
+    - {static} {final} InternshipsCol: int
+    - {static} {final} ConnectedStudentsCol: int
+    + StudentGraphGUI(graph: StudentGraph)
+}
+class TableModelSG extends AbstractTableModel {
+    - columnName: String[]
+    - data: Object[][]
+    + TableModel()
+    + getColumnCount(): int
+    + getRowCount: int
+    + getColumnName(col: int): String
+    + getValueAt(row: int, col: int): Object
+}
+
+class TabbedPaneGUI extends JPanel {
+    + TabbedPaneGUI(graph: StudentGraph, executor: ExecutorService)
+    # {static} createImageIcon(path: String): ImageIcon
 }
 
 Student "1..*" o-- StudentGraph
 
 ReferralPathFinder --> StudentGraph
 ReferralPathFinder --> UniversityStudent
+ReferralPathFinder --> StudentGraphEdge
+ReferralPathFinder *-- "0..*" StudentQueue
 
-PodFormation --> StudentGraph
+PodFormation *-- "1..*" StudentGraph
+PodFormation --> UniversityStudent
+PodFormation --> StudentGraphEdge
 
 GaleShapley --> UniversityStudent
 
 FriendRequestThread --> UniversityStudent
 
-UniversityStudent "0..*" o-- DataParser
-UniversityStudent --> GaleShapley
+UniversityStudent "0..*" --o DataParser
 
 ChatThread --> UniversityStudent
 ChatPair "0..*" --* ChatThread
@@ -116,5 +232,34 @@ Main o-- UniversityStudent
 Main o-- StudentGraph
 Main o-- PodFormation
 Main o-- ReferralPathFinder
+Main o-- MainGUI
+
+MainGUI *-- "1" TabbedPaneGUI
+MainGUI --> "1" StudentGraph
+
+TabbedPaneGUI *-- "1" StudentGraphGUI
+TabbedPaneGUI *-- "1" PodFormationGUI
+TabbedPaneGUI *-- "1" ReferralPathFinderGUI
+TabbedPaneGUI *-- "1" FriendRequestThreadGUI
+TabbedPaneGUI *-- "1" ChatThreadGUI
+
+StudentGraphGUI --> StudentGraph
+StudentGraphGUI *-- "1" TableModelSG
+TableModelSG --> StudentGraph
+TableModelSG --> StudentGraphEdge
+
+PodFormationGUI --> StudentGraph
+PodFormationGUI *-- "1" TableModelPF
+TableModelPF o-- "1" PodFormation
+TableModelPF --> StudentGraph
+
+ReferralPathFinderGUI --> StudentGraph
+ReferralPathFinderGUI o-- "1..*" ReferralPathFinder
+
+FriendRequestThreadGUI --> StudentGraph
+FriendRequestThreadGUI o-- "1..*" FriendRequestThread
+
+ChatThreadGUI --> StudentGraph
+ChatThreadGUI o-- "1..*" ChatThread
 
 @enduml

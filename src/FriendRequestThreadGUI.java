@@ -5,13 +5,25 @@ import java.awt.event.ActionListener;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 
+/**
+ * Reference for FriendRequest GUI
+ * @author Yahir Lopez
+ */
 public class FriendRequestThreadGUI extends JPanel implements ActionListener {
-    JTextArea inputSender;
-    JTextArea inputReceiver;
-    JTextArea output;
-    StudentGraph graph;
-    ExecutorService executor;
+    /**
+     * Java Swing Components
+     */
+    private JTextArea inputSender;
+    private JTextArea inputReceiver;
+    private JTextArea output;
+    private StudentGraph graph;
+    private ExecutorService executor;
 
+    /**
+     * Constructor for Friend Request GUI JPanel
+     * @param graph StudentGraph
+     * @param executor ExecutorService
+     */
     public FriendRequestThreadGUI(StudentGraph graph, ExecutorService executor) {
         super(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
@@ -80,6 +92,10 @@ public class FriendRequestThreadGUI extends JPanel implements ActionListener {
         add(scrollPane, c);
     }
 
+    /**
+     * Function to call when a button is pressed
+     * @param e the event to be processed
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         String studentSender = inputSender.getText().trim();

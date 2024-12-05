@@ -55,6 +55,12 @@ public class ChatThread implements Runnable {
 
     }
 
+    /**
+     * Get the ChatHistory between two Students
+     * @param sender Student who sends the messages
+     * @param receiver Student who receives the messages
+     * @return List of Strings containing messages or null
+     */
     public static List<String> getChatHistory(UniversityStudent sender, UniversityStudent receiver) {
         lock.lock();
 

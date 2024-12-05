@@ -7,13 +7,24 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
+/**
+ * Reference for Pods GUI
+ * @author Yahir Lopez
+ */
 public class PodFormationGUI extends JPanel implements ActionListener {
+    /**
+     * Java Swing Components and related data
+     */
     private static final int PodCol = 0, StudentsCol = 1;
     private static int podNumber = 4;
     private JTextArea inputPodNumber;
     private StudentGraph graph;
     private JScrollPane podScroller;
 
+    /**
+     * Constructor for Pods GUI JPanel
+     * @param graph StudentGraph
+     */
     public PodFormationGUI(StudentGraph graph) {
         this.graph = graph;
 
@@ -41,6 +52,10 @@ public class PodFormationGUI extends JPanel implements ActionListener {
         add(buttonPanel);
     }
 
+    /**
+     * Function to call when a button is pressed
+     * @param e the event to be processed
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         if ("Form".equals(e.getActionCommand())) {
@@ -59,6 +74,10 @@ public class PodFormationGUI extends JPanel implements ActionListener {
         }
     }
 
+    /**
+     * Format a JTable to have all data centered
+     * @param table JTable
+     */
     private void formatTable(JTable table) {
         // Center All Data
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
@@ -79,13 +98,22 @@ public class PodFormationGUI extends JPanel implements ActionListener {
         }
     }
 
+    /**
+     * Reference for the TableModel used in PodFormationGUI
+     */
     class TableModel extends AbstractTableModel {
+        /**
+         * Data about Table
+         */
         private String[] columnNames = {
                 "Pod",
                 "Students",
         };
         private Object[][] data;
 
+        /**
+         * Constructor for TableModel in PodFormationGUI
+         */
         public TableModel() {
             PodFormation pods = new PodFormation(graph);
             pods.formPods(podNumber);
@@ -107,18 +135,38 @@ public class PodFormationGUI extends JPanel implements ActionListener {
 
         }
 
+        /**
+         * Abstract function of AbstractTableModel
+         * @return int
+         */
+        @Override
         public int getColumnCount() {
             return columnNames.length;
         }
 
+        /**
+         * Abstract function of AbstractTableModel
+         * @return int
+         */
+        @Override
         public int getRowCount() {
             return data.length;
         }
 
+        /**
+         * Abstract function of AbstractTableModel
+         * @return int
+         */
+        @Override
         public String getColumnName(int col) {
             return columnNames[col];
         }
 
+        /**
+         * Abstract function of AbstractTableModel
+         * @return String or int
+         */
+        @Override
         public Object getValueAt(int row, int col) {
             return data[row][col];
         }

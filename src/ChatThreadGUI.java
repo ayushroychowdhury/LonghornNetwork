@@ -5,15 +5,27 @@ import java.awt.event.ActionListener;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 
+/**
+ * Reference for ChatGUI
+ * @author Yahir Lopez
+ */
 public class ChatThreadGUI extends JPanel implements ActionListener {
-    JTextArea inputSender;
-    JTextArea inputReceiver;
-    JTextArea inputMessage;
-    JTextArea inputAmount;
-    JTextArea output;
-    StudentGraph graph;
-    ExecutorService executor;
+    /**
+     * Java Swing Components
+     */
+    private JTextArea inputSender;
+    private JTextArea inputReceiver;
+    private JTextArea inputMessage;
+    private JTextArea inputAmount;
+    private JTextArea output;
+    private StudentGraph graph;
+    private ExecutorService executor;
 
+    /**
+     * Construct the Chat GUI JPanel
+     * @param graph StudentGraph
+     * @param executor ExecutorService
+     */
     public ChatThreadGUI(StudentGraph graph, ExecutorService executor) {
         super(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
@@ -113,6 +125,10 @@ public class ChatThreadGUI extends JPanel implements ActionListener {
         add(scrollPane, c);
     }
 
+    /**
+     * Function to call when a button is pressed
+     * @param e the event to be processed
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         String studentSender = inputSender.getText().trim();
