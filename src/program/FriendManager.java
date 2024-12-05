@@ -109,4 +109,37 @@ public class FriendManager {
         }
         return false;
     }
+
+    /**
+     * Adds friends between two students
+     * @param firstStudent Name of the first student
+     * @param secondStudent Name of the second student
+     */
+    public static void addFriends(String firstStudent, String secondStudent) {
+        UniversityStudent student1 = null;
+        UniversityStudent student2 = null;
+
+        List<UniversityStudent> students = DataParser.getStudents();
+        if (students == null) {
+            return;
+        }
+
+        for (UniversityStudent student : DataParser.getStudents()) {
+            if (student.getName().equals(firstStudent)) {
+                student1 = student;
+            }
+            if (student.getName().equals(secondStudent)) {
+                student2 = student;
+            }
+        }
+        if (student1 == null || student2 == null) {
+            throw new IllegalArgumentException("Invalid students");
+        }
+        addFriend(student1, student2);
+    }
+
+
+    public static List<Set<Student>> getFriendSets(){
+        return friends;
+    }
 }

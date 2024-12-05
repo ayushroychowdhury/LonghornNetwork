@@ -35,6 +35,8 @@ public class StudentGraph {
             }
         }
 
+        printAdjacencyList();
+        System.out.println();
     }
 
     /**
@@ -160,5 +162,24 @@ public class StudentGraph {
      */
     public Map<UniversityStudent, List<StudentEdge>> getAdjacencyList(){
         return adjacencyList;
+    }
+
+
+    /**
+     * Prints the adjacency list of the graph
+     */
+    private void printAdjacencyList(){
+        for(UniversityStudent student : adjacencyList.keySet()){
+            System.out.print(student.getName() + " -> ");
+            String edgeString = "";
+            for(StudentEdge edge : adjacencyList.get(student)){
+                edgeString += edge.getTargetStudent().getName() + "(" + edge.getWeight() + "), ";
+            }
+            if(edgeString.length() > 1){
+                edgeString = edgeString.substring(0, edgeString.length()-2);
+            }
+            System.out.print(edgeString);
+            System.out.println();
+        }
     }
 }

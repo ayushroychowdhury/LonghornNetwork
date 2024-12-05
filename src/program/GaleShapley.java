@@ -81,9 +81,10 @@ public class GaleShapley {
         /* Print unmatched students */
         for (UniversityStudent student : students) {
             if (!roommates.containsKey(student)) {
-                System.out.println(student.getName() + " is unmatched.");
+                System.out.println(student.getName() + " is alone in his room.");
             }
         }
+        System.out.println();
     }
 
     /**

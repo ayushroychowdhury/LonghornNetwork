@@ -40,6 +40,7 @@ public class ControlPanel extends JPanel {
         JTextField filenameField = new JTextField(40);
         filenameField.setSize(200, 20);
         filenameField.setBounds(10, 40, 200, 20);
+        filenameField.setText("C:\\Users\\benhi\\Desktop\\Studium\\Semester 5 (USA)\\Software Design and Implementation II\\Assignments\\LonghornNetwork\\testing\\roommate_sample.txt");
         add(filenameLabel);
         add(filenameField);
 

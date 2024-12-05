@@ -94,16 +94,7 @@ public abstract class Student {
      * @return a string representation of the student
      */
     public String toString() {
-        String representation = "";
-        representation += "Name: " + name + "\n";
-        representation += "Age: " + age + "\n";
-        representation += "Gender:" + gender + "\n";
-        representation += "Year: " + year + "\n";
-        representation += "Major: " + major + "\n";
-        representation += "GPA: " + gpa + "\n";
-        representation += "Roommate Preferences: " + roommatePreferences + "\n";
-        representation += "Previous Internships: " + previousInternships + "\n";
-        return representation;
+        return name;
     }
 
     /**

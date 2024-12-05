@@ -51,6 +51,7 @@ public class PodFormation {
             }
         }
         System.out.println("Formation of MST completed.");
+        System.out.println();
 
         /* Second part: divide minimum spanning forest in pods with size <= podSize */
         pods = StudentGraph.divideGraph(mstNodes, mstEdges, podSize);
@@ -58,12 +59,17 @@ public class PodFormation {
         /* Print pods */
         System.out.println("Pods formed:");
         for (int i=0; i<pods.size(); i++) {
-            System.out.print("Pod " + (i+1) + ": ");
+            String podString = "Pod " + (i+1) + ": ";
+
             List<Student> pod = pods.get(i);
             for (Student student: pod){
-                System.out.print(student.getName() + " ");
+                podString += student.getName() + ", ";
             }
-            System.out.println();
+            if (!pod.isEmpty()) {
+                podString = podString.substring(0, podString.length() - 2);
+            }
+            System.out.println(podString);
         }
+        System.out.println();
     }
 }
