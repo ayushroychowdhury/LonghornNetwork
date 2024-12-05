@@ -34,6 +34,7 @@ public class MainFrame extends JFrame {
         tabbedPane.addTab("Rooms", new RoomPanel());
         tabbedPane.addTab("Friends", new FriendPanel());
         tabbedPane.addTab("Messages", new MessagePanel());
+        tabbedPane.addTab("Referrals", new ReferralPanel());
 
         add(tabbedPane);
     }
