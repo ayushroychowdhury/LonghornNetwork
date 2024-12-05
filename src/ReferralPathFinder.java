@@ -44,15 +44,15 @@ public class ReferralPathFinder {
             // Check if the current student works at the target company
             if (currentStudent.getPreviousInternships().contains(targetCompany)) {
                 List<UniversityStudent> path = buildPath(previous, currentStudent);
-                printPath(path, targetCompany);
+                printPath(start, path, targetCompany);
                 return; // Exit after printing the path
             }
 
             // Explore neighbors
             for (StudentGraph.Edge edge : graph.getNeighbors(currentStudent)) {
                 UniversityStudent neighbor = edge.neighbor;
-                // Invert the weight using 15 - weight
-                double invertedWeight = 15 - edge.weight;
+                // Invert the weight
+                double invertedWeight = (edge.weight > 1) ? 100 - edge.weight : Double.MAX_VALUE;
                 double newDistance = currentDistance + invertedWeight;
 
                 if (newDistance < distances.get(neighbor)) {
@@ -64,7 +64,7 @@ public class ReferralPathFinder {
         }
 
         // No path found, print an appropriate message
-        System.out.println("No referral path found to " + targetCompany + ".");
+        System.out.println(start.getName() + ": No referral path found to " + targetCompany + ".");
     }
 
     /**
@@ -87,8 +87,8 @@ public class ReferralPathFinder {
      * @param path list of UniversityStudents representing the referral path
      * @param targetCompany the target company
      */
-    private void printPath(List<UniversityStudent> path, String targetCompany) {
-        System.out.print("Path to " + targetCompany + ": ");
+    private void printPath(UniversityStudent start, List<UniversityStudent> path, String targetCompany) {
+        System.out.print(start.getName() + ": Path to " + targetCompany + ": ");
         for (int i = 0; i < path.size(); i++) {
             UniversityStudent student = path.get(i);
             System.out.print(student.getName());

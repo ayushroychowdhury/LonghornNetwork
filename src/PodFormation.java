@@ -20,8 +20,19 @@ public class PodFormation {
         for (UniversityStudent student : graph.getAllNodes()) {
             if (!visited.contains(student)) {
                 List<UniversityStudent> pod = new ArrayList<>();
-                // Perform Prim's algorithm to get the MST for the current component
-                formMST(student, visited, pod, podSize);
+
+                // Check if all edge weights are 0
+                boolean allZeroWeights = graph.getNeighbors(student).stream()
+                        .allMatch(edge -> edge.weight == 0);
+
+                if (allZeroWeights) {
+                    // If all edge weights are 0, add the student to the pod
+                    visited.add(student);
+                    pod.add(student);
+                } else {
+                    // Perform Prim's algorithm to get the MST for the current component
+                    formMST(student, visited, pod, podSize);
+                }
                 pods.add(pod);
             }
         }
@@ -39,6 +50,7 @@ public class PodFormation {
         }
     }
 
+
     /**
      * Perform Prim's algorithm to form a Minimum Spanning Tree (MST) starting from the given student.
      * @param start the starting student for the MST
@@ -53,10 +65,7 @@ public class PodFormation {
         minEdgeWeight.put(start, 0.0);
         pq.offer(new StudentGraph.Edge(start, 0.0));
 
-        if (graph.getNeighbors(start) == null){
-            return;
-        }
-
+        // Start Prim's algorithm
         while (!pq.isEmpty() && pod.size() < podSize) {
             StudentGraph.Edge currentEdge = pq.poll();
             UniversityStudent currentStudent = currentEdge.neighbor;
@@ -77,9 +86,9 @@ public class PodFormation {
             for (StudentGraph.Edge edge : graph.getNeighbors(currentStudent)) {
                 UniversityStudent neighbor = edge.neighbor;
 
-                if (!visited.contains(neighbor) && !minEdgeWeight.containsKey(neighbor)) {
-                    pq.offer(edge);
-                    minEdgeWeight.put(neighbor, edge.weight);
+                if (!visited.contains(neighbor)) {
+                    pq.offer(edge);  // Add edge to the priority queue
+                    minEdgeWeight.put(neighbor, edge.weight);  // Update minimum edge weight
                 }
             }
         }
