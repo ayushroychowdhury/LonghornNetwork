@@ -1,6 +1,7 @@
+
 import java.util.*;
 
-/** Student class */
+/** com.studentgraph.model.Student class */
 public abstract class Student {
     protected String name;
     protected int age;

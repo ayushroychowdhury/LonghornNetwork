@@ -53,26 +53,26 @@ This project simulates a social network called **Longhorn Network**, where stude
 ### Step 3: Implement Core Components
 
 - **Data Parsing (DataParser.java)**:
-  - Implement `parseStudents` to read from an input file and create `UniversityStudent` objects.
+  - Implement `parseStudents` to read from an input file and create `com.studentgraph.model.UniversityStudent` objects.
   - Validate input and handle exceptions as needed.
 
-- **Student Class and Subclass**:
-  - Implement the `Student` class with required attributes and the abstract method `calculateConnectionStrength`.
-  - Extend `Student` to create `UniversityStudent` with methods specific to calculating connection strengths.
+- **com.studentgraph.model.Student Class and Subclass**:
+  - Implement the `com.studentgraph.model.Student` class with required attributes and the abstract method `calculateConnectionStrength`.
+  - Extend `com.studentgraph.model.Student` to create `com.studentgraph.model.UniversityStudent` with methods specific to calculating connection strengths.
 
-- **Roommate Matching (GaleShapley.java)**:
+- **Roommate Matching (com.studentgraph.model.GaleShapley.java)**:
   - Use the provided Gale-Shapley method signature to match roommates based on preferences.
   - Implement and verify stable pairing results.
 
-- **Pod Formation (PodFormation.java)**:
+- **Pod Formation (com.studentgraph.model.PodFormation.java)**:
   - Implement Prim’s algorithm to form pods with minimized total connection weights.
   - Update each student’s pod attribute.
 
-- **Referral Path Finding (ReferralPathFinder.java)**:
+- **Referral Path Finding (com.studentgraph.model.ReferralPathFinder.java)**:
   - Use Dijkstra’s algorithm to find the shortest path to a student who interned at a specific company.
   - Include functionality for user input to specify the target company.
 
-- **Multithreading for Interactions (FriendRequestThread.java and ChatThread.java)**:
+- **Multithreading for Interactions (com.studentgraph.model.FriendRequestThread.java and com.studentgraph.model.ChatThread.java)**:
   - Implement multithreading to simulate friend requests and chatting between students.
   - Use Java’s synchronization mechanisms to ensure thread-safe operations on shared resources.
 
