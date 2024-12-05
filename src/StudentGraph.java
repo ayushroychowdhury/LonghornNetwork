@@ -1,85 +1,255 @@
 import java.util.*;
 
 /**
- * Represents a graph of students.
+ * Reference for a Student Graph
+ *
+ * This class represents a graph of university students, where each student is a node and edges represent connections between students.
+ * The graph is implemented using an adjacency list.
+ *
+ * Author: Cooper Nelson
  */
 public class StudentGraph {
-    private Map<String, List<Edge>> adjacencyList;
 
     /**
-     * Constructs an empty StudentGraph.
+     * Adjacency list to store the student graph
+     */
+    private final Map<UniversityStudent, List<StudentGraphEdge>> graph;
+
+    /**
+     * Construct a student graph from a list of student objects
+     *
+     * @param students List of students
+     */
+    public StudentGraph(List<UniversityStudent> students) {
+        graph = new HashMap<>();
+        for (UniversityStudent student : students) {
+            List<StudentGraphEdge> edges = new LinkedList<>();
+            for (UniversityStudent connectingStudent : students) {
+                if (!student.equals(connectingStudent)) {
+                    edges.add(new StudentGraphEdge(student, connectingStudent, student.calculateConnectionStrength(connectingStudent)));
+                }
+            }
+            graph.put(student, edges);
+        }
+    }
+
+    /**
+     * Construct an empty student graph
      */
     public StudentGraph() {
-        this.adjacencyList = new HashMap<>();
+        graph = new HashMap<>();
     }
 
     /**
-     * Adds an edge between two students with the specified weight.
+     * Construct a graph from an existing graph
+     * Everything but UniversityStudent objects are deep-copied
      *
-     * @param student1 the first student
-     * @param student2 the second student
-     * @param weight   the weight of the edge
+     * @param original StudentGraph
      */
-    public void addEdge(String student1, String student2, int weight) {
-        adjacencyList.putIfAbsent(student1, new ArrayList<>());
-        adjacencyList.putIfAbsent(student2, new ArrayList<>());
-        adjacencyList.get(student1).add(new Edge(student2, weight));
-        adjacencyList.get(student2).add(new Edge(student1, weight));
+    public StudentGraph(StudentGraph original) {
+        graph = new HashMap<>();
+        for (Map.Entry<UniversityStudent, List<StudentGraphEdge>> entry : original.graph.entrySet()) {
+            graph.put(entry.getKey(), new LinkedList<>());
+            for (StudentGraphEdge edge : entry.getValue()) {
+                graph.get(entry.getKey()).add(new StudentGraphEdge(edge.getSourceStudent(), edge.getDestStudent(), edge.getWeight()));
+            }
+        }
     }
 
     /**
-     * Returns the neighbors of the specified student.
+     * Getter for the list of edges associated with a UniversityStudent
      *
-     * @param student the student whose neighbors are to be returned
-     * @return a list of edges representing the neighbors of the student
+     * @param student UniversityStudent
+     * @return List of StudentGraphEdge objects
      */
-    public List<Edge> getNeighbors(String student) {
-        return adjacencyList.getOrDefault(student, new ArrayList<>());
+    public List<StudentGraphEdge> getEdges(UniversityStudent student) {
+        return graph.getOrDefault(student, null);
     }
 
     /**
-     * Returns all the nodes in the graph.
+     * Get the list of UniversityStudent objects in the graph
      *
-     * @return a set of all the nodes in the graph
+     * @return List of UniversityStudent objects
      */
-    public Set<String> getAllNodes() {
-        return adjacencyList.keySet();
+    public List<UniversityStudent> getStudents() {
+        return new LinkedList<>(graph.keySet());
     }
 
     /**
-     * Represents an edge in the student graph.
+     * Get a UniversityStudent object from the graph via its name
+     *
+     * @param name String
+     * @return UniversityStudent
      */
-    public static class Edge {
-        private String student;
+    public UniversityStudent getStudent(String name) {
+        for (UniversityStudent student : graph.keySet()) {
+            if (student.getName().equals(name)) {
+                return student;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Add an edge to a UniversityStudent
+     *
+     * @param start  UniversityStudent
+     * @param end    UniversityStudent
+     * @param weight int
+     */
+    public void addEdge(UniversityStudent start, UniversityStudent end, int weight) {
+        graph.get(start).add(new StudentGraphEdge(start, end, weight));
+    }
+
+    /**
+     * Add an edge to a UniversityStudent
+     *
+     * @param start UniversityStudent
+     * @param edge  StudentGraphEdge
+     */
+    public void addEdge(UniversityStudent start, StudentGraphEdge edge) {
+        graph.get(start).add(edge);
+    }
+
+    /**
+     * Get the strongest edge for a UniversityStudent node
+     *
+     * @param student the node to check for the strongest edge
+     * @param visited List of visited nodes
+     * @return StudentGraphEdge
+     */
+    public StudentGraphEdge getStrongestEdge(UniversityStudent student, List<UniversityStudent> visited) {
+        StudentGraphEdge strongestEdge = new StudentGraphEdge(student, null, 0);
+        for (StudentGraphEdge edge : graph.get(student)) {
+            if (strongestEdge.weight < edge.getWeight() && !visited.contains(edge.getDestStudent())) {
+                strongestEdge = edge;
+            }
+        }
+        return strongestEdge;
+    }
+
+    /**
+     * Remove a student from the graph
+     *
+     * @param student UniversityStudent
+     */
+    public void removeStudent(UniversityStudent student) {
+        graph.remove(student);
+        for (UniversityStudent students : graph.keySet()) {
+            ListIterator<StudentGraphEdge> iterator = graph.get(students).listIterator();
+            while (iterator.hasNext()) {
+                StudentGraphEdge edge = iterator.next();
+                if (edge.getDestStudent().equals(student)) {
+                    iterator.remove();
+                }
+            }
+        }
+    }
+
+    /**
+     * Get the random root of a graph
+     *
+     * @return UniversityStudent
+     */
+    public UniversityStudent getRoot() {
+        return graph.keySet().stream().findFirst().orElse(null);
+    }
+
+    /**
+     * Get the number of students in the graph
+     *
+     * @return int
+     */
+    public int numberOfStudents() {
+        return graph.size();
+    }
+
+    /**
+     * Check if the graph is empty
+     *
+     * @return boolean
+     */
+    public boolean isEmpty() {
+        return graph.isEmpty();
+    }
+
+    /**
+     * Add a student to the graph
+     *
+     * @param student UniversityStudent
+     */
+    public void addStudent(UniversityStudent student) {
+        graph.put(student, new LinkedList<>());
+    }
+
+    /**
+     * Add a student to the graph with an edge
+     *
+     * @param student UniversityStudent
+     * @param edge    StudentGraphEdge
+     */
+    public void addStudent(UniversityStudent student, StudentGraphEdge edge) {
+        graph.put(student, new LinkedList<>());
+        graph.get(student).add(edge);
+    }
+
+    /**
+     * Reference for a StudentGraphEdge
+     */
+    public class StudentGraphEdge {
+        /**
+         * The cost to travel to the edge
+         */
         private int weight;
 
         /**
-         * Constructs an Edge with the specified student and weight.
-         *
-         * @param student the student at the end of the edge
-         * @param weight  the weight of the edge
+         * Destination of the edge
          */
-        public Edge(String student, int weight) {
-            this.student = student;
+        private UniversityStudent destStudent;
+
+        /**
+         * Source of the edge
+         */
+        private final UniversityStudent sourceStudent;
+
+        /**
+         * Construct a StudentGraphEdge
+         *
+         * @param sourceStudent UniversityStudent
+         * @param destStudent   UniversityStudent
+         * @param weight        int
+         */
+        public StudentGraphEdge(UniversityStudent sourceStudent, UniversityStudent destStudent, int weight) {
             this.weight = weight;
+            this.destStudent = destStudent;
+            this.sourceStudent = sourceStudent;
         }
 
         /**
-         * Returns the student at the end of the edge.
+         * Getter for StudentGraphEdge weight
          *
-         * @return the student at the end of the edge
-         */
-        public String getStudent() {
-            return student;
-        }
-
-        /**
-         * Returns the weight of the edge.
-         *
-         * @return the weight of the edge
+         * @return int
          */
         public int getWeight() {
             return weight;
+        }
+
+        /**
+         * Getter for destination StudentGraphEdge student
+         *
+         * @return UniversityStudent
+         */
+        public UniversityStudent getDestStudent() {
+            return destStudent;
+        }
+
+        /**
+         * Getter for source StudentGraphEdge student
+         *
+         * @return UniversityStudent
+         */
+        public UniversityStudent getSourceStudent() {
+            return sourceStudent;
         }
     }
 }

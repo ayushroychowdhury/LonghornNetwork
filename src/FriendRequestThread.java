@@ -24,7 +24,18 @@ public class FriendRequestThread implements Runnable {
      */
     @Override
     public void run() {
-        // Method implementation
+        synchronized (friends) {
+            friends.putIfAbsent(sender, new ArrayList<>());
+            friends.putIfAbsent(receiver, new ArrayList<>());
+
+            if (!friends.get(sender).contains(receiver)) {
+                friends.get(sender).add(receiver);
+            }
+
+            if (!friends.get(receiver).contains(sender)) {
+                friends.get(receiver).add(sender);
+            }
+        }
     }
 
     /**

@@ -35,19 +35,106 @@ public class UniversityStudent extends Student {
      */
     @Override
     public int calculateConnectionStrength(Student other) {
-        int strength = 0;
+        int connectionStrength = 0;
+
+        if (GaleShapley.areRoommates(this, (UniversityStudent) other)) {
+            connectionStrength += 5;
+        }
+        for (String pastIntern : this.previousInternships) {
+            if (other.previousInternships.contains(pastIntern)) {
+                connectionStrength += 4;
+            }
+        }
         if (this.major.equals(other.major)) {
-            strength += 10;
+            connectionStrength += 3;
         }
-        if (this.year == other.year) {
-            strength += 5;
+        if (this.age == other.age) {
+            connectionStrength += 2;
         }
-        if (this.gender.equals(other.gender)) {
-            strength += 3;
+
+        if (connectionStrength == 0) {
+            return Integer.MIN_VALUE;
         }
-        return strength;
+
+        return connectionStrength;
     }
 
+
+    /**
+     * Returns the name of the student.
+     *
+     * @return the name of the student
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * Returns the age of the student.
+     *
+     * @return the age of the student
+     */
+    public int getAge() {
+        return age;
+    }
+
+    /**
+     * Returns the gender of the student.
+     *
+     * @return the gender of the student
+     */
+    public String getGender() {
+        return gender;
+    }
+
+    /**
+     * Returns the year of the student.
+     *
+     * @return the year of the student
+     */
+    public int getYear() {
+        return year;
+    }
+
+    /**
+     * Returns the major of the student.
+     *
+     * @return the major of the student
+     */
+    public String getMajor() {
+        return major;
+    }
+
+    /**
+     * Returns the GPA of the student.
+     *
+     * @return the GPA of the student
+     */
+    public double getGpa() {
+        return gpa;
+    }
+
+    /**
+     * Returns the roommate preferences of the student.
+     *
+     * @return the roommate preferences
+     */
+    public List<String> getRoommatePreferences() {
+        return roommatePreferences;
+    }
+
+    /**
+     * Returns the previous internships of the student.
+     *
+     * @return the previous internships
+     */
+    public List<String> getPreviousInternships() {
+        return previousInternships;
+    }
+
+
+
     // Additional methods can be implemented here
+
 }
 
