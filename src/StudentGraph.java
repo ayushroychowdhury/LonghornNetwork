@@ -70,6 +70,20 @@ public class StudentGraph {
     }
 
     /**
+     * Returns the UniversityStudent object corresponding to a given name
+     * @param name name of the student to find
+     * @return the UniversityStudent object if found, null otherwise
+     */
+    public UniversityStudent getStudent(String name) {
+        for (UniversityStudent student : graph.keySet()) {
+            if (student.getName().equals(name)) {
+                return student;
+            }
+        }
+        return null; // Return null if no student with the given name is found
+    }
+
+    /**
      * Debugging utility: Prints the adjacency list
      */
     public void printGraph() {

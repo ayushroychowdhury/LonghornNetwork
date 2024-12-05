@@ -25,22 +25,29 @@ public class Main {
 
             System.out.println("\nReferral Path:");
 
-            List<UniversityStudent> referralPath1 = pathFinder.findReferralPath(students.get(1), "Amazon");
-            pathFinder.printReferralPath(referralPath1, "Amazon");
+//            List<UniversityStudent> referralPath1 = pathFinder.findReferralPath(students.get(1), "Amazon");
+//            pathFinder.printReferralPath(referralPath1, "Amazon");
+//
+//            List<UniversityStudent> referralPath2 = pathFinder.findReferralPath(students.get(0), "Microsoft");
+//            pathFinder.printReferralPath(referralPath2, "Microsoft");
 
-            List<UniversityStudent> referralPath2 = pathFinder.findReferralPath(students.get(0), "Microsoft");
-            pathFinder.printReferralPath(referralPath2, "Microsoft");
+            pathFinder.findReferralPath(graph.getStudent("Issac"), "FindMe");
+
+            pathFinder.findReferralPath(graph.getStudent("Timmy"), "FindMe");
+
+            pathFinder.findReferralPath(graph.getStudent("Timmy"), "IDontExist");
+
 
             System.out.println();
 
-            // Friend Requests & Chatting
-            ExecutorService executor = Executors.newFixedThreadPool(3);
-
-            executor.submit(new FriendRequestThread(students.getFirst(), students.getLast()));
-            executor.submit(new ChatThread(students.getFirst(), students.getLast(), "Hey Bob, are you free for lunch?"));
-            executor.submit(new ChatThread(students.getLast(), students.getFirst(), "Sorry Alice, I'm too busy doing ur mom."));
-
-            executor.shutdown();
+//            // Friend Requests & Chatting
+//            ExecutorService executor = Executors.newFixedThreadPool(3);
+//
+//            executor.submit(new FriendRequestThread(students.getFirst(), students.getLast()));
+//            executor.submit(new ChatThread(students.getFirst(), students.getLast(), "Hey Bob, are you free for lunch?"));
+//            executor.submit(new ChatThread(students.getLast(), students.getFirst(), "Sorry Alice, I'm too busy doing ur mom."));
+//
+//            executor.shutdown();
 
         } catch (IOException e) {
             e.printStackTrace();

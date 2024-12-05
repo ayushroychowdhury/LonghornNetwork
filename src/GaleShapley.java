@@ -10,81 +10,63 @@ public class GaleShapley {
      * @param students list of University Students
      */
     public static void assignRoommates(List<UniversityStudent> students) {
-        // Queue to track unpaired students
-        Queue<UniversityStudent> unpairedStudents = new LinkedList<>(students);
-        // Map of student names to their preferences for easy lookup
-        Map<String, List<String>> preferenceMap = new HashMap<>();
-
-        // Initialize preference map
+        // Step 1: Initialize data structures
+        Map<String, UniversityStudent> studentMap = new HashMap<>();
         for (UniversityStudent student : students) {
-            preferenceMap.put(student.getName(), new ArrayList<>(student.getRoommatePreferences()));
+            studentMap.put(student.getName(), student);
         }
 
-        // Main Gale-Shapley algorithm
+        // Queue for unpaired students
+        Queue<UniversityStudent> unpairedStudents = new LinkedList<>();
+        for (UniversityStudent student : students) {
+            unpairedStudents.add(student);
+        }
+
+        // Step 2: Gale-Shapley algorithm for stable roommate matching
         while (!unpairedStudents.isEmpty()) {
-            // Get the next unpaired student
             UniversityStudent proposer = unpairedStudents.poll();
-            String proposerName = proposer.getName();
-            List<String> preferences = preferenceMap.get(proposerName);
+            List<String> preferences = proposer.getRoommatePreferences();
 
-            if (preferences == null || preferences.isEmpty()) {
-                // No preferences left, skip this student
-                continue;
-            }
+            for (String preferredRoommateName : preferences) {
+                UniversityStudent preferredRoommate = studentMap.get(preferredRoommateName);
+                if (preferredRoommate != null) {
+                    String currentRoommate = preferredRoommate.getRoommate();
+                    if (currentRoommate == null) {
+                        // If the preferred roommate is not yet paired, accept the proposal
+                        proposer.setRoommate(preferredRoommateName);
+                        preferredRoommate.setRoommate(proposer.getName());
+                        break;
+                    } else {
+                        // If the preferred roommate is already paired, check if they prefer the proposer
+                        UniversityStudent currentRoommateStudent = studentMap.get(currentRoommate);
+                        if (currentRoommateStudent != null) {
+                            List<String> preferredList = currentRoommateStudent.getRoommatePreferences();
+                            if (preferredList.indexOf(proposer.getName()) < preferredList.indexOf(currentRoommate)) {
+                                // If the preferred roommate prefers the proposer, switch roommates
+                                currentRoommateStudent.setRoommate(null); // Unpair the current roommate
+                                unpairedStudents.add(currentRoommateStudent); // Re-add the replaced roommate to the queue
 
-            // Propose to the top preference
-            String preferredRoommateName = preferences.removeFirst(); // Remove the top preference
-
-            // Find the preferred roommate by name
-            UniversityStudent preferredRoommate = students.stream()
-                    .filter(s -> s.getName().equals(preferredRoommateName))
-                    .findFirst()
-                    .orElse(null);
-
-            if (preferredRoommate == null) {
-                continue; // Skip if the preferred roommate is not found
-            }
-
-            if (preferredRoommate.getRoommate() == null) {
-                // Preferred roommate is unpaired, form a pairing
-                proposer.setRoommate(preferredRoommate.getName());
-                preferredRoommate.setRoommate(proposer.getName());
-            } else {
-                // Preferred roommate is already paired
-                UniversityStudent currentRoommate = students.stream()
-                        .filter(s -> s.getName().equals(preferredRoommate.getRoommate()))
-                        .findFirst()
-                        .orElse(null);
-
-                if (currentRoommate == null) {
-                    continue; // Skip if the current roommate is not found
-                }
-
-                // Check if preferredRoommate prefers proposer over currentRoommate
-                List<String> preferredRoommatePrefs = preferenceMap.get(preferredRoommate.getName());
-                if (preferredRoommatePrefs.indexOf(proposerName) <
-                        preferredRoommatePrefs.indexOf(currentRoommate.getName())) {
-                    // Preferred roommate prefers proposer, update pairing
-                    proposer.setRoommate(preferredRoommate.getName());
-                    preferredRoommate.setRoommate(proposer.getName());
-
-                    // Unpair the current roommate
-                    currentRoommate.setRoommate(null);
-                    unpairedStudents.add(currentRoommate); // Add unpaired student back to the queue
-                } else {
-                    // Proposer remains unpaired
-                    unpairedStudents.add(proposer);
+                                proposer.setRoommate(preferredRoommateName);
+                                preferredRoommate.setRoommate(proposer.getName());
+                                break;
+                            }
+                        }
+                    }
                 }
             }
         }
 
-        // Print the roommate assignments in the specified format
-        System.out.println("\nRoommate Assignments:");
+        // Step 3: Output the final roommate assignments
+        System.out.println("Roommate Assignment:");
         for (UniversityStudent student : students) {
-            if (student.getRoommate() != null) {
-                System.out.println(student.getName() + " is roommates with " + student.getRoommate());
-            } else {
-                System.out.println(student.getName() + " has no roommate");
+            String roommate = student.getRoommate();
+            if (roommate != null) {
+                System.out.println(student.getName() + " is roommates with " + roommate);
+            }
+        }
+        for (UniversityStudent student : students) {
+            if (student.getRoommate() == null) {
+                System.out.println(student.getName() + " does not have a roommate.");
             }
         }
     }

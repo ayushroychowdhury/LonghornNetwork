@@ -16,12 +16,11 @@ public class ReferralPathFinder {
     }
 
     /**
-     * Finds the shortest referral path from the start student to a student who works at the target company.
+     * Finds and prints the shortest referral path from the start student to a student who works at the target company.
      * @param start student to start the search from
      * @param targetCompany company to find a referral path to
-     * @return list of students representing the referral path, or an empty list if no path is found
      */
-    public List<UniversityStudent> findReferralPath(UniversityStudent start, String targetCompany) {
+    public void findReferralPath(UniversityStudent start, String targetCompany) {
         // Priority queue to hold students to explore, with the lowest connection strength (path length) first
         PriorityQueue<Node> pq = new PriorityQueue<>(Comparator.comparingDouble(n -> n.distance));
         // Map to track the shortest path to each student
@@ -44,7 +43,9 @@ public class ReferralPathFinder {
 
             // Check if the current student works at the target company
             if (currentStudent.getPreviousInternships().contains(targetCompany)) {
-                return buildPath(previous, currentStudent);
+                List<UniversityStudent> path = buildPath(previous, currentStudent);
+                printPath(path, targetCompany);
+                return; // Exit after printing the path
             }
 
             // Explore neighbors
@@ -62,8 +63,8 @@ public class ReferralPathFinder {
             }
         }
 
-        // No path found, return an empty list
-        return new ArrayList<>();
+        // No path found, print an appropriate message
+        System.out.println("No referral path found to " + targetCompany + ".");
     }
 
     /**
@@ -82,6 +83,23 @@ public class ReferralPathFinder {
     }
 
     /**
+     * Prints the referral path
+     * @param path list of UniversityStudents representing the referral path
+     * @param targetCompany the target company
+     */
+    private void printPath(List<UniversityStudent> path, String targetCompany) {
+        System.out.print("Path to " + targetCompany + ": ");
+        for (int i = 0; i < path.size(); i++) {
+            UniversityStudent student = path.get(i);
+            System.out.print(student.getName());
+            if (i < path.size() - 1) {
+                System.out.print(" -> ");
+            }
+        }
+        System.out.println();
+    }
+
+    /**
      * Helper class to represent a node in the priority queue for Dijkstra's algorithm
      */
     private static class Node {
@@ -91,26 +109,6 @@ public class ReferralPathFinder {
         Node(UniversityStudent student, double distance) {
             this.student = student;
             this.distance = distance;
-        }
-    }
-
-    /**
-     * Prints the referral path from the start student to the target company
-     * @param path list of UniversityStudents representing the referral path
-     */
-    public void printReferralPath(List<UniversityStudent> path, String targetCompany) {
-        if (path.isEmpty()) {
-            System.out.println("No referral path found.");
-        } else {
-            System.out.print("Path to " + targetCompany + ": ");
-            for (int i = 0; i < path.size(); i++) {
-                UniversityStudent student = path.get(i);
-                System.out.print(student.getName());
-                if (i < path.size() - 1) {
-                    System.out.print(" -> ");
-                }
-            }
-            System.out.println();
         }
     }
 }

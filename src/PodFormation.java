@@ -1,146 +1,87 @@
 import java.util.*;
 
-/**
- * Class used to form pods of students
- */
 public class PodFormation {
 
-    private final StudentGraph graph;
-    private List<List<String>> pods; // Field to store pod assignments
+    private StudentGraph graph;
 
-    /**
-     * Constructor for PodFormation
-     * @param graph graph representing the students and their connections
-     */
     public PodFormation(StudentGraph graph) {
         this.graph = graph;
-        this.pods = new ArrayList<>();
     }
 
     /**
-     * Forms pods of students based on the given pod size.
-     * Updates the `pods` field and prints the pod assignments.
-     * @param podSize maximum number of students in each pod
+     * Form pods by applying Prim’s algorithm to the graph and splitting the MST into pods of a given size.
+     * @param podSize the maximum number of students per pod
      */
     public void formPods(int podSize) {
-        pods = new ArrayList<>();
         Set<UniversityStudent> visited = new HashSet<>();
+        List<List<UniversityStudent>> pods = new ArrayList<>();
 
-        // Process each connected component
+        // For each student in the graph, apply Prim's algorithm to get the MST
         for (UniversityStudent student : graph.getAllNodes()) {
             if (!visited.contains(student)) {
-                // Get connected component using BFS or DFS
-                List<UniversityStudent> component = getConnectedComponent(student, visited);
-
-                // Form MST for the component
-                List<StudentGraph.Edge> mstEdges = buildMST(component);
-
-                // Divide MST into pods and add to the field
-                pods.addAll(divideIntoPods(mstEdges, component, podSize));
+                List<UniversityStudent> pod = new ArrayList<>();
+                // Perform Prim's algorithm to get the MST for the current component
+                formMST(student, visited, pod, podSize);
+                pods.add(pod);
             }
         }
 
-        // Print the pod assignments
-        printPodAssignments();
-    }
-
-    /**
-     * Prints the pod assignments.
-     */
-    private void printPodAssignments() {
-        System.out.println("\nPod Assignments:");
-        for (int i = 0; i < pods.size(); i++) {
-            System.out.println("Pod " + (i + 1) + ": " + String.join(", ", pods.get(i)));
+        // Print out the formed pods
+        System.out.println("\nPod Formation:");
+        int podCount = 1;
+        for (List<UniversityStudent> pod : pods) {
+            System.out.print("Pod " + podCount + ": ");
+            for (UniversityStudent student : pod) {
+                System.out.print(student.getName() + ", ");
+            }
+            System.out.println();
+            podCount++;
         }
     }
 
     /**
-     * Finds all nodes in the same connected component.
-     * @param start starting node for traversal
-     * @param visited set to keep track of visited nodes
-     * @return List of all nodes in the same connected component
+     * Perform Prim's algorithm to form a Minimum Spanning Tree (MST) starting from the given student.
+     * @param start the starting student for the MST
+     * @param visited the set of visited students to avoid revisiting nodes
+     * @param pod the list of students in the current pod
+     * @param podSize the maximum size of each pod
      */
-    private List<UniversityStudent> getConnectedComponent(UniversityStudent start, Set<UniversityStudent> visited) {
-        List<UniversityStudent> component = new ArrayList<>();
-        Queue<UniversityStudent> queue = new LinkedList<>();
-        queue.add(start);
-        visited.add(start);
+    private void formMST(UniversityStudent start, Set<UniversityStudent> visited, List<UniversityStudent> pod, int podSize) {
+        // Priority queue to pick the student with the smallest connection strength
+        PriorityQueue<StudentGraph.Edge> pq = new PriorityQueue<>(Comparator.comparingDouble(edge -> edge.weight));
+        Map<UniversityStudent, Double> minEdgeWeight = new HashMap<>();
+        minEdgeWeight.put(start, 0.0);
+        pq.offer(new StudentGraph.Edge(start, 0.0));
 
-        while (!queue.isEmpty()) {
-            UniversityStudent current = queue.poll();
-            component.add(current);
+        if (graph.getNeighbors(start) == null){
+            return;
+        }
 
-            for (StudentGraph.Edge neighborEdge : graph.getNeighbors(current)) {
-                UniversityStudent neighbor = neighborEdge.neighbor;
-                if (!visited.contains(neighbor)) {
-                    visited.add(neighbor);
-                    queue.add(neighbor);
+        while (!pq.isEmpty() && pod.size() < podSize) {
+            StudentGraph.Edge currentEdge = pq.poll();
+            UniversityStudent currentStudent = currentEdge.neighbor;
+
+            if (visited.contains(currentStudent)) {
+                continue; // Skip already visited students
+            }
+
+            visited.add(currentStudent);
+            pod.add(currentStudent);
+
+            // If pod is full, stop adding students
+            if (pod.size() >= podSize) {
+                break;
+            }
+
+            // Check all neighbors of the current student
+            for (StudentGraph.Edge edge : graph.getNeighbors(currentStudent)) {
+                UniversityStudent neighbor = edge.neighbor;
+
+                if (!visited.contains(neighbor) && !minEdgeWeight.containsKey(neighbor)) {
+                    pq.offer(edge);
+                    minEdgeWeight.put(neighbor, edge.weight);
                 }
             }
         }
-
-        return component;
-    }
-
-    /**
-     * Builds a Minimum Spanning Tree (MST) for a connected component using Prim's algorithm.
-     * @param component list of nodes in the connected component
-     * @return List of edges in the MST
-     */
-    private List<StudentGraph.Edge> buildMST(List<UniversityStudent> component) {
-        List<StudentGraph.Edge> mstEdges = new ArrayList<>();
-        PriorityQueue<StudentGraph.Edge> pq = new PriorityQueue<>(Comparator.comparingDouble(e -> e.weight));
-        Set<UniversityStudent> inMST = new HashSet<>();
-
-        // Start from the first node in the component
-        UniversityStudent start = component.get(0);
-        inMST.add(start);
-        pq.addAll(graph.getNeighbors(start));
-
-        while (!pq.isEmpty()) {
-            StudentGraph.Edge edge = pq.poll();
-            UniversityStudent neighbor = edge.neighbor;
-            if (inMST.contains(neighbor)) continue;
-
-            // Add edge to MST and mark node as visited
-            mstEdges.add(edge);
-            inMST.add(neighbor);
-
-            // Add all neighbors of the new node
-            for (StudentGraph.Edge neighborEdge : graph.getNeighbors(neighbor)) {
-                if (!inMST.contains(neighborEdge.neighbor)) {
-                    pq.add(neighborEdge);
-                }
-            }
-        }
-
-        return mstEdges;
-    }
-
-    /**
-     * Divides the MST into pods of size ≤ podSize.
-     * @param mstEdges list of edges in the MST
-     * @param component list of nodes in the component
-     * @param podSize maximum size of each pod
-     * @return List of pods (each pod is a list of student names)
-     */
-    private List<List<String>> divideIntoPods(List<StudentGraph.Edge> mstEdges, List<UniversityStudent> component, int podSize) {
-        List<List<String>> pods = new ArrayList<>();
-        Queue<UniversityStudent> queue = new LinkedList<>(component);
-        Set<UniversityStudent> assigned = new HashSet<>();
-
-        while (!queue.isEmpty()) {
-            List<String> pod = new ArrayList<>();
-            while (!queue.isEmpty() && pod.size() < podSize) {
-                UniversityStudent student = queue.poll();
-                if (!assigned.contains(student)) {
-                    pod.add(student.getName()); // Add student name to pod
-                    assigned.add(student);
-                }
-            }
-            pods.add(pod);
-        }
-
-        return pods;
     }
 }
