@@ -1,6 +1,7 @@
 package gui;
 
 import program.DataParser;
+import program.StudentGraph;
 import program.UniversityStudent;
 
 import javax.swing.*;
@@ -12,14 +13,14 @@ import java.util.List;
  */
 public class StudentPanel extends JPanel implements Subscriber {
     public StudentPanel() {
-        update();
+        update(null, null);
 
         /* Subscribe to ControlPanel */
         ControlPanel.subscribe(this);
     }
 
     @Override
-    public void update() {
+    public void update(StudentGraph podGraph, StudentGraph referralGraph) {
         removeAll();
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 

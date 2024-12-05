@@ -72,4 +72,12 @@ public class PodFormation {
         }
         System.out.println();
     }
+
+    /**
+     * Returns the pods formed
+     * @return the pods formed
+     */
+    public List<List<Student>> getPods() {
+        return pods;
+    }
 }

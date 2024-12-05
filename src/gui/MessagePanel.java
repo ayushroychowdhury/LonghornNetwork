@@ -168,7 +168,7 @@ public class MessagePanel extends JPanel implements Subscriber{
     }
 
     @Override
-    public void update() {
+    public void update(StudentGraph podGraph, StudentGraph referralGraph) {
         /* Clear chat history */
         ChatManager.clear();
     }

@@ -97,4 +97,12 @@ public class GaleShapley {
         UniversityStudent roommate = roommates.get(firstStudent);
         return roommate != null && roommate.equals(secondStudent);
     }
+
+    /**
+     * Gets the roommates map
+     * @return the roommates map
+     */
+    public static Map<UniversityStudent, UniversityStudent> getRoommates() {
+        return roommates;
+    }
 }

@@ -2,6 +2,7 @@ package gui;
 
 import program.DataParser;
 import program.GaleShapley;
+import program.StudentGraph;
 
 import javax.swing.*;
 import java.awt.*;
@@ -54,8 +55,12 @@ public class ControlPanel extends JPanel {
                 try {
                     DataParser.parseStudents(filename);
                     GaleShapley.assignRoommates(DataParser.getStudents());
+                    StudentGraph podGraph = new StudentGraph(DataParser.getStudents());
+                    StudentGraph referralPath = new StudentGraph(DataParser.getStudents());
+                    referralPath.invertWeights();
+
                     for (JPanel subscriber : subscribers) {
-                        ((Subscriber) subscriber).update();
+                        ((Subscriber) subscriber).update(podGraph, referralPath);
                     }
                 }catch (IOException ex){
                     JOptionPane.showMessageDialog(null, "Error loading file");

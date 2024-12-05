@@ -14,14 +14,14 @@ import java.util.Map;
  */
 public class StudentGraphPanel extends JPanel implements Subscriber {
     public StudentGraphPanel() {
-        update();
+        update(null, null);
 
         /* Subscribe to ControlPanel */
         ControlPanel.subscribe(this);
     }
 
     @Override
-    public void update() {
+    public void update(StudentGraph podGraph, StudentGraph referralGraph) {
         /* Remove all components */
         removeAll();
         setLayout(null);
@@ -45,8 +45,7 @@ public class StudentGraphPanel extends JPanel implements Subscriber {
         }
 
         /* Get studentgraph adjacencylist */
-        StudentGraph studentGraph = new StudentGraph(students);
-        Map<UniversityStudent, List<StudentEdge>> adjacencyList = studentGraph.getAdjacencyList();
+        Map<UniversityStudent, List<StudentEdge>> adjacencyList = podGraph.getAdjacencyList();
 
         /* Display adjacency list */
         for (int i=0; i < students.size(); i++) {

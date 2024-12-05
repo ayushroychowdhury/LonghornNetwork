@@ -2,6 +2,7 @@ package gui;
 
 import program.FriendManager;
 import program.Student;
+import program.StudentGraph;
 
 import javax.swing.*;
 import java.awt.*;
@@ -142,7 +143,7 @@ public class FriendPanel extends JPanel implements Subscriber {
      * Update the friend panel
      */
     @Override
-    public void update() {
+    public void update(StudentGraph podGraph, StudentGraph referralGraph) {
         FriendManager.clear();
         displayScrollPane();
     }
