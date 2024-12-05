@@ -1,133 +1,142 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.*;
 import java.util.*;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+/**
+ * The GUI class.
+ */
 
 public class MainGUIClass {
 
+    private File inputFile;
     private JFrame frame;
     private JTextArea outputArea;
-    private JTextField startStudentField;
-    private JTextField targetCompanyField;
-    private File inputFile;
+    private JComboBox<String> startStudentDropdown;
+    private JComboBox<String> targetCompanyDropdown;
+    private JComboBox<String> senderDropdown;
+    private JComboBox<String> receiverDropdown;
+    private JTextArea messageArea;
     private List<UniversityStudent> students;
     private StudentGraph graph;
     private ReferralPathFinder pathFinder;
+    private ExecutorService executorService;
 
     /**
-     * Constructs the MainGUIClass and initializes the GUI.
+     * The constructor
      */
     public MainGUIClass() {
+        executorService = Executors.newCachedThreadPool();
         createGUI();
     }
 
     /**
-     * Creates and initializes the GUI components.
+     * GUI create
      */
     private void createGUI() {
         frame = new JFrame("Longhorn Network");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(900, 600);
+        frame.setSize(900, 900);
         frame.setLayout(new BorderLayout());
 
         // Input Panel
-        JPanel inputPanel = new JPanel();
-        inputPanel.setLayout(new GridLayout(7, 2, 10, 10));
+        JPanel inputPanel = new JPanel(new GridLayout(6, 2, 10, 10));
         inputPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
         JButton selectFileButton = new JButton("Select Input File");
         inputPanel.add(selectFileButton);
-        selectFileButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                selectInputFile();
-            }
-        });
+        selectFileButton.addActionListener(e -> selectInputFile());
 
         JButton viewRawFileButton = new JButton("View Raw Input File");
         inputPanel.add(viewRawFileButton);
-        viewRawFileButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                viewRawInputFile();
-            }
-        });
+        viewRawFileButton.addActionListener(e -> viewRawInputFile());
 
         inputPanel.add(new JLabel("Starting Student Name:"));
-        startStudentField = new JTextField();
-        inputPanel.add(startStudentField);
+        startStudentDropdown = new JComboBox<>();
+        startStudentDropdown.setEditable(true);
+        inputPanel.add(startStudentDropdown);
 
         inputPanel.add(new JLabel("Target Company:"));
-        targetCompanyField = new JTextField();
-        inputPanel.add(targetCompanyField);
+        targetCompanyDropdown = new JComboBox<>();
+        targetCompanyDropdown.setEditable(true);
+        inputPanel.add(targetCompanyDropdown);
 
         JButton findPathButton = new JButton("Find Referral Path");
         inputPanel.add(findPathButton);
-        findPathButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                findReferralPath();
-            }
-        });
+        findPathButton.addActionListener(e -> findReferralPath());
 
         JButton viewPodsButton = new JButton("View Pods");
         inputPanel.add(viewPodsButton);
-        viewPodsButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                viewPods();
-            }
-        });
+        viewPodsButton.addActionListener(e -> viewPods());
 
         JButton viewRoommatesButton = new JButton("View Roommate Assignments");
         inputPanel.add(viewRoommatesButton);
-        viewRoommatesButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                viewRoommateAssignments();
-            }
-        });
-
-        JButton viewStudentsButton = new JButton("View Student Information");
-        inputPanel.add(viewStudentsButton);
-        viewStudentsButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                viewStudentInformation();
-            }
-        });
+        viewRoommatesButton.addActionListener(e -> viewRoommateAssignments());
 
         JButton viewCompaniesButton = new JButton("View Companies List");
         inputPanel.add(viewCompaniesButton);
-        viewCompaniesButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                viewCompaniesList();
-            }
-        });
+        viewCompaniesButton.addActionListener(e -> viewCompaniesList());
 
-        JButton instructionsButton = new JButton("Instructions");
-        inputPanel.add(instructionsButton);
-        instructionsButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                showInstructions();
-            }
-        });
-
-        JButton introButton = new JButton("Intro");
-        inputPanel.add(introButton);
-        introButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                showIntro();
-            }
-        });
+        JButton clearOutputButton = new JButton("Clear Output Box");
+        inputPanel.add(clearOutputButton);
+        clearOutputButton.addActionListener(e -> clearOutputBox());
 
         frame.add(inputPanel, BorderLayout.NORTH);
+
+        // Messaging Section
+        JPanel messagingPanel = new JPanel(new GridBagLayout());
+        messagingPanel.setBorder(BorderFactory.createTitledBorder("Messaging Section"));
+
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(5, 5, 5, 5);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        messagingPanel.add(new JLabel("Sender Name:"), gbc);
+
+        gbc.gridx = 1;
+        senderDropdown = new JComboBox<>();
+        senderDropdown.setEditable(true);
+        messagingPanel.add(senderDropdown, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        messagingPanel.add(new JLabel("Receiver Name:"), gbc);
+
+        gbc.gridx = 1;
+        receiverDropdown = new JComboBox<>();
+        receiverDropdown.setEditable(true);
+        messagingPanel.add(receiverDropdown, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        messagingPanel.add(new JLabel("Message:"), gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 2;
+        messageArea = new JTextArea(4, 20);
+        messageArea.setLineWrap(true);
+        messageArea.setWrapStyleWord(true);
+        JScrollPane messageScrollPane = new JScrollPane(messageArea);
+        messagingPanel.add(messageScrollPane, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 3;
+        JButton sendMessageButton = new JButton("Send Message");
+        messagingPanel.add(sendMessageButton, gbc);
+        sendMessageButton.addActionListener(e -> sendMessage());
+
+        gbc.gridx = 1;
+        gbc.gridy = 4;
+        JButton loadMessagesButton = new JButton("Load Messages");
+        messagingPanel.add(loadMessagesButton, gbc);
+        loadMessagesButton.addActionListener(e -> loadMessages());
+
+        frame.add(messagingPanel, BorderLayout.CENTER);
 
         // Output Area
         outputArea = new JTextArea();
@@ -136,65 +145,130 @@ public class MainGUIClass {
         outputArea.setWrapStyleWord(true);
         JScrollPane scrollPane = new JScrollPane(outputArea);
         scrollPane.setBorder(BorderFactory.createTitledBorder("Output"));
-        frame.add(scrollPane, BorderLayout.CENTER);
+        scrollPane.setPreferredSize(new Dimension(900, 300));
+        frame.add(scrollPane, BorderLayout.SOUTH);
 
-        // Display the frame
         frame.setVisible(true);
     }
 
+    /**
+     * select the input file
+     */
     private void selectInputFile() {
         JFileChooser fileChooser = new JFileChooser("../testing/");
         int result = fileChooser.showOpenDialog(frame);
         if (result == JFileChooser.APPROVE_OPTION) {
             inputFile = fileChooser.getSelectedFile();
             outputArea.setText("Input file selected: " + inputFile.getName());
-            parseInputFile();
+            parseInputFile(inputFile);
         }
     }
 
-    private void parseInputFile() {
-        if (inputFile == null) {
-            outputArea.setText("No input file selected.");
-            return;
-        }
+    /**
+     * parse the input file
+     * @param file
+     */
+    private void parseInputFile(File file) {
         try {
-            students = DataParser.parseStudents(inputFile.getAbsolutePath());
+            students = DataParser.parseStudents(file.getAbsolutePath());
             graph = new StudentGraph(students);
             pathFinder = new ReferralPathFinder(graph);
+
+            // Populate dropdowns
+            startStudentDropdown.removeAllItems();
+            senderDropdown.removeAllItems();
+            receiverDropdown.removeAllItems();
+            targetCompanyDropdown.removeAllItems();
+
+            Set<String> companies = new HashSet<>();
+            for (UniversityStudent student : students) {
+                startStudentDropdown.addItem(student.name);
+                senderDropdown.addItem(student.name);
+                receiverDropdown.addItem(student.name);
+                companies.addAll(student.previousInternships);
+            }
+
+            for (String company : companies) {
+                targetCompanyDropdown.addItem(company);
+            }
+
             outputArea.append("\nFile parsed successfully.");
         } catch (Exception e) {
             outputArea.setText("Error parsing input file: " + e.getMessage());
         }
     }
 
-    private void viewRawInputFile() {
-        if (inputFile == null) {
-            outputArea.setText("No input file selected.");
+    /**
+     * send a message
+     */
+    private void sendMessage() {
+        String senderName = (String) senderDropdown.getSelectedItem();
+        String receiverName = (String) receiverDropdown.getSelectedItem();
+        String messageText = messageArea.getText().trim();
+
+        if (senderName == null || receiverName == null || messageText.isEmpty()) {
+            outputArea.setText("Please provide valid sender, receiver, and message.");
             return;
         }
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader(inputFile));
-            StringBuilder content = new StringBuilder();
-            String line;
-            while ((line = reader.readLine()) != null) {
-                content.append(line).append("\n");
-            }
-            reader.close();
-            outputArea.setText(content.toString());
-        } catch (IOException e) {
-            outputArea.setText("Error reading input file: " + e.getMessage());
+
+        UniversityStudent sender = findStudentByName(senderName);
+        UniversityStudent receiver = findStudentByName(receiverName);
+
+        if (sender == null || receiver == null) {
+            outputArea.setText("Sender or Receiver not found in the student list.");
+            return;
+        }
+
+        ChatThread chatThread = new ChatThread(sender, receiver, messageText);
+        executorService.execute(chatThread);
+
+        outputArea.append("\nMessage sent:\n");
+        messageArea.setText("");
+        outputArea.append("From: " + senderName + "\n");
+        outputArea.append("To: " + receiverName + "\n");
+        outputArea.append("Message: " + messageText + "\n");
+    }
+
+    /**
+     * loads messages
+     */
+
+    private void loadMessages() {
+        String senderName = (String) senderDropdown.getSelectedItem();
+        String receiverName = (String) receiverDropdown.getSelectedItem();
+
+        if (senderName == null || receiverName == null) {
+            outputArea.setText("Please select both sender and receiver.");
+            return;
+        }
+
+        UniversityStudent sender = findStudentByName(senderName);
+        UniversityStudent receiver = findStudentByName(receiverName);
+
+        if (sender == null || receiver == null) {
+            outputArea.setText("Sender or Receiver not found in the student list.");
+            return;
+        }
+
+        List<String> messages = receiver.getChatHistoryWith(sender);
+        outputArea.setText("Messages between " + senderName + " and " + receiverName + ":\n");
+        for (String message : messages) {
+            outputArea.append(senderName + ": " + message + "\n");
         }
     }
 
+    /**
+     * find a referral path with a student name and target
+     */
     private void findReferralPath() {
         if (students == null || graph == null || pathFinder == null) {
             outputArea.setText("Please select and parse an input file first.");
             return;
         }
-        String startName = startStudentField.getText().trim();
-        String targetCompany = targetCompanyField.getText().trim();
+        String startName = (String) startStudentDropdown.getSelectedItem();
+        String targetCompany = (String) targetCompanyDropdown.getSelectedItem();
 
-        if (startName.isEmpty() || targetCompany.isEmpty()) {
+        if (startName == null || targetCompany == null) {
             outputArea.setText("Please provide both the starting student name and the target company.");
             return;
         }
@@ -220,6 +294,9 @@ public class MainGUIClass {
         }
     }
 
+    /**
+     * form and show the pods
+     */
     private void viewPods() {
         if (students == null || graph == null) {
             outputArea.setText("Please select and parse an input file first.");
@@ -249,8 +326,9 @@ public class MainGUIClass {
         outputArea.setText(output.toString());
     }
 
-
-
+    /**
+     * roommate match
+     */
 
     private void viewRoommateAssignments() {
         if (students == null || students.isEmpty()) {
@@ -258,56 +336,63 @@ public class MainGUIClass {
             return;
         }
 
-        // Ensure Gale-Shapley does not encounter errors for incomplete data
-        try {
-            GaleShapley.assignRoommates(students);
-        } catch (Exception e) {
-            outputArea.setText("Error during roommate assignment: " + e.getMessage());
-            return;
-        }
+        outputArea.setText("Processing roommate assignments...");
 
+        SwingWorker<Void, String> worker = new SwingWorker<>() {
+            @Override
+            protected Void doInBackground() {
+                try {
+                    GaleShapley.assignRoommates(students);
+                    publish("Roommate assignments completed successfully.");
+                } catch (Exception e) {
+                    publish("Error during roommate assignment: " + e.getMessage());
+                }
+                return null;
+            }
+
+            @Override
+            protected void process(List<String> chunks) {
+                for (String message : chunks) {
+                    outputArea.append("\n" + message);
+                }
+            }
+
+            @Override
+            protected void done() {
+                displayRoommateAssignments();
+            }
+        };
+
+        worker.execute();
+    }
+
+    /**
+     * display roommate match results
+     */
+    private void displayRoommateAssignments() {
         StringBuilder output = new StringBuilder();
         output.append("Roommate Assignments:\n");
+        Set<UniversityStudent> processed = new HashSet<>();
 
         for (UniversityStudent student : students) {
+            if (processed.contains(student)) {
+                continue;
+            }
             UniversityStudent roommate = GaleShapley.getRoommateMatches().get(student);
             if (roommate != null) {
                 output.append(student.name).append(" ↔ ").append(roommate.name).append("\n");
+                processed.add(roommate);
             } else {
                 output.append(student.name).append(" has no roommate assigned.\n");
             }
-        }
-
-        outputArea.setText(output.toString());
-    }
-
-
-    private void viewStudentInformation() {
-        if (students == null) {
-            outputArea.setText("Please select and parse an input file first.");
-            return;
-        }
-        StringBuilder output = new StringBuilder();
-        output.append("Student Information:\n\n");
-        for (UniversityStudent student : students) {
-//            System.out.println("Name: " + student.name);
-//            System.out.println("Age: " + student.age);
-//            System.out.println("Major: " + student.major);
-//            System.out.println("GPA: " + student.gpa);
-//            System.out.println("Roommate Preferences : " + student.roommatePreferences);
-//            System.out.println("Previous Internships: " + student.previousInternships);
-            output.append("Name: ").append(student.name).append("\n")
-                    .append("Age: ").append(student.age).append("\n")
-                    .append("Gender: ").append(student.gender).append("\n")
-                    .append("Year: ").append(student.year).append("\n")
-                    .append("Major: ").append(student.major).append("\n")
-                    .append("GPA: ").append(student.gpa).append("\n")
-                    .append("Roommate Preferences: ").append(student.roommatePreferences).append("\n")
-                    .append("Previous Internships: ").append(student.previousInternships).append("\n\n");
+            processed.add(student);
         }
         outputArea.setText(output.toString());
     }
 
+    /**
+     * view all companies names
+     */
     private void viewCompaniesList() {
         if (students == null) {
             outputArea.setText("Please select and parse an input file first.");
@@ -325,15 +410,41 @@ public class MainGUIClass {
         outputArea.setText(output.toString());
     }
 
-    private void showInstructions() {
-        outputArea.setText("Instructions:\n1. Select an input file to load student data.\n2. Use the provided buttons to explore features:\n   - View raw file\n   - Find referral paths\n   - View pods\n   - View roommate assignments\n   - View student information\n   - View companies list\n3. Follow on-screen messages for additional actions.");
+    /**
+     * clears the output box
+     */
+    private void clearOutputBox() {
+        outputArea.setText("");
     }
 
-    private void showIntro() {
-        outputArea.setText("Welcome to the Longhorn Network GUI!\nThis application helps you explore student networks, roommate assignments, pods, and internship referral paths interactively. Start by selecting an input file!");
+    /**
+     * view the raw input file
+     */
+    private void viewRawInputFile() {
+        if (inputFile == null) {
+            outputArea.setText("No input file selected.");
+            return;
+        }
+        try (BufferedReader reader = new BufferedReader(new FileReader(inputFile))) {
+            StringBuilder content = new StringBuilder();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                content.append(line).append("\n");
+            }
+            outputArea.setText(content.toString());
+        } catch (IOException e) {
+            outputArea.setText("Error reading input file: " + e.getMessage());
+        }
     }
 
+
+    /**
+     * finds a student and their information.
+     * @param name
+     * @return
+     */
     private UniversityStudent findStudentByName(String name) {
+        if (students == null) return null;
         for (UniversityStudent student : students) {
             if (student.name.equalsIgnoreCase(name)) {
                 return student;
