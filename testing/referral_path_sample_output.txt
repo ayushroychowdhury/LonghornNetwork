@@ -8,16 +8,19 @@ Pod Assignments:
   Pod 0: Issac,
   Pod 1: Simon, Jimmy, Whale, Timmy,
 
+For Issac:
 Found referral path for student Simon with weight: 26
 Found referral path for student Jimmy with weight: 18
 Found referral path for student Whale with weight: 44
 
+For Timmy:
 No referral path found
 
+For Timmy:
 No referral path found
 
 IMPORTANT:
     Your main should invoke the following functions:
-        pathFinder.findReferralPath(graph.getStudent("Timmy"), "FindMe");
         pathFinder.findReferralPath(graph.getStudent("Issac"), "FindMe");
+        pathFinder.findReferralPath(graph.getStudent("Timmy"), "FindMe");
         pathFinder.findReferralPath(graph.getStudent("Timmy"), "IDontExist");
