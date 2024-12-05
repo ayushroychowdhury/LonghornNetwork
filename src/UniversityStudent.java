@@ -1,4 +1,6 @@
-
+import java.util.HashMap;
+import java.util.List;
+import java.util.HashSet;
 
 /**
  * Extends from Student
@@ -21,12 +23,28 @@ public class UniversityStudent extends Student {
             }
         }
 
-        // Add 3 if same major
+        // Add 3 if interacted/friends
+        // boolean friends = false;
+        // for (String friend : other.friends) {
+        //     if (name.equals(friend)) {
+        //         strength += 3;
+        //         friends = true;
+        //         break;
+        //     }
+        // }
+        // if (!friends) {
+        //     if (other.chatLog.size() > 0)
+        //     {
+        //         strength += 3;
+        //     }
+        // }
+
+        // Add 2 if same major
         if (major.equals(other.major)) {
             strength += 3;
         }
 
-        // Add 2 if same age
+        // Add 1 if same age
         if (age == other.age) {
             strength += 2;
         }
@@ -59,7 +77,9 @@ public class UniversityStudent extends Student {
             }
         }
 
+        friends = new HashSet<>();
+        chatLog = new HashMap<String, List<String>>();
+
         return s;
     }
 }
-

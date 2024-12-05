@@ -10,6 +10,8 @@ public abstract class Student {
     protected List<String> roommatePreferences;
     protected List<String> previousInternships;
     protected String roommate = "";
+    protected Set<String> friends;
+    protected Map<String, List<String>> chatLog;
 
     /**
      * Returns the strength of the connection between two students

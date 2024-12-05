@@ -2,13 +2,15 @@
  * Enables a student to send friend requests to another student
  */
 public class FriendRequestThread implements Runnable {
+    private UniversityStudent sender, receiver;
     /**
      * Constructor
      * @param sender student
      * @param receiver student
      */
     public FriendRequestThread(UniversityStudent sender, UniversityStudent receiver) {
-        // Constructor
+        this.sender = sender;
+        this.receiver = receiver;
     }
 
     @Override
@@ -16,6 +18,12 @@ public class FriendRequestThread implements Runnable {
      * Sends a friend request
      */
     public void run() {
-        // Method signature only
+        System.out.println("Friend request sent by " + this.sender.name + " to " + this.receiver.name);
+        becomeFriends();
+    }
+
+    private synchronized void becomeFriends() {
+        sender.friends.add(receiver.name);
+        receiver.friends.add(sender.name);
     }
 }

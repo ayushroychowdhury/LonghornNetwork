@@ -6,7 +6,7 @@ public class GaleShapley {
      * Runs GaleShapley to find a reasonable roomate matching
      * Roomate matchings may not always be stable
      */
-    public static void assignRoommates(List<UniversityStudent> students) {
+    public static void assignRoommates(List<UniversityStudent> students, Map<String, UniversityStudent> nameStudentMap) {
         List<String> stack = new ArrayList<>();
         // index along preference list of proposals
         // QUESTION: how do we handle the cases where a student is rejected by every roommate
@@ -14,8 +14,6 @@ public class GaleShapley {
 
         Map<String, Map<String, Integer>> inversePreferenceList = new HashMap<>();
 
-        // maps student names to objects
-        Map<String, UniversityStudent> nameStudentMap = new HashMap<>();
         for (UniversityStudent student : students) {
             nameStudentMap.put(student.name, student);
         }
