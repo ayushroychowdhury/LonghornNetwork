@@ -8,7 +8,7 @@ import java.util.List;
  */
 public class ChatManager {
 
-    private static List<String> chatHistory = new ArrayList<String>();
+    private static List<ChatHistoryEntry> chatHistory = new ArrayList<ChatHistoryEntry>();
     /**
      * Handles a chat message between two students
      * @param sender the student who sent the message
@@ -36,14 +36,29 @@ public class ChatManager {
 
         /* Send chat message */
         System.out.println(sender.getName() + " sent a chat message to " + receiver.getName() + ": " + message);
-        addHistory(sender.getName() + " -> " + receiver.getName() + ": " + message);
+        addHistory(sender, receiver, message);
     }
 
     /**
      * Adds a chat message to the chat history
      * @param message the message to add to the chat history
      */
-    private synchronized static void addHistory(String message){
-        chatHistory.add(message);
+    private synchronized static void addHistory(UniversityStudent sender, UniversityStudent receiver, String message) {
+        chatHistory.add(new ChatHistoryEntry(sender, receiver, message));
+    }
+
+    /**
+     * Gets the chat history
+     * @return the chat history
+     */
+    public static List<ChatHistoryEntry> getChatHistory() {
+        return chatHistory;
+    }
+
+    /**
+     * Clears the chat history
+     */
+    public static void clear() {
+        chatHistory.clear();
     }
 }

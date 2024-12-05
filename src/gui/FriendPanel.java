@@ -19,6 +19,10 @@ public class FriendPanel extends JPanel implements Subscriber {
      * Constructor for the friend panel
      */
     public FriendPanel() {
+        /* Subscribe to ControlPanel */
+        ControlPanel.subscribe(this);
+
+
         setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 
         /* Left side adds new friends */
@@ -125,24 +129,34 @@ public class FriendPanel extends JPanel implements Subscriber {
                     /* Add friends */
                     try{
                         FriendManager.addFriends(firstStudent, secondStudent);
-                        update();
+                        displayScrollPane();
                     }catch (IllegalArgumentException ex){
                         JOptionPane.showMessageDialog(null, "Invalid students");
                     }
-                    update();
+                    displayScrollPane();
                 });
         return addFriendsButton;
     }
 
+    /**
+     * Update the friend panel
+     */
     @Override
     public void update() {
+        FriendManager.clear();
+        displayScrollPane();
+    }
+
+    /**
+     * Sets the scroll pane
+     */
+    public void displayScrollPane(){
         rightPanel.remove(friendsScrollPane);
         friendsScrollPane = getFriendsScrollPane();
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 1;
         rightPanel.add(friendsScrollPane, gbc);
-
         rightPanel.revalidate();
         rightPanel.repaint();
     }

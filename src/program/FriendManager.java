@@ -142,4 +142,12 @@ public class FriendManager {
     public static List<Set<Student>> getFriendSets(){
         return friends;
     }
+
+    /**
+     * Clears the friend manager
+     */
+    public static void clear() {
+        friends.clear();
+        friendRequestsHistory.clear();
+    }
 }
