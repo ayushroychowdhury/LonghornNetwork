@@ -5,25 +5,6 @@ import java.util.*;
  * flesh out the details later.
  */
 public class UniversityStudent extends Student {
-    private class messagePair {
-        String message;
-        UniversityStudent sendStu;
-
-        messagePair(){
-            message = null;
-            sendStu = null;
-        }
-
-        messagePair(String message, UniversityStudent send){
-            this.message = message;
-            this.sendStu = send;
-        }
-
-        public void changePair(String message, UniversityStudent send){
-            this.message = message;
-            this.sendStu = send;
-        }
-    }
 
 
     // TODO: Constructor and additional methods to be implemented
@@ -31,8 +12,8 @@ public class UniversityStudent extends Student {
     private ArrayList<UniversityStudent> podMembers = new ArrayList<UniversityStudent>();
     private ArrayList<UniversityStudent> friends = new ArrayList<UniversityStudent>();
     private ArrayList<UniversityStudent> requests = new ArrayList<UniversityStudent>();
-    private LinkedList<messagePair> messageSent = new LinkedList<messagePair>();
-    private LinkedList<messagePair> messageReceived = new LinkedList<messagePair>();
+    private LinkedList<MessagePair> messageSent = new LinkedList<MessagePair>();
+    private LinkedList<MessagePair> messageReceived = new LinkedList<MessagePair>();
     
     /**
      * This is the defined method that will calculate the strength between two students takes 
@@ -61,6 +42,27 @@ public class UniversityStudent extends Student {
     public void addPodMember(UniversityStudent student){
         podMembers.add(student);
     }
+
+    public ArrayList<UniversityStudent> getPodMembers(){
+        return podMembers;
+    }
+
+    public ArrayList<UniversityStudent> getFriends(){
+        return friends;
+    }
+
+    public ArrayList<UniversityStudent> getRequests(){
+        return requests;
+    }
+
+    public LinkedList<MessagePair> getMessageR(){
+        return messageReceived;
+    }
+
+    public LinkedList<MessagePair> getMessageS(){
+        return messageSent;
+    }
+
 
     public int calculateConnectionStrength(Student other){
         int strength = 0;
@@ -112,12 +114,12 @@ public class UniversityStudent extends Student {
     }
 
     public void addSentMessage(String mess, UniversityStudent receive){
-        messageSent.add(new messagePair(mess,receive));
+        messageSent.add(new MessagePair(mess,receive));
         System.out.println("\n" + this.name + " sent a message to " + receive.name);
     }
 
     public void addReceiveMessage(String mess, UniversityStudent sent){
-        messageReceived.add(new messagePair(mess,sent));
+        messageReceived.add(new MessagePair(mess,sent));
         System.out.println("\n" + this.name + " received a message from " + sent.name);
     }
 }

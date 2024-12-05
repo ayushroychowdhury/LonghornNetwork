@@ -1,6 +1,10 @@
 import java.io.IOException;
 import java.util.*;
 
+import javax.swing.SwingUtilities;
+
+
+
 /**
  * This is the main class of my lab 5 project. This class/file primarily serves as the controller for the project.
  * It handles initializing everything and having the overall flow of the project dependent on what happens here.
@@ -30,7 +34,13 @@ public class Main {
 
             // Referral path finding
             ReferralPathFinder pathFinder = new ReferralPathFinder(graph);
-            // TODO: Implement user interaction for specifying a target company
+
+                    SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                new UI(graph);
+            }
+        });
+
             Scanner scanner = new Scanner(System.in);
             while (true){
                 System.out.print("Enter Cmd: ");
