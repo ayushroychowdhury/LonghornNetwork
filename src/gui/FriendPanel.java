@@ -141,6 +141,8 @@ public class FriendPanel extends JPanel implements Subscriber {
 
     /**
      * Update the friend panel
+     * @param podGraph unused
+     * @param referralGraph unused
      */
     @Override
     public void update(StudentGraph podGraph, StudentGraph referralGraph) {

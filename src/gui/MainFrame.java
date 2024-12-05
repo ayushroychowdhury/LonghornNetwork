@@ -6,6 +6,9 @@ import javax.swing.*;
  * Main frame for the LHN gui
  */
 public class MainFrame extends JFrame {
+    /**
+     * Constructor for the main frame
+     */
     public MainFrame() {
         /* Call constructor of JFrame */
         super("LHN | Longhorn Network");

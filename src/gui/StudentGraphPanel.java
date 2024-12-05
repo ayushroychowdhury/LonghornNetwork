@@ -13,6 +13,9 @@ import java.util.Map;
  * The panel that displays the graph of all students
  */
 public class StudentGraphPanel extends JPanel implements Subscriber {
+    /**
+     * Constructor for the studen graph panel
+     */
     public StudentGraphPanel() {
         update(null, null);
 
@@ -20,6 +23,11 @@ public class StudentGraphPanel extends JPanel implements Subscriber {
         ControlPanel.subscribe(this);
     }
 
+    /**
+     * Update the student graph with the given graph and display them
+     * @param podGraph the graph describing the students
+     * @param referralGraph unused
+     */
     @Override
     public void update(StudentGraph podGraph, StudentGraph referralGraph) {
         /* Remove all components */

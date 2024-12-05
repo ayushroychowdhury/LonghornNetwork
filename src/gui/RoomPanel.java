@@ -1,19 +1,20 @@
 package gui;
 
 import program.GaleShapley;
-import program.StudentEdge;
 import program.StudentGraph;
 import program.UniversityStudent;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.List;
 import java.util.Map;
 
 /**
  * The panel that displays the graph of all students
  */
 public class RoomPanel extends JPanel implements Subscriber {
+    /**
+     * Constructor for the pod panel
+     */
     public RoomPanel() {
         update(null,null);
 
@@ -21,6 +22,11 @@ public class RoomPanel extends JPanel implements Subscriber {
         ControlPanel.subscribe(this);
     }
 
+    /**
+     * Update the rooms with the given graph and display them
+     * @param podGraph not used
+     * @param referralGraph not used
+     */
     @Override
     public void update(StudentGraph podGraph, StudentGraph referralGraph) {
         /* Remove all components */

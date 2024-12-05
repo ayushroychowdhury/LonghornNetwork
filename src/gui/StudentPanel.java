@@ -19,6 +19,11 @@ public class StudentPanel extends JPanel implements Subscriber {
         ControlPanel.subscribe(this);
     }
 
+    /**
+     * Update the student panel
+     * @param podGraph not used
+     * @param referralGraph not used
+     */
     @Override
     public void update(StudentGraph podGraph, StudentGraph referralGraph) {
         removeAll();

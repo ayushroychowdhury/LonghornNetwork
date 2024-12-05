@@ -5,7 +5,6 @@ import program.*;
 import javax.swing.*;
 import java.awt.*;
 import java.util.List;
-import java.util.Map;
 
 /**
  * The panel that displays the graph of all students
@@ -14,6 +13,9 @@ public class PodPanel extends JPanel implements Subscriber {
 
     int podSize = 4;
 
+    /**
+     * Constructor for the pod panel
+     */
     public PodPanel() {
         update(null, null);
 
@@ -21,6 +23,11 @@ public class PodPanel extends JPanel implements Subscriber {
         ControlPanel.subscribe(this);
     }
 
+    /**
+     * Update the pods with the given graph and display them
+     * @param podGraph the graph describing the student relationships
+     * @param referralGraph unused
+     */
     @Override
     public void update(StudentGraph podGraph, StudentGraph referralGraph) {
         /* Remove all components */

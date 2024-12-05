@@ -9,6 +9,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * A panel for sending messages between students
+ */
 public class MessagePanel extends JPanel implements Subscriber{
 
     private JTextField firstPersonField;
@@ -16,6 +19,9 @@ public class MessagePanel extends JPanel implements Subscriber{
     private JTextField messageField;
     private JTextArea outputArea;
 
+    /**
+     * Constructor for the message panel
+     */
     public MessagePanel() {
         /* Subscribe to control panel */
         ControlPanel.subscribe(this);
@@ -89,6 +95,9 @@ public class MessagePanel extends JPanel implements Subscriber{
     }
 
 
+    /**
+     * Show the chat history between the two students in the textfields
+     */
     private void showHistory() {
         /* Validate that both students are valid */
         String firstPerson = firstPersonField.getText();
@@ -130,6 +139,9 @@ public class MessagePanel extends JPanel implements Subscriber{
         }
     }
 
+    /**
+     * Send a message from the student in the first textfield to the student in the second textfield
+     */
     private void sendMessage() {
         /* Validate that both students are valid */
         String firstPerson = firstPersonField.getText();
@@ -167,6 +179,11 @@ public class MessagePanel extends JPanel implements Subscriber{
         outputArea.setText("Message sent.");
     }
 
+    /**
+     * Update the message panel (i.e. clear chat history)
+     * @param podGraph unused
+     * @param referralGraph unused
+     */
     @Override
     public void update(StudentGraph podGraph, StudentGraph referralGraph) {
         /* Clear chat history */

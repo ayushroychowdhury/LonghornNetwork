@@ -1,10 +1,8 @@
 package gui;
 
-import java.awt.*;
-import java.io.*;
-import javax.swing.*;
-
-/* Main class for LHN gui */
+/**
+ * The main class for the LHN gui
+ */
 class GuiMain {
 
     /**

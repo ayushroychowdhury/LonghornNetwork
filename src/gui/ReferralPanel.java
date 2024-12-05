@@ -12,6 +12,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * The panel that displays the referral path finding
+ */
 public class ReferralPanel extends JPanel implements Subscriber {
 
     private JTextField studentNameField;
@@ -19,6 +22,9 @@ public class ReferralPanel extends JPanel implements Subscriber {
     private JTextArea outputArea;
     private StudentGraph graph;
 
+    /**
+     * Constructor for the referral panel
+     */
     public ReferralPanel() {
         /* Subscribe to ControlPanel */
         ControlPanel.subscribe(this);
@@ -120,6 +126,11 @@ public class ReferralPanel extends JPanel implements Subscriber {
         outputArea.setText(output);
     }
 
+    /**
+     * Update the referral panel by updating the graph
+     * @param podGraph not used
+     * @param referralGraph the graph to update with
+     */
     @Override
     public void update(StudentGraph podGraph, StudentGraph referralGraph) {
         graph = referralGraph;
