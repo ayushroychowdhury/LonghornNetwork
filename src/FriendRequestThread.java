@@ -5,12 +5,17 @@
  */
 
 
-
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * FriendRequestThread class that implements Runnable. Allows for sending friend requests between two students.
  */
 public class FriendRequestThread implements Runnable {
+
+    private final ReentrantLock lock = new ReentrantLock();
+    private UniversityStudent sender;
+    private UniversityStudent receiver;
+
     /**
      * Constructor for FriendRequestThread class.
      * @param sender The sender of the friend request
@@ -18,6 +23,11 @@ public class FriendRequestThread implements Runnable {
      */
     public FriendRequestThread(UniversityStudent sender, UniversityStudent receiver) {
         // Constructor
+        if (sender.equals(receiver)) {
+            return;
+        }
+        this.sender = sender;
+        this.receiver = receiver;
     }
 
     /**
@@ -26,7 +36,13 @@ public class FriendRequestThread implements Runnable {
     @Override
     public void run() {
         // Method signature only
-        sender.requestFriend(receiver);
-
+        // sender.requestFriend(receiver);
+        lock.lock();
+        System.out.println(sender.getName() + " sent a friend request to " + receiver.getName());
+        try{
+            sender.requestFriend(receiver);
+        } finally {
+            lock.unlock();
+        }
     }
 }
